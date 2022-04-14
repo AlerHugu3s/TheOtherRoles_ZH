@@ -84,7 +84,7 @@ namespace TheOtherRoles
         }
 
         public static class Mayor {
-            public static PlayerControl mayor;
+           public static PlayerControl mayor;
             public static Color color = new Color32(32, 77, 66, byte.MaxValue);
 
             public static void clearAndReload() {

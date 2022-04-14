@@ -26,7 +26,7 @@ namespace TheOtherRoles
 
         public static RoleInfo jester = new RoleInfo("小丑", Jester.color, "想办法被投出去", "被投出去", RoleId.Jester, true);
         public static RoleInfo mayor = new RoleInfo("市长", Mayor.color, "你的一票记作两票", "你的一票记作两票", RoleId.Mayor);
-        public static RoleInfo solider = new RoleInfo("士兵", Solider.color, "揪出内鬼，杀死他们", "你拥有一件防弹衣，防弹衣消失后你将拥有一次杀人的机会", RoleId.Solider);
+        public static RoleInfo solider = new RoleInfo("士兵", Solider.color, "揪出内鬼，杀死他们", "试探内鬼,击杀他们", RoleId.Solider);
         public static RoleInfo engineer = new RoleInfo("工程师",  Engineer.color, "保护飞船上的重要设施", "修复飞船", RoleId.Engineer);
         public static RoleInfo sheriff = new RoleInfo("警长", Sheriff.color, "射杀<color=#FF1919FF>内鬼</color>", "射杀内鬼", RoleId.Sheriff);
         public static RoleInfo deputy = new RoleInfo("警员", Sheriff.color, "给<color=#FF1919FF>内鬼戴上手铐</color>", "给内鬼戴上手铐", RoleId.Deputy);
