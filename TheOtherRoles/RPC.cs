@@ -17,6 +17,7 @@ namespace TheOtherRoles
         Jester,
         Mayor,
         Solider,
+        PositionShifter,
         Engineer,
         Sheriff,
         Deputy,
@@ -85,6 +86,7 @@ namespace TheOtherRoles
         CleanBody,
         SoliderLoseBulletproof,
         SoliderLoseGun,
+        PositionShift,
         MedicSetShielded,
         ShieldedMurderAttempt,
         TimeMasterShield,
@@ -116,6 +118,7 @@ namespace TheOtherRoles
         LawyerSetTarget,
         LawyerPromotesToPursuer,
         SetBlanked,
+        ShiftPos,
         VigilanteAndInformerDie,
         VigilanteEliminateTarget,
         InformerSetTarget,
@@ -172,6 +175,9 @@ namespace TheOtherRoles
                         break;
                     case RoleId.Solider:
                         Solider.solider = player;
+                        break;
+                    case RoleId.PositionShifter:
+                        PositionShifter.positionShifter = player;
                         break;
                     case RoleId.Engineer:
                         Engineer.engineer = player;
@@ -437,6 +443,21 @@ namespace TheOtherRoles
             Solider.usedGun = true;
         }
 
+        public static void positionShift()
+        {
+            var possibleTargets = new List<PlayerControl>();
+            foreach (PlayerControl p in PlayerControl.AllPlayerControls) {
+                if (!p.Data.IsDead && !p.Data.Disconnected && p != PositionShifter.positionShifter)
+                    possibleTargets.Add(p);
+            }
+            PlayerControl shiftTarget = possibleTargets[rnd.Next(0, possibleTargets.Count)];
+            if (shiftTarget == null || PositionShifter.positionShifter.Data.IsDead || PositionShifter.positionShifter.Data.Disconnected) return;
+
+            var tempPos = new Vector3(shiftTarget.transform.position.x,shiftTarget.transform.position.y,shiftTarget.transform.position.z);
+            shiftTarget.transform.position = PositionShifter.positionShifter.transform.position;
+            PositionShifter.positionShifter.transform.position = tempPos;
+        }
+
         public static void medicSetShielded(byte shieldedId) {
             Medic.usedShield = true;
             Medic.shielded = Helpers.playerById(shieldedId);
@@ -486,6 +507,8 @@ namespace TheOtherRoles
                 Mayor.mayor = oldShifter;
             if (Solider.solider != null && Solider.solider == player)
                 Solider.solider = oldShifter;
+            if (PositionShifter.positionShifter != null && PositionShifter.positionShifter == player)
+                PositionShifter.positionShifter = oldShifter;
             if (Engineer.engineer != null && Engineer.engineer == player)
                 Engineer.engineer = oldShifter;
             if (Sheriff.sheriff != null && Sheriff.sheriff == player) {
@@ -632,6 +655,7 @@ namespace TheOtherRoles
             // Crewmate roles
             if (player == Mayor.mayor) Mayor.clearAndReload();
             if (player == Solider.solider) Solider.clearAndReload();
+            if (player == PositionShifter.positionShifter) PositionShifter.clearAndReload();
             if (player == Engineer.engineer) Engineer.clearAndReload();
             if (player == Sheriff.sheriff) Sheriff.clearAndReload();
             if (player == Deputy.deputy) Deputy.clearAndReload();
@@ -991,6 +1015,9 @@ namespace TheOtherRoles
                     break;
                 case (byte)CustomRPC.SoliderLoseGun:
                     RPCProcedure.soliderLoseGun();
+                    break;
+                case (byte)CustomRPC.PositionShift:
+                    RPCProcedure.positionShift();
                     break;
                 case (byte)CustomRPC.MedicSetShielded:
                     RPCProcedure.medicSetShielded(reader.ReadByte());

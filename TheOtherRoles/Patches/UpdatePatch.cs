@@ -69,6 +69,8 @@ namespace TheOtherRoles.Patches {
                 setPlayerNameColor(Mayor.mayor, Mayor.color);
             else if (Solider.solider != null && Solider.solider == PlayerControl.LocalPlayer)
                 setPlayerNameColor(Solider.solider,Solider.color);
+            else if (PositionShifter.positionShifter != null && PositionShifter.positionShifter == PlayerControl.LocalPlayer)
+                setPlayerNameColor(PositionShifter.positionShifter,PositionShifter.color);
             else if (Revenger.revenger != null && Revenger.revenger == PlayerControl.LocalPlayer)
                 setPlayerNameColor(Revenger.revenger,Revenger.color);
             else if (Engineer.engineer != null && Engineer.engineer == PlayerControl.LocalPlayer)

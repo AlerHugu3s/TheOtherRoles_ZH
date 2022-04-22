@@ -92,6 +92,7 @@ namespace TheOtherRoles.Patches {
 
             crewSettings.Add((byte)RoleId.Mayor, CustomOptionHolder.mayorSpawnRate.getSelection());
             crewSettings.Add((byte)RoleId.Solider, CustomOptionHolder.soliderSpawnRate.getSelection());
+            crewSettings.Add((byte)RoleId.PositionShifter, CustomOptionHolder.positionShifterSpawnRate.getSelection());
             crewSettings.Add((byte)RoleId.Engineer, CustomOptionHolder.engineerSpawnRate.getSelection());
             crewSettings.Add((byte)RoleId.Lighter, CustomOptionHolder.lighterSpawnRate.getSelection());
             crewSettings.Add((byte)RoleId.Detective, CustomOptionHolder.detectiveSpawnRate.getSelection());

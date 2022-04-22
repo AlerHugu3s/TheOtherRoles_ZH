@@ -16,6 +16,7 @@ namespace TheOtherRoles
         private static CustomButton janitorCleanButton;
         private static CustomButton sheriffKillButton;
         private static CustomButton soliderKillButton;
+        private static CustomButton positionShiftButton;
         private static CustomButton revengerKillButton;
         private static CustomButton vigilanteKillButton;
         private static CustomButton deputyHandcuffButton;
@@ -61,6 +62,7 @@ namespace TheOtherRoles
             engineerRepairButton.MaxTimer = 0f;
             janitorCleanButton.MaxTimer = Janitor.cooldown;
             soliderKillButton.MaxTimer = Solider.cooldown;
+            positionShiftButton.MaxTimer = PositionShifter.cooldown;
             revengerKillButton.MaxTimer = Revenger.cooldown;
             vigilanteKillButton.MaxTimer = Vigilante.cooldown;
             sheriffKillButton.MaxTimer = Sheriff.cooldown;
@@ -305,6 +307,34 @@ namespace TheOtherRoles
                 KeyCode.Q
             );
 
+            // Positon Shift Button
+            positionShiftButton = new CustomButton(
+                () =>
+                {
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.PositionShift, SendOption.Reliable, -1);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer);
+                    RPCProcedure.positionShift();
+                },
+                () => { return PositionShifter.positionShifter != null && PositionShifter.positionShifter == PlayerControl.LocalPlayer && !PlayerControl.LocalPlayer.Data.IsDead;},
+                () => {
+                    return PlayerControl.LocalPlayer.CanMove; 
+                },
+                () => {
+                    positionShiftButton.Timer = positionShiftButton.MaxTimer;
+                    positionShiftButton.isEffectActive = false;
+                    positionShiftButton.actionButton.cooldownTimerText.color = Palette.EnabledColor;
+                },
+                PositionShifter.getButtonSprite(),
+                new Vector3(-1.8f, -0.06f, 0),
+                __instance,
+                KeyCode.F,
+                true,
+                0f,
+                () => { 
+                    positionShiftButton.Timer = positionShiftButton.MaxTimer;
+                }
+            );
+            
             // Revenger Kill
             revengerKillButton = new CustomButton(
                 () => {
@@ -462,7 +492,7 @@ namespace TheOtherRoles
                 true,
                 TimeMaster.shieldDuration,
                 () => { timeMasterShieldButton.Timer = timeMasterShieldButton.MaxTimer; }
-            );
+            ); 
 
             // Medic Shield
             medicShieldButton = new CustomButton(

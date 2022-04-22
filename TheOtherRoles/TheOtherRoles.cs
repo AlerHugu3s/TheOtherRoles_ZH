@@ -24,6 +24,7 @@ namespace TheOtherRoles
             Jester.clearAndReload();
             Mayor.clearAndReload();
             Solider.clearAndReload();
+            PositionShifter.clearAndReload();
             Engineer.clearAndReload();
             Sheriff.clearAndReload();
             Deputy.clearAndReload();
@@ -111,6 +112,24 @@ namespace TheOtherRoles
                 isInLatency = false;
                 cooldown = 15f;
                 bulletProofDisappearLatency = CustomOptionHolder.bulletProofDisappearLatency.getFloat();
+            }
+        }
+        
+        public static class PositionShifter {
+            public static PlayerControl positionShifter;
+            public static float cooldown = 15f;
+            public static Color color = new Color32(102, 102, 153, byte.MaxValue);
+
+            private static Sprite buttonSprite;
+            public static Sprite getButtonSprite() {
+                if (buttonSprite) return buttonSprite;
+                buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PositionShiftButton.png", 115f);
+                return buttonSprite;
+            }
+            
+            public static void clearAndReload() {
+                positionShifter = null;
+                cooldown = CustomOptionHolder.positionShiftCooldown.getFloat();;
             }
         }
 

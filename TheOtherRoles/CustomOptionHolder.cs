@@ -26,6 +26,9 @@ namespace TheOtherRoles {
         public static CustomOption soliderSpawnRate;
         public static CustomOption bulletProofDisappearLatency;
 
+        public static CustomOption positionShifterSpawnRate;
+        public static CustomOption positionShiftCooldown;
+
         public static CustomOption mafiaSpawnRate;
         public static CustomOption janitorCooldown;
 
@@ -376,6 +379,9 @@ namespace TheOtherRoles {
 
             soliderSpawnRate = CustomOption.Create(190, cs(Solider.color, "士兵生成概率"), rates, null, true);
             bulletProofDisappearLatency = CustomOption.Create(191,"防弹衣失效延迟",10.0f,5.0f,30.0f,5.0f,soliderSpawnRate);
+            
+            positionShifterSpawnRate = CustomOption.Create(200, cs(PositionShifter.color, "换位者生成概率"), rates, null, true);
+            positionShiftCooldown = CustomOption.Create(201,"移形换位冷却时间",30.0f,10.0f,40.0f,5.0f,positionShifterSpawnRate);
             
             engineerSpawnRate = CustomOption.Create(90, cs(Engineer.color, "工程师生成概率"), rates, null, true);
             engineerNumberOfFixes = CustomOption.Create(91, "工程师可维修破坏次数", 1f, 1f, 3f, 1f, engineerSpawnRate);
