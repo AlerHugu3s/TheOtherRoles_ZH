@@ -311,28 +311,28 @@ namespace TheOtherRoles
             positionShiftButton = new CustomButton(
                 () =>
                 {
+                    var possibleTargets = new List<PlayerControl>();
+                    foreach (PlayerControl p in PlayerControl.AllPlayerControls) {
+                        if (!p.Data.IsDead && !p.Data.Disconnected && p != PositionShifter.positionShifter)
+                            possibleTargets.Add(p);
+                    }
+                    var tar = possibleTargets[rnd.Next(0, possibleTargets.Count)];
+                    
                     MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.PositionShift, SendOption.Reliable, -1);
+                    writer.Write(tar.PlayerId);
                     AmongUsClient.Instance.FinishRpcImmediately(writer);
-                    RPCProcedure.positionShift();
+                    RPCProcedure.positionShift(tar.PlayerId);
+                    positionShiftButton.Timer = positionShiftButton.MaxTimer;
                 },
                 () => { return PositionShifter.positionShifter != null && PositionShifter.positionShifter == PlayerControl.LocalPlayer && !PlayerControl.LocalPlayer.Data.IsDead;},
                 () => {
                     return PlayerControl.LocalPlayer.CanMove; 
                 },
-                () => {
-                    positionShiftButton.Timer = positionShiftButton.MaxTimer;
-                    positionShiftButton.isEffectActive = false;
-                    positionShiftButton.actionButton.cooldownTimerText.color = Palette.EnabledColor;
-                },
+                () => { positionShiftButton.Timer = positionShiftButton.MaxTimer; },
                 PositionShifter.getButtonSprite(),
                 new Vector3(-1.8f, -0.06f, 0),
                 __instance,
-                KeyCode.F,
-                true,
-                0f,
-                () => { 
-                    positionShiftButton.Timer = positionShiftButton.MaxTimer;
-                }
+                KeyCode.F
             );
             
             // Revenger Kill

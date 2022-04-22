@@ -443,19 +443,21 @@ namespace TheOtherRoles
             Solider.usedGun = true;
         }
 
-        public static void positionShift()
+        public static void positionShift(byte shiftTarId)
         {
-            var possibleTargets = new List<PlayerControl>();
-            foreach (PlayerControl p in PlayerControl.AllPlayerControls) {
-                if (!p.Data.IsDead && !p.Data.Disconnected && p != PositionShifter.positionShifter)
-                    possibleTargets.Add(p);
-            }
-            PlayerControl shiftTarget = possibleTargets[rnd.Next(0, possibleTargets.Count)];
+            PlayerControl shiftTarget = Helpers.playerById(shiftTarId);
             if (shiftTarget == null || PositionShifter.positionShifter.Data.IsDead || PositionShifter.positionShifter.Data.Disconnected) return;
 
+            if (shiftTarget.inVent) shiftTarget.inVent = false;
+            shiftTarget.MyPhysics.ExitAllVents();
             var tempPos = new Vector3(shiftTarget.transform.position.x,shiftTarget.transform.position.y,shiftTarget.transform.position.z);
             shiftTarget.transform.position = PositionShifter.positionShifter.transform.position;
             PositionShifter.positionShifter.transform.position = tempPos;
+            shiftTarget.moveable = false;
+            PositionShifter.positionShifter.moveable = false;
+            shiftTarget.moveable = true;
+            PositionShifter.positionShifter.moveable = true;
+            
         }
 
         public static void medicSetShielded(byte shieldedId) {
@@ -1017,7 +1019,7 @@ namespace TheOtherRoles
                     RPCProcedure.soliderLoseGun();
                     break;
                 case (byte)CustomRPC.PositionShift:
-                    RPCProcedure.positionShift();
+                    RPCProcedure.positionShift(reader.ReadByte());
                     break;
                 case (byte)CustomRPC.MedicSetShielded:
                     RPCProcedure.medicSetShielded(reader.ReadByte());

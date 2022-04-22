@@ -117,7 +117,7 @@ namespace TheOtherRoles
         
         public static class PositionShifter {
             public static PlayerControl positionShifter;
-            public static float cooldown = 15f;
+            public static float cooldown = 30.0f;
             public static Color color = new Color32(102, 102, 153, byte.MaxValue);
 
             private static Sprite buttonSprite;
