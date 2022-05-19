@@ -1,9 +1,6 @@
 ﻿using HarmonyLib;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TheOtherRoles.Utilities;
 using UnityEngine;
 
 namespace TheOtherRoles.Patches {
@@ -11,17 +8,17 @@ namespace TheOtherRoles.Patches {
     public static class CredentialsPatch {
         public static string fullCredentials = 
 $@"<size=130%><color=#ff351f>超多职业模组麒麟版</color></size> v{TheOtherRolesPlugin.Version.ToString()}
-<size=60%>Modded by <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>EndOfFile</color>
-<color=#FCCE03FF>Thunderstorm584</color> & <color=#FCCE03FF>Mallöris</color>
-Button design by <color=#FCCE03FF>Bavari</color>
-麒麟版由<color=#CC0000>AlerHuGhe$</color>开发</size>";
+<size=60%>原版由 <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>EndOfFile</color>
+<color=#FCCE03FF>Thunderstorm584</color> & <color=#FCCE03FF>Mallöris</color> 制作
+由 <color=#FCCE03FF>Bavari</color> 设计    由 <color=#990000>AlerHuGhe$</color> 汉化并制作麒麟版</size>";
 
     public static string mainMenuCredentials = 
-$@"Modded by <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>EndOfFile</color> & <color=#FCCE03FF>Mallöris</color>
-Design by <color=#FCCE03FF>Bavari</color>
-麒麟版由<color=#CC0000>AlerHuGhe$</color>开发";
+$@"本Mod原版由 <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>EndOfFile</color> & <color=#FCCE03FF>Mallöris</color> 制作
+由 <color=#FCCE03FF>Bavari</color> 设计    由 <color=#990000>AlerHuGhe$</color> 汉化并制作麒麟版";
 
-        public static string contributorsCredentials = "<size=60%>GitHub Contributors: Alex2911, amsyarasyiq, gendelo3, MaximeGillot</size>";
+        public static string contributorsCredentials =
+$@"<size=60%> <color=#FCCE03FF>感谢 K3ndo & Smeggy</color> 
+原项目Github     贡献鸣谢: Gendelo, Alex2911, amsyarasyiq, MaximeGillot, Psynomit, probablyadnf</size>";
 
         [HarmonyPatch(typeof(VersionShower), nameof(VersionShower.Start))]
         private static class VersionShowerPatch
@@ -41,9 +38,9 @@ Design by <color=#FCCE03FF>Bavari</color>
         }
 
         [HarmonyPatch(typeof(PingTracker), nameof(PingTracker.Update))]
-        private static class PingTrackerPatch
+        internal static class PingTrackerPatch
         {
-            private static GameObject modStamp;
+            public static GameObject modStamp;
             static void Prefix(PingTracker __instance) {
                 if (modStamp == null) {
                     modStamp = new GameObject("ModStamp");
@@ -54,7 +51,7 @@ Design by <color=#FCCE03FF>Bavari</color>
                     modStamp.transform.localScale *= 0.6f;
                 }
                 float offset = (AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Started) ? 0.75f : 0f;
-                modStamp.transform.position = HudManager.Instance.MapButton.transform.position + Vector3.down * offset;
+                modStamp.transform.position = FastDestroyableSingleton<HudManager>.Instance.MapButton.transform.position + Vector3.down * offset;
             }
 
             static void Postfix(PingTracker __instance){
