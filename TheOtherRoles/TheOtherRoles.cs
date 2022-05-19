@@ -1440,6 +1440,52 @@ namespace TheOtherRoles
             targetCanBeJester = CustomOptionHolder.lawyerTargetCanBeJester.getBool();
         }
     }
+    
+    public static class Vigilante
+    {
+        public static PlayerControl vigilante;
+        public static Color color = Color.yellow;
+        public static PlayerControl target;
+        public static bool targetElimated = false;
+        
+        public static float cooldown = 30f;
+        
+        public static void clearAndReload() {
+            vigilante = null;
+            target = null;
+            targetElimated = false;
+            cooldown = CustomOptionHolder.vigilanteCooldown.getFloat();
+        }
+    }
+    
+    public static class Informer
+    {
+        public static PlayerControl informer;
+        public static Color color = Color.yellow;
+        public static PlayerControl target;
+        public static bool targetElimated = false;
+        public static void clearAndReload() {
+            informer = null;
+            target = null;
+            targetElimated = false;
+        }
+    }
+    
+    public static class Revenger
+    {
+        public static PlayerControl revenger;
+        public static PlayerControl target;
+        public static Color color = Color.yellow;
+
+        public static float cooldown = 30f;
+        
+        public static void clearAndReload()
+        {
+            revenger = null;
+            target = null;
+            cooldown = CustomOptionHolder.vigilanteCooldown.getFloat();
+        }
+    }
 
     public static class Pursuer {
         public static PlayerControl pursuer;
@@ -1669,53 +1715,6 @@ namespace TheOtherRoles
         public static void clearAndReload() {
             invert = new List<PlayerControl>();
             meetings = (int) CustomOptionHolder.modifierInvertDuration.getFloat();
-        }
-    }
-}
-
-    public static class Vigilante
-    {
-        public static PlayerControl vigilante;
-        public static Color color = Color.yellow;
-        public static PlayerControl target;
-        public static bool targetElimated = false;
-        
-        public static float cooldown = 30f;
-        
-        public static void clearAndReload() {
-            vigilante = null;
-            target = null;
-            targetElimated = false;
-            cooldown = CustomOptionHolder.vigilanteCooldown.getFloat();
-        }
-    }
-    
-    public static class Informer
-    {
-        public static PlayerControl informer;
-        public static Color color = Color.yellow;
-        public static PlayerControl target;
-        public static bool targetElimated = false;
-        public static void clearAndReload() {
-            informer = null;
-            target = null;
-            targetElimated = false;
-        }
-    }
-    
-    public static class Revenger
-    {
-        public static PlayerControl revenger;
-        public static PlayerControl target;
-        public static Color color = Color.yellow;
-
-        public static float cooldown = 30f;
-        
-        public static void clearAndReload()
-        {
-            revenger = null;
-            target = null;
-            cooldown = CustomOptionHolder.vigilanteCooldown.getFloat();
         }
     }
 }

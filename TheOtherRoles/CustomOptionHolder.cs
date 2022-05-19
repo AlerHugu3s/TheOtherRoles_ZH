@@ -424,16 +424,12 @@ namespace TheOtherRoles {
             engineerHighlightForImpostors = CustomOption.Create(92,Types.Crewmate, "内鬼能看见工程师在管道中", true, engineerSpawnRate);
             engineerHighlightForTeamJackal = CustomOption.Create(93,Types.Crewmate, "豺狼和走狗能看到工程师在管道中 ", true, engineerSpawnRate);
 
-            soliderSpawnRate = CustomOption.Create(190, cs(Solider.color, "士兵生成概率"), rates, null, true);
-            bulletProofDisappearLatency = CustomOption.Create(191,"防弹衣失效延迟",10.0f,5.0f,30.0f,5.0f,soliderSpawnRate);
+            soliderSpawnRate = CustomOption.Create(190,Types.Crewmate, cs(Solider.color, "士兵生成概率"), rates, null, true);
+            bulletProofDisappearLatency = CustomOption.Create(191,Types.Crewmate,"防弹衣失效延迟",10.0f,5.0f,30.0f,5.0f,soliderSpawnRate);
             
-            positionShifterSpawnRate = CustomOption.Create(910, cs(PositionShifter.color, "换位者生成概率"), rates, null, true);
-            positionShiftCooldown = CustomOption.Create(911,"移形换位冷却时间",30.0f,0.0f,60.0f,5.0f,positionShifterSpawnRate);
+            positionShifterSpawnRate = CustomOption.Create(910,Types.Crewmate, cs(PositionShifter.color, "换位者生成概率"), rates, null, true);
+            positionShiftCooldown = CustomOption.Create(911,Types.Crewmate,"移形换位冷却时间",30.0f,0.0f,60.0f,5.0f,positionShifterSpawnRate);
             
-            engineerSpawnRate = CustomOption.Create(90, cs(Engineer.color, "工程师生成概率"), rates, null, true);
-            engineerNumberOfFixes = CustomOption.Create(91, "工程师可维修破坏次数", 1f, 1f, 3f, 1f, engineerSpawnRate);
-            engineerHighlightForImpostors = CustomOption.Create(92, "内鬼能看见工程师在管道中", true, engineerSpawnRate);
-            engineerHighlightForTeamJackal = CustomOption.Create(93, "豺狼和走狗能看到工程师在管道中 ", true, engineerSpawnRate);
             sheriffSpawnRate = CustomOption.Create(100,Types.Crewmate, cs(Sheriff.color, "警长生成概率"), rates, null, true);
             sheriffCooldown = CustomOption.Create(101,Types.Crewmate, "警长击杀冷却", 30f, 10f, 60f, 2.5f, sheriffSpawnRate);
             sheriffCanKillNeutrals = CustomOption.Create(102,Types.Crewmate, "警长可击杀中立职业", false, sheriffSpawnRate);
@@ -537,8 +533,8 @@ namespace TheOtherRoles {
 
             modifierTieBreaker = CustomOption.Create(1020, Types.Modifier, cs(Color.yellow, "裁决的生成概率"), rates, null, true);
 
-            vigilanteSpawnRate = CustomOption.Create(900,cs(Vigilante.color,"义警与线人生成概率"),rates,null,true);
-            vigilanteCooldown = CustomOption.Create(901, "义警击杀冷却", 30f, 10f, 60f, 2.5f, vigilanteSpawnRate);
+            vigilanteSpawnRate = CustomOption.Create(900,Types.Neutral,cs(Vigilante.color,"义警与线人生成概率"),rates,null,true);
+            vigilanteCooldown = CustomOption.Create(901,Types.Neutral, "义警击杀冷却", 30f, 10f, 60f, 2.5f, vigilanteSpawnRate);
             
             modifierBait = CustomOption.Create(1030, Types.Modifier, cs(Color.yellow, "诱饵的生成概率"), rates, null, true);
             modifierBaitQuantity = CustomOption.Create(1031, Types.Modifier, cs(Color.yellow, "诱饵的数量"), ratesModifier, modifierBait);

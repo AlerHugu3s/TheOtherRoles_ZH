@@ -140,7 +140,7 @@ namespace TheOtherRoles
             sunglasses,
             mini,
             vip,
-            invert
+            invert,
             medium,
             vigilante,
             informer,

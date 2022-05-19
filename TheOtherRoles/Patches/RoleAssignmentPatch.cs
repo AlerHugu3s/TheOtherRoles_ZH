@@ -127,29 +127,6 @@ namespace TheOtherRoles.Patches {
         }
 
         private static void assignSpecialRoles(RoleAssignmentData data) {
-            // Assign Lovers
-            if (rnd.Next(1, 101) <= CustomOptionHolder.loversSpawnRate.getSelection() * 10) {
-                bool isOnlyRole = !CustomOptionHolder.loversCanHaveAnotherRole.getBool();
-                if (data.impostors.Count > 0 && data.crewmates.Count > 0 && (!isOnlyRole || (data.maxCrewmateRoles > 0 && data.maxImpostorRoles > 0)) && rnd.Next(1, 101) <= CustomOptionHolder.loversImpLoverRate.getSelection() * 10) {
-                    setRoleToRandomPlayer((byte)RoleId.Lover, data.impostors, 0, isOnlyRole); 
-                    setRoleToRandomPlayer((byte)RoleId.Lover, data.crewmates, 1, isOnlyRole);
-                    if (isOnlyRole) {
-                        data.maxCrewmateRoles--;
-                        data.maxImpostorRoles--;
-                    }
-                } else if (data.crewmates.Count >= 2 && (isOnlyRole || data.maxCrewmateRoles >= 2)) {
-                    byte firstLoverId = setRoleToRandomPlayer((byte)RoleId.Lover, data.crewmates, 0, isOnlyRole); 
-                    if (isOnlyRole) {
-                        setRoleToRandomPlayer((byte)RoleId.Lover, data.crewmates, 1);
-                        data.maxCrewmateRoles -= 2;
-                    } else {
-                        var crewmatesWithoutFirstLover = data.crewmates.ToList();
-                        crewmatesWithoutFirstLover.RemoveAll(p => p.PlayerId == firstLoverId);
-                        setRoleToRandomPlayer((byte)RoleId.Lover, crewmatesWithoutFirstLover, 1, false);
-                    }
-                }
-            }
-            
             // Assign Vigilante and Informer
             if (data.maxNeutralRoles >= 2 && data.crewmates.Count >= 2 && (rnd.Next(1, 101) <= CustomOptionHolder.vigilanteSpawnRate.getSelection() * 10))
             {

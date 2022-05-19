@@ -6,6 +6,8 @@
         <Authors>Eisbison</Authors>
 		<LangVersion>preview</LangVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <PackageId>TheOtherRoles_Kylin</PackageId>
+        <PackageVersion>4.2.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>

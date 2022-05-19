@@ -137,7 +137,7 @@ namespace TheOtherRoles
         SetFirstKill,
         Invert,
         SetTiebreak,
-        SetInvisible
+        SetInvisible,
         ShiftPos,
         VigilanteAndInformerDie,
         VigilanteEliminateTarget,
@@ -199,7 +199,6 @@ namespace TheOtherRoles
                     case RoleId.Portalmaker:
                         Portalmaker.portalmaker = player;
                         break;
-                        case RoleId.Engineer:
                     case RoleId.Solider:
                         Solider.solider = player;
                         break;
@@ -506,11 +505,20 @@ namespace TheOtherRoles
             PlayerControl shiftTarget = Helpers.playerById(shiftTarId);
             if (shiftTarget == null || PositionShifter.positionShifter.Data.IsDead || PositionShifter.positionShifter.Data.Disconnected) return;
 
-            if (shiftTarget.inVent) shiftTarget.inVent = false;
-            shiftTarget.MyPhysics.ExitAllVents();
             var tempPos = new Vector3(shiftTarget.transform.position.x,shiftTarget.transform.position.y,shiftTarget.transform.position.z);
-            shiftTarget.transform.position = PositionShifter.positionShifter.transform.position;
-            PositionShifter.positionShifter.transform.position = tempPos;
+
+            if (!AntiTeleport.antiTeleport.Contains(shiftTarget))
+            {
+                if (shiftTarget.inVent) shiftTarget.inVent = false;
+                shiftTarget.MyPhysics.ExitAllVents();
+                shiftTarget.transform.position = PositionShifter.positionShifter.transform.position;
+            }
+            
+            if (!AntiTeleport.antiTeleport.Contains(PositionShifter.positionShifter))
+            {
+                PositionShifter.positionShifter.transform.position = tempPos;
+            }
+            
             shiftTarget.moveable = false;
             PositionShifter.positionShifter.moveable = false;
             shiftTarget.moveable = true;
