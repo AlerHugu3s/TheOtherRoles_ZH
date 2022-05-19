@@ -69,11 +69,6 @@ namespace TheOtherRoles
         public static RoleInfo crewmate = new RoleInfo("船员", Color.white, "找到内鬼", "找到内鬼", RoleId.Crewmate);
         public static RoleInfo witch = new RoleInfo("女巫", Witch.color, "对你的敌人施咒", "对你的敌人施咒", RoleId.Witch);
         public static RoleInfo ninja = new RoleInfo("忍者", Ninja.color, "出其不意暗杀敌人", "出其不意暗杀敌人", RoleId.Ninja);
-        
-        
-        public static RoleInfo vigilante = new RoleInfo("义警", Vigilante.color, "根据线人的提示杀死目标", "杀死目标", RoleId.Vigilante,true);
-        public static RoleInfo informer = new RoleInfo("线人", Informer.color, "通知你的义警目标是谁", "通知义警", RoleId.Informer,true);
-        public static RoleInfo revenger = new RoleInfo("复仇者", Revenger.color, "杀光他们", "杀死所有人", RoleId.Revenger,true);
 
         // Modifier
         public static RoleInfo bloody = new RoleInfo("血淋淋的", Color.yellow, "杀死你的人将会留下血迹", "杀死你的人将会留下血迹", RoleId.Bloody, false, true);
@@ -142,9 +137,6 @@ namespace TheOtherRoles
             vip,
             invert,
             medium,
-            vigilante,
-            informer,
-            revenger
         };
 
         public static List<RoleInfo> getRoleInfoForPlayer(PlayerControl p, bool showModifier = true) {
@@ -207,9 +199,6 @@ namespace TheOtherRoles
             if (p == Medium.medium) infos.Add(medium);
             if (p == Lawyer.lawyer) infos.Add(lawyer);
             if (p == Pursuer.pursuer) infos.Add(pursuer);
-            if (p == Vigilante.vigilante) infos.Add(vigilante);
-            if (p == Informer.informer) infos.Add(informer);
-            if (p == Revenger.revenger) infos.Add(revenger);
 
             // Default roles
             if (infos.Count == 0 && p.Data.Role.IsImpostor) infos.Add(impostor); // Just Impostor
@@ -222,7 +211,6 @@ namespace TheOtherRoles
             string roleName;
             roleName = String.Join(" ", getRoleInfoForPlayer(p, showModifier).Select(x => useColors ? Helpers.cs(x.color, x.name) : x.name).ToArray());
             if (Lawyer.target != null && p.PlayerId == Lawyer.target.PlayerId && PlayerControl.LocalPlayer != Lawyer.target) roleName += (useColors ? Helpers.cs(Pursuer.color, " §") : " §");
-            if (Informer.target != null && p.PlayerId == Informer.target.PlayerId && PlayerControl.LocalPlayer != Informer.target) roleName += (useColors ? Helpers.cs(Informer.color, " X") : " X");
             return roleName;
         }
     }

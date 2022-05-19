@@ -762,62 +762,7 @@ namespace TheOtherRoles.Patches {
                 setPlayerOutline(Solider.target, Solider.color);
             }
         }
-
-        static void revengerSetTarget()
-        {
-            if (Revenger.revenger == null || PlayerControl.LocalPlayer != Revenger.revenger || Revenger.revenger.Data.IsDead || Revenger.revenger.Data.Disconnected) return;
-            Revenger.target = setTarget();
-            setPlayerOutline(Revenger.target, Revenger.color);
-        }
         
-        static void vigilanteSetTarget()
-        {
-            if (Vigilante.vigilante == null || PlayerControl.LocalPlayer != Vigilante.vigilante || Vigilante.vigilante.Data.IsDead || Vigilante.vigilante.Data.Disconnected) return;
-            Vigilante.target = setTarget();
-            setPlayerOutline(Vigilante.target, Vigilante.color);
-        }
-
-        static void vigilanteAndInformerStateCheck()
-        {
-            if ((Vigilante.vigilante != PlayerControl.LocalPlayer || Vigilante.vigilante == null) && 
-                (Informer.informer != PlayerControl.LocalPlayer || Informer.informer == null)) return;
-            
-            if ((Vigilante.vigilante != null && !Vigilante.vigilante.Data.IsDead && !Vigilante.vigilante.Data.Disconnected && (Informer.informer == null || Informer.informer.Data.IsDead || Informer.informer.Data.Disconnected) && !Vigilante.targetElimated) || 
-                (Informer.informer != null && !Informer.informer.Data.IsDead && !Informer.informer.Data.Disconnected && (Vigilante.vigilante == null || Vigilante.vigilante.Data.IsDead || Vigilante.vigilante.Data.Disconnected) && !Informer.targetElimated))
-            {
-                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.BecomeRevenger, Hazel.SendOption.Reliable, -1);
-                AmongUsClient.Instance.FinishRpcImmediately(writer);
-                RPCProcedure.becomeRevenger();
-            }
-        }
-
-        static void InformerTargetUpdate()
-        {
-            if (Informer.targetElimated || Informer.informer == null || Informer.informer.Data.IsDead || Informer.informer.Data.Disconnected)
-            {
-                Informer.target = null;
-                return;
-            }
-            if (Informer.target == null || Informer.target == Vigilante.vigilante || Informer.target == Informer.informer || Informer.target == Mini.mini || (Informer.target.Data.IsDead || Informer.target.Data.Disconnected))
-            {
-                var possibleTargets = new List<PlayerControl>();
-                foreach (PlayerControl p in PlayerControl.AllPlayerControls)
-                {
-                    if(!p.Data.IsDead && !p.Data.Disconnected && Vigilante.vigilante != p && Informer.informer != p)
-                        possibleTargets.Add(p);
-                    if (possibleTargets.Count == 0) {
-                        
-                    } else {
-                        var target = possibleTargets[TheOtherRoles.rnd.Next(0, possibleTargets.Count)];
-                        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.InformerSetTarget, Hazel.SendOption.Reliable, -1);
-                        writer.Write(target.PlayerId);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer);
-                        RPCProcedure.informerSetTarget(target.PlayerId);
-                    }
-                }
-            }
-        }
-
         static void soliderUpdate()
         {
             if (Solider.solider != null && PlayerControl.LocalPlayer == Solider.solider && !Solider.solider.Data.IsDead)
@@ -984,12 +929,6 @@ namespace TheOtherRoles.Patches {
                 //Solider
                 soliderSetTarget();
                 soliderUpdate();
-                //Vigilante
-                vigilanteSetTarget();
-                vigilanteAndInformerStateCheck();
-                InformerTargetUpdate();
-                //Revenger
-                revengerSetTarget();
                 // Pursuer
                 pursuerSetTarget();
                 // Witch

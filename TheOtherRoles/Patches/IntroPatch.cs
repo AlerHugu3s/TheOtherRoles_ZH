@@ -74,7 +74,7 @@ namespace TheOtherRoles.Patches {
     class IntroPatch {
         public static void setupIntroTeamIcons(IntroCutscene __instance, ref  Il2CppSystem.Collections.Generic.List<PlayerControl> yourTeam) {
             // Intro solo teams
-            if (PlayerControl.LocalPlayer == Jester.jester || PlayerControl.LocalPlayer == Jackal.jackal || PlayerControl.LocalPlayer == Arsonist.arsonist || PlayerControl.LocalPlayer == Vulture.vulture || PlayerControl.LocalPlayer == Lawyer.lawyer || PlayerControl.LocalPlayer == Vigilante.vigilante || PlayerControl.LocalPlayer == Informer.informer) {
+            if (PlayerControl.LocalPlayer == Jester.jester || PlayerControl.LocalPlayer == Jackal.jackal || PlayerControl.LocalPlayer == Arsonist.arsonist || PlayerControl.LocalPlayer == Vulture.vulture || PlayerControl.LocalPlayer == Lawyer.lawyer) {
                 var soloTeam = new Il2CppSystem.Collections.Generic.List<PlayerControl>();
                 soloTeam.Add(PlayerControl.LocalPlayer);
                 yourTeam = soloTeam;
@@ -141,14 +141,6 @@ namespace TheOtherRoles.Patches {
                         __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\n你的警员是{Deputy.deputy?.Data?.PlayerName ?? ""}");
                     else if (infos.Any(info => info.roleId == RoleId.Deputy))
                         __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\n你的警长是{Sheriff.sheriff?.Data?.PlayerName ?? ""}");
-                }
-                if (Vigilante.vigilante != null && Informer.informer != null)
-                {
-                    if (infos.Any(info => info.roleId == RoleId.Vigilante)) 
-                        __instance.RoleBlurbText.text += Helpers.cs(Vigilante.color, $"\n你的线人是{Informer.informer?.Data?.PlayerName ?? ""}");
-                    else if (infos.Any(info => info.roleId == RoleId.Informer))
-                        __instance.RoleBlurbText.text += Helpers.cs(Informer.color, $"\n你们有一个目标,通知{Vigilante.vigilante?.Data?.PlayerName ?? ""}杀死他！");
-
                 }
             }
             public static bool Prefix(IntroCutscene __instance) {

@@ -127,14 +127,6 @@ namespace TheOtherRoles.Patches {
         }
 
         private static void assignSpecialRoles(RoleAssignmentData data) {
-            // Assign Vigilante and Informer
-            if (data.maxNeutralRoles >= 2 && data.crewmates.Count >= 2 && (rnd.Next(1, 101) <= CustomOptionHolder.vigilanteSpawnRate.getSelection() * 10))
-            {
-                setRoleToRandomPlayer((byte)RoleId.Vigilante, data.crewmates);
-                setRoleToRandomPlayer((byte)RoleId.Informer, data.crewmates);
-                data.maxNeutralRoles -= 2;
-            }
-
             // Assign Mafia
             if (data.impostors.Count >= 3 && data.maxImpostorRoles >= 3 && (rnd.Next(1, 101) <= CustomOptionHolder.mafiaSpawnRate.getSelection() * 10)) {
                 setRoleToRandomPlayer((byte)RoleId.Godfather, data.impostors);
@@ -353,25 +345,6 @@ namespace TheOtherRoles.Patches {
                     writer.Write(target.PlayerId);
                     AmongUsClient.Instance.FinishRpcImmediately(writer);
                     RPCProcedure.lawyerSetTarget(target.PlayerId);
-                }
-            }
-            // Set Informer Target
-            if (Informer.informer != null && Vigilante.vigilante != null)
-            {
-                var possibleTargets = new List<PlayerControl>();
-                foreach (PlayerControl p in PlayerControl.AllPlayerControls)
-                {
-                    if(!p.Data.IsDead && !p.Data.Disconnected && Vigilante.vigilante != p && Informer.informer != p && Mini.mini != p)
-                        possibleTargets.Add(p);
-                    if (possibleTargets.Count == 0) {
-                        
-                    } else {
-                        var target = possibleTargets[TheOtherRoles.rnd.Next(0, possibleTargets.Count)];
-                        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.InformerSetTarget, Hazel.SendOption.Reliable, -1);
-                        writer.Write(target.PlayerId);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer);
-                        RPCProcedure.informerSetTarget(target.PlayerId);
-                    }
                 }
             }
         }

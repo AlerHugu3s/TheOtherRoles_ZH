@@ -280,9 +280,6 @@ namespace TheOtherRoles {
         public static CustomOption dynamicMapEnableAirShip;
         public static CustomOption dynamicMapEnableSubmerged;
 
-        public static CustomOption vigilanteSpawnRate;
-        public static CustomOption vigilanteCooldown;
-
         internal static Dictionary<byte, byte[]> blockedRolePairings = new Dictionary<byte, byte[]>();
 
         public static string cs(Color c, string s) {
@@ -532,9 +529,6 @@ namespace TheOtherRoles {
             modifierAntiTeleportQuantity = CustomOption.Create(1011, Types.Modifier, cs(Color.yellow, "停滞的数量"), ratesModifier, modifierAntiTeleport);
 
             modifierTieBreaker = CustomOption.Create(1020, Types.Modifier, cs(Color.yellow, "裁决的生成概率"), rates, null, true);
-
-            vigilanteSpawnRate = CustomOption.Create(900,Types.Neutral,cs(Vigilante.color,"义警与线人生成概率"),rates,null,true);
-            vigilanteCooldown = CustomOption.Create(901,Types.Neutral, "义警击杀冷却", 30f, 10f, 60f, 2.5f, vigilanteSpawnRate);
             
             modifierBait = CustomOption.Create(1030, Types.Modifier, cs(Color.yellow, "诱饵的生成概率"), rates, null, true);
             modifierBaitQuantity = CustomOption.Create(1031, Types.Modifier, cs(Color.yellow, "诱饵的数量"), ratesModifier, modifierBait);
