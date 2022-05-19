@@ -91,7 +91,7 @@ namespace TheOtherRoles
             CustomColors.Load();
             Patches.FreeNamePatch.Initialize();
             Harmony.PatchAll();
-            SubmergedCompatibility.Initialize();
+            //SubmergedCompatibility.Initialize();
             AddComponent<ModUpdateBehaviour>();
         }
         public static Sprite GetModStamp() {

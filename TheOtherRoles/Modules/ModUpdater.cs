@@ -46,6 +46,7 @@ namespace TheOtherRoles.Modules
 
             public bool IsNewer(Version version)
             {
+                return false;
                 if (!Version.TryParse(Tag, out var myVersion)) return false;
                 return myVersion.BaseVersion() > version.BaseVersion();
             }
@@ -181,7 +182,7 @@ namespace TheOtherRoles.Modules
             var client = new HttpClient();
             client.DefaultRequestHeaders.Add("User-Agent", "TheOtherRoles Updater");
 
-            var req = await client.GetAsync($"https://api.github.com/repos/{owner}/{repo}/releases/latest", HttpCompletionOption.ResponseContentRead);
+            var req = await client.GetAsync($"https://gitee.com/{owner}/{repo}/releases/latest", HttpCompletionOption.ResponseContentRead);
             if (!req.IsSuccessStatusCode) return null;
 
             var dataString = await req.Content.ReadAsStringAsync();
