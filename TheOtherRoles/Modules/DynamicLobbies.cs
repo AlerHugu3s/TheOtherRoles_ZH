@@ -2,6 +2,7 @@ using System;
 using HarmonyLib;
 using Hazel;
 using InnerNet;
+using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 
 namespace TheOtherRoles.Modules {
@@ -18,16 +19,19 @@ namespace TheOtherRoles.Modules {
                             if (AmongUsClient.Instance.AmHost && AmongUsClient.Instance.CanBan()) { // checking both just cause
                                 handled = true;
                                 if (!Int32.TryParse(text.Substring(6), out LobbyLimit)) {
-                                    __instance.AddChat(PlayerControl.LocalPlayer, "ä¸æ­£ç¡®çš„æˆ¿é—´å¤§å°\nè¯·ä½¿ç”¨: /size {amount}");
+
+                                    __instance.AddChat(CachedPlayer.LocalPlayer.PlayerControl, "²»ÕıÈ·µÄ·¿¼ä´óĞ¡\nÇëÊ¹ÓÃ: /size {amount}");
                                 } else {
                                     LobbyLimit = Math.Clamp(LobbyLimit, 4, 15);
                                     if (LobbyLimit != PlayerControl.GameOptions.MaxPlayers) {
                                         PlayerControl.GameOptions.MaxPlayers = LobbyLimit;
                                         FastDestroyableSingleton<GameStartManager>.Instance.LastPlayerCount = LobbyLimit;
-                                        PlayerControl.LocalPlayer.RpcSyncSettings(PlayerControl.GameOptions);
-                                        __instance.AddChat(PlayerControl.LocalPlayer, $"æˆ¿é—´å¤§å°æ”¹å˜æˆäº†{LobbyLimit}ä½ç©å®¶");
+
+                                        CachedPlayer.LocalPlayer.PlayerControl.RpcSyncSettings(PlayerControl.GameOptions);
+                                        __instance.AddChat(CachedPlayer.LocalPlayer.PlayerControl, $"·¿¼ä´óĞ¡¸Ä±ä³ÉÁË{LobbyLimit}Î»Íæ¼Ò");
                                     } else {
-                                        __instance.AddChat(PlayerControl.LocalPlayer, $"æˆ¿é—´å¤§å°å·²ç»æ˜¯{LobbyLimit}äº†");
+
+                                        __instance.AddChat(CachedPlayer.LocalPlayer.PlayerControl, $"·¿¼ä´óĞ¡ÒÑ¾­ÊÇ{LobbyLimit}ÁË");
                                     }
                                 }
                             }
