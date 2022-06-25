@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.Text;
+using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 
 namespace TheOtherRoles.Patches {
@@ -68,7 +69,7 @@ namespace TheOtherRoles.Patches {
         public static void Postfix(AmongUsClient __instance, [HarmonyArgument(0)]ref EndGameResult endGameResult) {
             AdditionalTempData.clear();
 
-            foreach(var playerControl in PlayerControl.AllPlayerControls.GetFastEnumerator()) {
+            foreach(var playerControl in CachedPlayer.AllPlayers) {
                 var roles = RoleInfo.getRoleInfoForPlayer(playerControl);
                 var (tasksCompleted, tasksTotal) = TasksHandler.taskInfo(playerControl.Data);
                 AdditionalTempData.playerRoles.Add(new AdditionalTempData.PlayerRoleInfo() { PlayerName = playerControl.Data.PlayerName, Roles = roles, TasksTotal = tasksTotal, TasksCompleted = tasksCompleted });
@@ -141,7 +142,7 @@ namespace TheOtherRoles.Patches {
                 if (!Lovers.existingWithKiller()) {
                     AdditionalTempData.winCondition = WinCondition.LoversTeamWin;
                     TempData.winners = new Il2CppSystem.Collections.Generic.List<WinningPlayerData>();
-                    foreach (PlayerControl p in PlayerControl.AllPlayerControls.GetFastEnumerator()) {
+                    foreach (PlayerControl p in CachedPlayer.AllPlayers) {
                         if (p == null) continue;
                         if (p == Lovers.lover1 || p == Lovers.lover2)
                             TempData.winners.Add(new WinningPlayerData(p.Data));
@@ -243,23 +244,23 @@ namespace TheOtherRoles.Patches {
                 float num7 = Mathf.Lerp(1f, 0.65f, num4) * 0.9f;
                 Vector3 vector = new Vector3(num7, num7, 1f);
                 poolablePlayer.transform.localScale = vector;
-                poolablePlayer.UpdateFromPlayerOutfit(winningPlayerData2, winningPlayerData2.IsDead);
+                poolablePlayer.UpdateFromPlayerOutfit((GameData.PlayerOutfit) winningPlayerData2, PlayerMaterial.MaskType.ComplexUI, winningPlayerData2.IsDead, true);
                 if (winningPlayerData2.IsDead) {
-                    poolablePlayer.CurrentBodySprite.BodySprite.sprite = poolablePlayer.CurrentBodySprite.GhostSprite;
+                    poolablePlayer.cosmetics.currentBodySprite.BodySprite.sprite = poolablePlayer.cosmetics.currentBodySprite.GhostSprite;
                     poolablePlayer.SetDeadFlipX(i % 2 == 0);
                 } else {
                     poolablePlayer.SetFlipX(i % 2 == 0);
                 }
 
-                poolablePlayer.NameText.color = Color.white;
-                poolablePlayer.NameText.transform.localScale = new Vector3(1f / vector.x, 1f / vector.y, 1f / vector.z);
-                poolablePlayer.NameText.transform.localPosition = new Vector3(poolablePlayer.NameText.transform.localPosition.x, poolablePlayer.NameText.transform.localPosition.y, -15f);
-                poolablePlayer.NameText.text = winningPlayerData2.PlayerName;
+                poolablePlayer.cosmetics.nameText.color = Color.white;
+                poolablePlayer.cosmetics.nameText.transform.localScale = new Vector3(1f / vector.x, 1f / vector.y, 1f / vector.z);
+                poolablePlayer.cosmetics.nameText.transform.localPosition = new Vector3(poolablePlayer.cosmetics.nameText.transform.localPosition.x, poolablePlayer.cosmetics.nameText.transform.localPosition.y, -15f);
+                poolablePlayer.cosmetics.nameText.text = winningPlayerData2.PlayerName;
 
                 foreach(var data in AdditionalTempData.playerRoles) {
                     if (data.PlayerName != winningPlayerData2.PlayerName) continue;
                     var roles = 
-                    poolablePlayer.NameText.text += $"\n{string.Join("\n", data.Roles.Select(x => Helpers.cs(x.color, x.name)))}";
+                    poolablePlayer.cosmetics.nameText.text += $"\n{string.Join("\n", data.Roles.Select(x => Helpers.cs(x.color, x.name)))}";
                 }
             }
 

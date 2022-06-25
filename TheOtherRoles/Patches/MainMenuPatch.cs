@@ -17,7 +17,7 @@ namespace TheOtherRoles.Modules {
             var template = GameObject.Find("ExitGameButton");
             if (template == null) return;
 
-            var buttonDiscord = UnityEngine.Object.Instantiate(template, null);
+            /*var buttonDiscord = UnityEngine.Object.Instantiate(template, null);
             buttonDiscord.transform.localPosition = new Vector3(buttonDiscord.transform.localPosition.x, buttonDiscord.transform.localPosition.y + 0.6f, buttonDiscord.transform.localPosition.z);
 
             var textDiscord = buttonDiscord.transform.GetChild(0).GetComponent<TMPro.TMP_Text>();
@@ -35,7 +35,7 @@ namespace TheOtherRoles.Modules {
             buttonSpriteDiscord.color = textDiscord.color = discordColor;
             passiveButtonDiscord.OnMouseOut.AddListener((System.Action)delegate {
                 buttonSpriteDiscord.color = textDiscord.color = discordColor;
-            });
+            });*/
 
 
             // Horse mode stuff

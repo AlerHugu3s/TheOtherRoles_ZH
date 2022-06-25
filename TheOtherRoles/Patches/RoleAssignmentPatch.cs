@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System;
+using TheOtherRoles.Players;
 
 using TheOtherRoles.Utilities;
 using static TheOtherRoles.TheOtherRoles;
@@ -22,7 +23,7 @@ namespace TheOtherRoles.Patches {
         private static int impValues;
         private static bool isEvilGuesser;
         public static void Postfix() {
-            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ResetVaribles, Hazel.SendOption.Reliable, -1);
+            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.ResetVaribles, Hazel.SendOption.Reliable, -1);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
             RPCProcedure.resetVariables();
 
@@ -41,7 +42,7 @@ namespace TheOtherRoles.Patches {
             assignModifiers();
         }
 
-        private static RoleAssignmentData getRoleAssignmentData() {
+        public static RoleAssignmentData getRoleAssignmentData() {
             // Get the players that we want to assign the roles to. Crewmate and Neutral roles are assigned to natural crewmates. Impostor roles to impostors.
             List<PlayerControl> crewmates = PlayerControl.AllPlayerControls.ToArray().ToList().OrderBy(x => Guid.NewGuid()).ToList();
             crewmates.RemoveAll(x => x.Data.Role.IsImpostor);
@@ -331,17 +332,17 @@ namespace TheOtherRoles.Patches {
             // Set Lawyer Target
             if (Lawyer.lawyer != null) {
                 var possibleTargets = new List<PlayerControl>();
-                foreach (PlayerControl p in PlayerControl.AllPlayerControls.GetFastEnumerator()) {
+                foreach (PlayerControl p in CachedPlayer.AllPlayers) {
                     if (!p.Data.IsDead && !p.Data.Disconnected && p != Lovers.lover1 && p != Lovers.lover2 && (p.Data.Role.IsImpostor || p == Jackal.jackal || (Lawyer.targetCanBeJester && p == Jester.jester)))
                         possibleTargets.Add(p);
                 }
                 if (possibleTargets.Count == 0) {
-                    MessageWriter w = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.LawyerPromotesToPursuer, Hazel.SendOption.Reliable, -1);
+                    MessageWriter w = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.LawyerPromotesToPursuer, Hazel.SendOption.Reliable, -1);
                     AmongUsClient.Instance.FinishRpcImmediately(w);
                     RPCProcedure.lawyerPromotesToPursuer();
                 } else {
                     var target = possibleTargets[TheOtherRoles.rnd.Next(0, possibleTargets.Count)];
-                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.LawyerSetTarget, Hazel.SendOption.Reliable, -1);
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.LawyerSetTarget, Hazel.SendOption.Reliable, -1);
                     writer.Write(target.PlayerId);
                     AmongUsClient.Instance.FinishRpcImmediately(writer);
                     RPCProcedure.lawyerSetTarget(target.PlayerId);
@@ -421,7 +422,7 @@ namespace TheOtherRoles.Patches {
             byte playerId = playerList[index].PlayerId;
             if (removePlayer) playerList.RemoveAt(index);
 
-            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetRole, Hazel.SendOption.Reliable, -1);
+            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.SetRole, Hazel.SendOption.Reliable, -1);
             writer.Write(roleId);
             writer.Write(playerId);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
@@ -434,7 +435,7 @@ namespace TheOtherRoles.Patches {
             byte playerId = playerList[index].PlayerId;
             playerList.RemoveAt(index);
 
-            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetModifier, Hazel.SendOption.Reliable, -1);
+            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.SetModifier, Hazel.SendOption.Reliable, -1);
             writer.Write(modifierId);
             writer.Write(playerId);
             writer.Write(flag);
@@ -511,7 +512,7 @@ namespace TheOtherRoles.Patches {
         }
 
 
-        private class RoleAssignmentData {
+        public class RoleAssignmentData {
             public List<PlayerControl> crewmates {get;set;}
             public List<PlayerControl> impostors {get;set;}
             public Dictionary<byte, int> impSettings = new Dictionary<byte, int>();

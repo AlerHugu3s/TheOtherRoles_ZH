@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Epic.OnlineServices.Presence;
 using UnityEngine;
 using TheOtherRoles.Objects;
+using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 
 namespace TheOtherRoles
@@ -132,8 +133,7 @@ namespace TheOtherRoles
             public static Color color = new Color32(32, 77, 66, byte.MaxValue);
             public static Minigame emergency = null;
             public static Sprite emergencySprite = null;
-            public static int remoteMeetingsLeft = 1;        
-
+            public static int remoteMeetingsLeft = 1;
 
             public static bool canSeeVoteColors = false;
             public static int tasksNeededToSeeVoteColors;
@@ -326,7 +326,7 @@ namespace TheOtherRoles
             public static void setHandcuffedKnows(bool active = true)
             {
                 if (active) {
-                    byte localPlayerId = PlayerControl.LocalPlayer.PlayerId;
+                    byte localPlayerId = CachedPlayer.LocalPlayer.PlayerId;
                     handcuffedKnows.Add(localPlayerId, handcuffDuration);
                     handcuffedPlayers.RemoveAll(x => x == localPlayerId);
                 }
@@ -661,7 +661,7 @@ namespace TheOtherRoles
 
         public static void resetCamouflage() {
             camouflageTimer = 0f;
-            foreach (PlayerControl p in PlayerControl.AllPlayerControls.GetFastEnumerator())
+            foreach (PlayerControl p in CachedPlayer.AllPlayers)
                 p.setDefaultLook();
         }
 
@@ -1221,7 +1221,7 @@ namespace TheOtherRoles
         }
 
         public static bool dousedEveryoneAlive() {
-            return PlayerControl.AllPlayerControls.ToArray().All(x => { return x == Arsonist.arsonist || x.Data.IsDead || x.Data.Disconnected || Arsonist.dousedPlayers.Any(y => y.PlayerId == x.PlayerId); });
+            return CachedPlayer.AllPlayers.All(x => { return x.PlayerControl == Arsonist.arsonist || x.Data.IsDead || x.Data.Disconnected || Arsonist.dousedPlayers.Any(y => y.PlayerId == x.PlayerId); });
         }
 
         public static void clearAndReload() {
@@ -1597,7 +1597,17 @@ namespace TheOtherRoles
 
         public static void clearAndReload() {
             antiTeleport = new List<PlayerControl>();
-            position = new Vector3();
+            position = Vector3.zero;
+        }
+
+        public static void setPosition() {
+            if (position == Vector3.zero) return;  // Check if this has been set, otherwise first spawn on submerged will fail
+            if (antiTeleport.FindAll(x => x.PlayerId == CachedPlayer.LocalPlayer.PlayerId).Count > 0) {
+                CachedPlayer.LocalPlayer.NetTransform.RpcSnapTo(position);
+                if (SubmergedCompatibility.IsSubmerged) {
+                    SubmergedCompatibility.ChangeFloor(position.y > -7);
+                }
+            }
         }
     }
 
