@@ -7,9 +7,9 @@ using HarmonyLib;
 using InnerNet;
 using UnityEngine;
 
-namespace TheOtherRoles.Players;
-
-public class CachedPlayer
+namespace TheOtherRoles.Players
+{
+    public class CachedPlayer
 {
     public static readonly Dictionary<IntPtr, CachedPlayer> PlayerPtrs = new();
     public static readonly List<CachedPlayer> AllPlayers = new();
@@ -128,3 +128,5 @@ public static class CachedPlayerPatches
         CachedPlayer.PlayerPtrs[__instance.Pointer].PlayerId = __instance.PlayerId;
     }
 }
+}
+

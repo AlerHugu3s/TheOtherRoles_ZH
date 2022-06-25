@@ -15,8 +15,9 @@ using HarmonyLib;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace TheOtherRoles.Modules;
-
+namespace TheOtherRoles.Modules
+{
+    
 public class BepInExUpdater : MonoBehaviour
 {
     public const string MinimumBepInExVersion = "6.0.0.559";
@@ -74,4 +75,5 @@ public static class StopLoadingMainMenu
     {
         return !BepInExUpdater.UpdateRequired;
     }
+}
 }
