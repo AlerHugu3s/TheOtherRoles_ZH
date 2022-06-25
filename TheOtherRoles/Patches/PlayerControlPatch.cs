@@ -82,8 +82,8 @@ namespace TheOtherRoles.Patches {
                 }
                 else if(PlayerControl.LocalPlayer == Solider.solider && target == Solider.solider && (!Solider.usedBulletProof || Solider.usedBulletProof && Solider.isInLatency))
                 { 
-                    target.MyRend.material.SetFloat("_Outline",1f);
-                    target.MyRend.material.SetColor("_OutlineColor", Solider.bulletproofColor);
+                    target.cosmetics.currentBodySprite.BodySprite.material.SetFloat("_Outline",1f);
+                    target.cosmetics.currentBodySprite.BodySprite.material.SetColor("_OutlineColor", Solider.bulletproofColor);
                 }
                 else {
                     target.cosmetics.currentBodySprite.BodySprite.material.SetFloat("_Outline", 0f);
