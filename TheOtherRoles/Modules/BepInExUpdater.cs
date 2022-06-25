@@ -17,8 +17,7 @@ using UnityEngine.Networking;
 
 namespace TheOtherRoles.Modules
 {
-    
-public class BepInExUpdater : MonoBehaviour
+    public class BepInExUpdater : MonoBehaviour
 {
     public const string MinimumBepInExVersion = "6.0.0.559";
     public const string BepInExDownloadURL = "https://builds.bepinex.dev/projects/bepinex_be/559/BepInEx_UnityIL2CPP_x86_fba4461_6.0.0-be.559.zip";
@@ -77,3 +76,4 @@ public static class StopLoadingMainMenu
     }
 }
 }
+
