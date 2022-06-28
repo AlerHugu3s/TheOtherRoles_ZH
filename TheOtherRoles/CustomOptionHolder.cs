@@ -202,6 +202,9 @@ namespace TheOtherRoles {
         public static CustomOption warlockCooldown;
         public static CustomOption warlockRootTime;
 
+        public static CustomOption grudgeSpawnRate;
+        public static CustomOption grudgeTransmitRevengeTarget;
+
         public static CustomOption securityGuardSpawnRate;
         public static CustomOption securityGuardCooldown;
         public static CustomOption securityGuardTotalScrews;
@@ -363,7 +366,9 @@ namespace TheOtherRoles {
             ninjaTraceTime = CustomOption.Create(383, Types.Impostor, "追踪时长", 5f, 1f, 20f, 0.5f, ninjaSpawnRate);
             ninjaTraceColorTime = CustomOption.Create(384, Types.Impostor, "追踪颜色淡化前时长", 2f, 0f, 20f, 0.5f, ninjaSpawnRate);
 			ninjaInvisibleDuration = CustomOption.Create(385, Types.Impostor, "忍者隐身时长", 3f, 0f, 20f, 1f, ninjaSpawnRate);
-
+            
+            grudgeSpawnRate = CustomOption.Create(920, Types.Impostor, cs(Grudge.color, "怨鬼生成概率"), rates, null, true);
+            grudgeTransmitRevengeTarget = CustomOption.Create(921,Types.Impostor, "怨鬼的诅咒可以被继承", true, grudgeSpawnRate);
 
             guesserSpawnRate = CustomOption.Create(310,Types.Neutral, cs(Guesser.color, "赌怪生成概率"), rates, null, true);
             guesserIsImpGuesserRate = CustomOption.Create(311,Types.Neutral, "邪恶赌怪生成概率", rates, guesserSpawnRate);

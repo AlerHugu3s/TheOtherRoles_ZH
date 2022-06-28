@@ -58,6 +58,7 @@ namespace TheOtherRoles
         Pursuer,
         Witch,
         Ninja,
+        Grudge,
         Crewmate,
         Impostor,
         // Modifier ---
@@ -309,6 +310,9 @@ namespace TheOtherRoles
                     case RoleId.Ninja:
                         Ninja.ninja = player;
                         break;
+                    case RoleId.Grudge:
+                        Grudge.grudge = player;
+                        break;
                     }
                 }
         }
@@ -376,6 +380,17 @@ namespace TheOtherRoles
             PlayerControl target = Helpers.playerById(targetId);
             if (source != null && target != null) {
                 if (showAnimation == 0) KillAnimationCoPerformKillPatch.hideNextAnimation = true;
+
+                if(target == Grudge.grudge)
+                {
+                    Grudge.revengeTarget = source;
+                }
+
+                if (Grudge.revengeTransmit && target == Grudge.revengeTarget)
+                {
+                    Grudge.revengeTarget = source;
+                }
+                
                 source.MurderPlayer(target);
             }
         }
@@ -737,6 +752,7 @@ namespace TheOtherRoles
             if (player == Warlock.warlock) Warlock.clearAndReload();
             if (player == Witch.witch) Witch.clearAndReload();
             if (player == Ninja.ninja) Ninja.clearAndReload();
+            if (player == Grudge.grudge) Grudge.clearAndReload();
 
             // Other roles
             if (player == Jester.jester) Jester.clearAndReload();

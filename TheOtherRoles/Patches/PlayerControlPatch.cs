@@ -760,6 +760,25 @@ namespace TheOtherRoles.Patches {
             }
         }
 
+        public static void grudgeUpdate()
+        {
+            if (Grudge.revengeTarget && (Grudge.revengeTarget.Data.IsDead || Grudge.revengeTarget.Data.Disconnected))
+                Grudge.revengeTarget = null;
+            // Grudge display curse
+            foreach (PlayerControl p in CachedPlayer.AllPlayers) {
+                if (!MapOptions.playerIcons.ContainsKey(p.PlayerId)) continue;
+                MapOptions.playerIcons[p.PlayerId].gameObject.SetActive(false);
+            }
+            
+            if (Grudge.grudge != null && Grudge.grudge == CachedPlayer.LocalPlayer.PlayerControl && Grudge.revengeTarget) {
+                if (!MapOptions.playerIcons.ContainsKey(Grudge.revengeTarget.PlayerId)) return;
+                Vector3 bottomLeft = new Vector3(-FastDestroyableSingleton<HudManager>.Instance.UseButton.transform.localPosition.x, FastDestroyableSingleton<HudManager>.Instance.UseButton.transform.localPosition.y, FastDestroyableSingleton<HudManager>.Instance.UseButton.transform.localPosition.z);
+                bottomLeft += new Vector3(0.75f, -0.25f, 0);
+                MapOptions.playerIcons[Grudge.revengeTarget.PlayerId].transform.localPosition = bottomLeft;
+                MapOptions.playerIcons[Grudge.revengeTarget.PlayerId].gameObject.SetActive(true);
+            }
+        }
+
         static void soliderSetTarget()
         {
             if (Solider.solider == null || PlayerControl.LocalPlayer != Solider.solider || Solider.solider.Data.IsDead) return;
@@ -949,9 +968,10 @@ namespace TheOtherRoles.Patches {
                 ninjaSetTarget();
                 NinjaTrace.UpdateAll();
                 ninjaUpdate();
-                hackerUpdate();
+                //Grudge
+                grudgeUpdate();
+                //Swapper
                 swapperUpdate();
-
                 // Hacker
                 hackerUpdate();
 

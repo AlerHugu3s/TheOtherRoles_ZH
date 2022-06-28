@@ -70,6 +70,7 @@ namespace TheOtherRoles
         public static RoleInfo crewmate = new RoleInfo("船员", Color.white, "找到内鬼", "找到内鬼", RoleId.Crewmate);
         public static RoleInfo witch = new RoleInfo("女巫", Witch.color, "对你的敌人施咒", "对你的敌人施咒", RoleId.Witch);
         public static RoleInfo ninja = new RoleInfo("忍者", Ninja.color, "出其不意暗杀敌人", "出其不意暗杀敌人", RoleId.Ninja);
+        public static RoleInfo grudge = new RoleInfo("怨鬼", Grudge.color, "诅咒杀死你的人", "诅咒你的敌人", RoleId.Grudge);
 
         // Modifier
         public static RoleInfo bloody = new RoleInfo("血淋淋的", Color.yellow, "杀死你的人将会留下血迹", "杀死你的人将会留下血迹", RoleId.Bloody, false, true);
@@ -98,6 +99,7 @@ namespace TheOtherRoles
             bountyHunter,
             witch,
             ninja,
+            grudge,
             goodGuesser,
             badGuesser,
             lover,
@@ -178,6 +180,7 @@ namespace TheOtherRoles
             if (p == Warlock.warlock) infos.Add(warlock);
             if (p == Witch.witch) infos.Add(witch);
             if (p == Ninja.ninja) infos.Add(ninja);
+            if (p == Grudge.grudge) infos.Add(grudge);
             if (p == Detective.detective) infos.Add(detective);
             if (p == TimeMaster.timeMaster) infos.Add(timeMaster);
             if (p == Medic.medic) infos.Add(medic);
