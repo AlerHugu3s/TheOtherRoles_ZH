@@ -152,7 +152,6 @@ namespace TheOtherRoles {
         public static CustomOption medicShowAttemptToShielded;
         public static CustomOption medicSetOrShowShieldAfterMeeting;
         public static CustomOption medicShowAttemptToMedic;
-        public static CustomOption medicSetShieldAfterMeeting;
 
         public static CustomOption swapperSpawnRate;
         public static CustomOption swapperCanCallEmergency;

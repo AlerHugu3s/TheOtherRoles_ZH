@@ -135,7 +135,7 @@ namespace TheOtherRoles
         SetFirstKill,
         Invert,
         SetTiebreak,
-        SetInvisible,
+        SetInvisible
     }
 
     public static class RPCProcedure {

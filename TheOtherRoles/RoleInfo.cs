@@ -136,8 +136,7 @@ namespace TheOtherRoles
             sunglasses,
             mini,
             vip,
-            invert,
-            medium,
+            invert
         };
 
         public static List<RoleInfo> getRoleInfoForPlayer(PlayerControl p, bool showModifier = true) {

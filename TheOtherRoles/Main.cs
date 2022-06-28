@@ -108,8 +108,7 @@ namespace TheOtherRoles
             CustomOptionHolder.Load();
             CustomColors.Load();
             Patches.FreeNamePatch.Initialize();
-            Harmony.PatchAll();
-            //SubmergedCompatibility.Initialize();
+
 
             if (BepInExUpdater.UpdateRequired)
             {
@@ -117,7 +116,8 @@ namespace TheOtherRoles
                 return;
             }
             
-            AddComponent<ModUpdateBehaviour>();
+
+            //SubmergedCompatibility.Initialize();            AddComponent<ModUpdateBehaviour>();
         }
         public static Sprite GetModStamp() {
             if (ModStamp) return ModStamp;

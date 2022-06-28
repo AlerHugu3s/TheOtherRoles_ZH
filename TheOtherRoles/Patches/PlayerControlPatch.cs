@@ -3,14 +3,12 @@ using Hazel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Epic.OnlineServices.Presence;
 using static TheOtherRoles.TheOtherRoles;
 using static TheOtherRoles.GameHistory;
 using TheOtherRoles.Objects;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using UnityEngine;
-using Logger = BepInEx.Logging.Logger;
 
 namespace TheOtherRoles.Patches {
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.FixedUpdate))]
