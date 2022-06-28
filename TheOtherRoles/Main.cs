@@ -114,7 +114,7 @@ namespace TheOtherRoles
                 return;
             }
             
-            SubmergedCompatibility.Initialize();
+            //SubmergedCompatibility.Initialize();
             AddComponent<ModUpdateBehaviour>();
         }
         public static Sprite GetModStamp() {
