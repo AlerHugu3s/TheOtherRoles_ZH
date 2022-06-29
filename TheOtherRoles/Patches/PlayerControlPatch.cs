@@ -762,20 +762,15 @@ namespace TheOtherRoles.Patches {
 
         public static void grudgeUpdate()
         {
+            if (Grudge.grudge == null || CachedPlayer.LocalPlayer.PlayerControl != Grudge.grudge) return;
+            
             if (Grudge.revengeTarget && (Grudge.revengeTarget.Data.IsDead || Grudge.revengeTarget.Data.Disconnected))
                 Grudge.revengeTarget = null;
-            // Grudge display curse
-            foreach (PlayerControl p in CachedPlayer.AllPlayers) {
-                if (!MapOptions.playerIcons.ContainsKey(p.PlayerId)) continue;
-                MapOptions.playerIcons[p.PlayerId].gameObject.SetActive(false);
-            }
             
-            if (Grudge.grudge != null && Grudge.grudge == CachedPlayer.LocalPlayer.PlayerControl && Grudge.revengeTarget) {
-                if (!MapOptions.playerIcons.ContainsKey(Grudge.revengeTarget.PlayerId)) return;
-                Vector3 bottomLeft = new Vector3(-FastDestroyableSingleton<HudManager>.Instance.UseButton.transform.localPosition.x, FastDestroyableSingleton<HudManager>.Instance.UseButton.transform.localPosition.y, FastDestroyableSingleton<HudManager>.Instance.UseButton.transform.localPosition.z);
-                bottomLeft += new Vector3(0.75f, -0.25f, 0);
-                MapOptions.playerIcons[Grudge.revengeTarget.PlayerId].transform.localPosition = bottomLeft;
-                MapOptions.playerIcons[Grudge.revengeTarget.PlayerId].gameObject.SetActive(true);
+            if (Grudge.revengeTarget && FastDestroyableSingleton<HudManager>.Instance != null && FastDestroyableSingleton<HudManager>.Instance.UseButton != null) {
+                foreach (PoolablePlayer pp in MapOptions.playerIcons.Values) pp.gameObject.SetActive(false);
+                if (MapOptions.playerIcons.ContainsKey(Grudge.revengeTarget.PlayerId) && MapOptions.playerIcons[Grudge.revengeTarget.PlayerId].gameObject != null)
+                    MapOptions.playerIcons[Grudge.revengeTarget.PlayerId].gameObject.SetActive(true);
             }
         }
 

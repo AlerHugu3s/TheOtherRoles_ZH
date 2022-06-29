@@ -105,7 +105,7 @@ namespace TheOtherRoles
             trackerTrackCorpsesButton.MaxTimer = Tracker.corpsesTrackingCooldown;
             witchSpellButton.MaxTimer = Witch.cooldown;
             ninjaButton.MaxTimer = Ninja.cooldown;
-            grudgeRevengeButton.MaxTimer = 0f;
+            grudgeRevengeButton.MaxTimer = PlayerControl.GameOptions.EmergencyCooldown;
             mayorMeetingButton.MaxTimer = PlayerControl.GameOptions.EmergencyCooldown;
 
             timeMasterShieldButton.EffectDuration = TimeMaster.shieldDuration;
@@ -123,7 +123,6 @@ namespace TheOtherRoles
             witchSpellButton.EffectDuration = Witch.spellCastingDuration;
             securityGuardCamButton.EffectDuration = SecurityGuard.duration;
             // Already set the timer to the max, as the button is enabled during the game and not available at the start
-            grudgeRevengeButton.Timer = grudgeRevengeButton.MaxTimer;
             lightsOutButton.Timer = lightsOutButton.MaxTimer;
             zoomOutButton.MaxTimer = 0f;
         }
@@ -1577,6 +1576,7 @@ namespace TheOtherRoles
                     AmongUsClient.Instance.FinishRpcImmediately(killWriter);
                     RPCProcedure.uncheckedMurderPlayer(targetId, targetId, Byte.MaxValue);
                     Grudge.revengeTarget = null;
+                    grudgeRevengeButton.Timer = 5f;
                 },
                 () => { return Grudge.grudge != null && Grudge.grudge == CachedPlayer.LocalPlayer.PlayerControl && CachedPlayer.LocalPlayer.Data.IsDead && Grudge.revengeTarget; },
                 () => { return Grudge.revengeTarget;},
@@ -1584,7 +1584,8 @@ namespace TheOtherRoles
                 __instance.KillButton.graphic.sprite,
                 new Vector3(0f, 1f, 0),
                 __instance,
-                KeyCode.Q
+                KeyCode.Q,
+                false
             );
 
             mayorMeetingButton = new CustomButton(
