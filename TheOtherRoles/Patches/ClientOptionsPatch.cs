@@ -15,13 +15,14 @@ namespace TheOtherRoles.Patches
     {
         private static SelectionBehaviour[] AllOptions = {
 
-            new SelectionBehaviour("å¹½çµå¯è§ä»»åŠ¡æ•°", () => MapOptions.ghostsSeeTasks = TheOtherRolesPlugin.GhostsSeeTasks.Value = !TheOtherRolesPlugin.GhostsSeeTasks.Value, TheOtherRolesPlugin.GhostsSeeTasks.Value),
-            new SelectionBehaviour("å¹½çµå¯è§æŠ•ç¥¨", () => MapOptions.ghostsSeeVotes = TheOtherRolesPlugin.GhostsSeeVotes.Value = !TheOtherRolesPlugin.GhostsSeeVotes.Value, TheOtherRolesPlugin.GhostsSeeVotes.Value),
-            new SelectionBehaviour("å¹½çµå¯è§è§’è‰²", () => MapOptions.ghostsSeeRoles = TheOtherRolesPlugin.GhostsSeeRoles.Value = !TheOtherRolesPlugin.GhostsSeeRoles.Value, TheOtherRolesPlugin.GhostsSeeRoles.Value),
-			new SelectionBehaviour("å¹½çµå¯è§é™„åŠ è§’è‰²", () => MapOptions.ghostsSeeModifier = TheOtherRolesPlugin.GhostsSeeModifier.Value = !TheOtherRolesPlugin.GhostsSeeModifier.Value, TheOtherRolesPlugin.GhostsSeeModifier.Value),
-            new SelectionBehaviour("æ˜¾ç¤ºè§’è‰²æ€»ç»“", () => MapOptions.showRoleSummary = TheOtherRolesPlugin.ShowRoleSummary.Value = !TheOtherRolesPlugin.ShowRoleSummary.Value, TheOtherRolesPlugin.ShowRoleSummary.Value),
-            new SelectionBehaviour("æ˜¾ç¤ºçŽ©å®¶é¢œè‰²æ·±æµ…", () => MapOptions.showLighterDarker = TheOtherRolesPlugin.ShowLighterDarker.Value = !TheOtherRolesPlugin.ShowLighterDarker.Value, TheOtherRolesPlugin.ShowLighterDarker.Value),
+            new SelectionBehaviour("ÓÄÁé¿É¼ûÈÎÎñÊý", () => MapOptions.ghostsSeeTasks = TheOtherRolesPlugin.GhostsSeeTasks.Value = !TheOtherRolesPlugin.GhostsSeeTasks.Value, TheOtherRolesPlugin.GhostsSeeTasks.Value),
+            new SelectionBehaviour("ÓÄÁé¿É¼ûÍ¶Æ±", () => MapOptions.ghostsSeeVotes = TheOtherRolesPlugin.GhostsSeeVotes.Value = !TheOtherRolesPlugin.GhostsSeeVotes.Value, TheOtherRolesPlugin.GhostsSeeVotes.Value),
+            new SelectionBehaviour("ÓÄÁé¿É¼û½ÇÉ«", () => MapOptions.ghostsSeeRoles = TheOtherRolesPlugin.GhostsSeeRoles.Value = !TheOtherRolesPlugin.GhostsSeeRoles.Value, TheOtherRolesPlugin.GhostsSeeRoles.Value),
+			new SelectionBehaviour("ÓÄÁé¿É¼û¸½¼Ó½ÇÉ«", () => MapOptions.ghostsSeeModifier = TheOtherRolesPlugin.GhostsSeeModifier.Value = !TheOtherRolesPlugin.GhostsSeeModifier.Value, TheOtherRolesPlugin.GhostsSeeModifier.Value),
+            new SelectionBehaviour("ÏÔÊ¾½ÇÉ«×Ü½á", () => MapOptions.showRoleSummary = TheOtherRolesPlugin.ShowRoleSummary.Value = !TheOtherRolesPlugin.ShowRoleSummary.Value, TheOtherRolesPlugin.ShowRoleSummary.Value),
+            new SelectionBehaviour("ÏÔÊ¾Íæ¼ÒÑÕÉ«ÉîÇ³", () => MapOptions.showLighterDarker = TheOtherRolesPlugin.ShowLighterDarker.Value = !TheOtherRolesPlugin.ShowLighterDarker.Value, TheOtherRolesPlugin.ShowLighterDarker.Value),
 
+            new SelectionBehaviour("ÆôÓÃÒôÐ§", () => MapOptions.enableSoundEffects = TheOtherRolesPlugin.EnableSoundEffects.Value = !TheOtherRolesPlugin.EnableSoundEffects.Value, TheOtherRolesPlugin.EnableSoundEffects.Value),
         };
         
         private static GameObject popUp;
@@ -104,7 +105,7 @@ namespace TheOtherRoles.Patches
 
             moreOptions.gameObject.SetActive(true);
 
-            moreOptions.Text.text = "Modé€‰é¡¹...";
+            moreOptions.Text.text = "ModÑ¡Ïî...";
             moreOptions.Text.transform.localScale = new Vector3(1 / 0.66f, 1, 1);
 
             var moreOptionsButton = moreOptions.GetComponent<PassiveButton>();
@@ -143,7 +144,7 @@ namespace TheOtherRoles.Patches
             var title = Object.Instantiate(titleText, popUp.transform);
             title.GetComponent<RectTransform>().localPosition = Vector3.up * 2.3f;
             title.gameObject.SetActive(true);
-            title.text = "æ›´å¤šé€‰é¡¹...";
+            title.text = "¸ü¶àÑ¡Ïî...";
             title.name = "TitleText";
         }
 
