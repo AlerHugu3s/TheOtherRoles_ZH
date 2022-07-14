@@ -50,7 +50,6 @@ namespace TheOtherRoles.Modules {
                             __instance.AddChat(CachedPlayer.LocalPlayer.PlayerControl, "无法解析颜色id\n请输入: /color {id}");
                         }
                         col = Math.Clamp(col, 0, Palette.PlayerColors.Length - 1);
-
                         CachedPlayer.LocalPlayer.PlayerControl.SetColor(col);
                         __instance.AddChat(CachedPlayer.LocalPlayer.PlayerControl, "成功改变颜色");;
                     } 
