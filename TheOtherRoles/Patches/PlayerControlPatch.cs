@@ -3,14 +3,12 @@ using Hazel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Epic.OnlineServices.Presence;
 using static TheOtherRoles.TheOtherRoles;
 using static TheOtherRoles.GameHistory;
 using TheOtherRoles.Objects;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using UnityEngine;
-using Logger = BepInEx.Logging.Logger;
 
 namespace TheOtherRoles.Patches {
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.FixedUpdate))]
@@ -762,6 +760,20 @@ namespace TheOtherRoles.Patches {
             }
         }
 
+        public static void grudgeUpdate()
+        {
+            if (Grudge.grudge == null || CachedPlayer.LocalPlayer.PlayerControl != Grudge.grudge) return;
+            
+            if (Grudge.revengeTarget && (Grudge.revengeTarget.Data.IsDead || Grudge.revengeTarget.Data.Disconnected))
+                Grudge.revengeTarget = null;
+            
+            if (Grudge.revengeTarget && FastDestroyableSingleton<HudManager>.Instance != null && FastDestroyableSingleton<HudManager>.Instance.UseButton != null) {
+                foreach (PoolablePlayer pp in MapOptions.playerIcons.Values) pp.gameObject.SetActive(false);
+                if (MapOptions.playerIcons.ContainsKey(Grudge.revengeTarget.PlayerId) && MapOptions.playerIcons[Grudge.revengeTarget.PlayerId].gameObject != null)
+                    MapOptions.playerIcons[Grudge.revengeTarget.PlayerId].gameObject.SetActive(true);
+            }
+        }
+
         static void soliderSetTarget()
         {
             if (Solider.solider == null || PlayerControl.LocalPlayer != Solider.solider || Solider.solider.Data.IsDead) return;
@@ -951,9 +963,10 @@ namespace TheOtherRoles.Patches {
                 ninjaSetTarget();
                 NinjaTrace.UpdateAll();
                 ninjaUpdate();
-                hackerUpdate();
+                //Grudge
+                grudgeUpdate();
+                //Swapper
                 swapperUpdate();
-
                 // Hacker
                 hackerUpdate();
 

@@ -51,6 +51,7 @@ namespace TheOtherRoles
         public static CustomButton pursuerButton;
         public static CustomButton witchSpellButton;
         public static CustomButton ninjaButton;
+        public static CustomButton grudgeRevengeButton;
         public static CustomButton mayorMeetingButton;
         public static CustomButton zoomOutButton;
 
@@ -102,6 +103,7 @@ namespace TheOtherRoles
             trackerTrackCorpsesButton.MaxTimer = Tracker.corpsesTrackingCooldown;
             witchSpellButton.MaxTimer = Witch.cooldown;
             ninjaButton.MaxTimer = Ninja.cooldown;
+            grudgeRevengeButton.MaxTimer = PlayerControl.GameOptions.EmergencyCooldown;
             mayorMeetingButton.MaxTimer = PlayerControl.GameOptions.EmergencyCooldown;
 
             timeMasterShieldButton.EffectDuration = TimeMaster.shieldDuration;
@@ -1603,6 +1605,32 @@ namespace TheOtherRoles
                 __instance,
                 KeyCode.F                   
             );
+            
+            // Grudge Revenge
+            grudgeRevengeButton = new CustomButton(
+                () => {
+                    engineerRepairButton.Timer = 0f;
+                    byte targetId = 0;
+                    targetId = Grudge.revengeTarget.Data.PlayerId;
+
+                    MessageWriter killWriter = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.UncheckedMurderPlayer, Hazel.SendOption.Reliable, -1);
+                    killWriter.Write(targetId);
+                    killWriter.Write(targetId);
+                    killWriter.Write(byte.MaxValue);
+                    AmongUsClient.Instance.FinishRpcImmediately(killWriter);
+                    RPCProcedure.uncheckedMurderPlayer(targetId, targetId, Byte.MaxValue);
+                    Grudge.revengeTarget = null;
+                    grudgeRevengeButton.Timer = 5f;
+                },
+                () => { return Grudge.grudge != null && Grudge.grudge == CachedPlayer.LocalPlayer.PlayerControl && CachedPlayer.LocalPlayer.Data.IsDead && Grudge.revengeTarget; },
+                () => { return Grudge.revengeTarget;},
+                () => { grudgeRevengeButton.Timer = grudgeRevengeButton.MaxTimer;},
+                __instance.KillButton.graphic.sprite,
+                new Vector3(0f, 1f, 0),
+                __instance,
+                KeyCode.Q,
+                false
+            );
 
             mayorMeetingButton = new CustomButton(
                () => {
@@ -1618,8 +1646,10 @@ namespace TheOtherRoles
                    mayorMeetingButton.Timer = 1f;
                },
 
-               () => { return Mayor.mayor != null && Mayor.mayor == CachedPlayer.LocalPlayer.PlayerControl && !CachedPlayer.LocalPlayer.Data.IsDead && Mayor.meetingButton;},
-
+               () =>
+               {
+                   return Mayor.mayor != null && Mayor.mayor == CachedPlayer.LocalPlayer.PlayerControl &&
+                          !CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead && Mayor.meetingButton;},
                () => {
                    mayorMeetingButton.actionButton.OverrideText("Emergency ("+ Mayor.remoteMeetingsLeft + ")");
                    bool sabotageActive = false;

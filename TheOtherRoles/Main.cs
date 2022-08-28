@@ -23,8 +23,8 @@ namespace TheOtherRoles
     public class TheOtherRolesPlugin : BasePlugin
     {
         public const string Id = "me.eisbison.theotherroles";
-
-        public const string VersionString = "4.2.1";
+        
+        public const string VersionString = "4.3.2";
 
         public static Version Version = Version.Parse(VersionString);
         internal static BepInEx.Logging.ManualLogSource Logger;
@@ -111,14 +111,15 @@ namespace TheOtherRoles
             CustomColors.Load();
             Patches.FreeNamePatch.Initialize();
 
+
             if (BepInExUpdater.UpdateRequired)
             {
                 AddComponent<BepInExUpdater>();
                 return;
             }
             
-            //SubmergedCompatibility.Initialize();
-            AddComponent<ModUpdateBehaviour>();
+
+            //SubmergedCompatibility.Initialize();            AddComponent<ModUpdateBehaviour>();
         }
         public static Sprite GetModStamp() {
             if (ModStamp) return ModStamp;

@@ -2,7 +2,6 @@ using System.Linq;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
-using Epic.OnlineServices.Presence;
 using UnityEngine;
 using TheOtherRoles.Objects;
 using TheOtherRoles.Players;
@@ -58,6 +57,7 @@ namespace TheOtherRoles
             Pursuer.clearAndReload();
             Witch.clearAndReload();
             Ninja.clearAndReload();
+            Grudge.clearAndReload();
 
             // Modifier
             Bait.clearAndReload();
@@ -1556,7 +1556,21 @@ namespace TheOtherRoles
             if (arrow.arrow != null) arrow.arrow.SetActive(false);
         }
     }
+    
+    public static class Grudge {
+        public static PlayerControl grudge;
+        public static PlayerControl revengeTarget;
+        public static Color color = Palette.ImpostorRed;
+        public static bool revengeTransmit;
 
+        public static void clearAndReload()
+        {
+            grudge = null;
+            revengeTarget = null;
+            revengeTransmit = CustomOptionHolder.grudgeTransmitRevengeTarget.getBool();
+        }
+    }
+    
     // Modifier
     public static class Bait {
         public static List<PlayerControl> bait = new List<PlayerControl>();

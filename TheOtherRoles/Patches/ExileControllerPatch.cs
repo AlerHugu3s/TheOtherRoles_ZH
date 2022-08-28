@@ -187,7 +187,7 @@ namespace TheOtherRoles.Patches {
                     }
                 }
             }
-
+            
             // Deputy check Promotion, see if the sheriff still exists. The promotion will be after the meeting.
             if (Deputy.deputy != null)
             {
