@@ -7,7 +7,7 @@ namespace TheOtherRoles {
     public class CustomOptionHolder {
         public static string[] rates = new string[]{"0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"};
         public static string[] ratesModifier = new string[]{"1", "2", "3"};
-        public static string[] presets = new string[]{"Ô¤Éè 1", "Ô¤Éè 2", "Ô¤Éè 3", "Ô¤Éè 4", "Ô¤Éè 5"};
+        public static string[] presets = new string[]{"é¢„è®¾ 1", "é¢„è®¾ 2", "é¢„è®¾ 3", "é¢„è®¾ 4", "é¢„è®¾ 5"};
         
         public static CustomOption presetSelection;
         public static CustomOption activateRoles;
@@ -231,6 +231,8 @@ namespace TheOtherRoles {
         public static CustomOption pursuerCooldown;
         public static CustomOption pursuerBlanksNumber;
 
+        public static CustomOption modifiersAreHidden;
+
         public static CustomOption modifierBait;
         public static CustomOption modifierBaitQuantity;
         public static CustomOption modifierBaitReportDelayMin;
@@ -296,284 +298,286 @@ namespace TheOtherRoles {
             
             // Role Options
             
-            presetSelection = CustomOption.Create(0,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "Ô¤Éè"), presets, null, true);
-            activateRoles = CustomOption.Create(1,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "¼¤»îÄ£×é²¢½ûÓÃÔ­°æ½ÇÉ«"), true, null, true);
+            presetSelection = CustomOption.Create(0,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "é¢„è®¾"), presets, null, true);
+            activateRoles = CustomOption.Create(1,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "æ¿€æ´»æ¨¡ç»„å¹¶ç¦ç”¨åŸç‰ˆè§’è‰²"), true, null, true);
 
             // Using new id's for the options to not break compatibilty with older versions
 
-            crewmateRolesCountMin = CustomOption.Create(300,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "×îĞ¡´¬Ô±ÊıÁ¿"), 0f, 0f, 15f, 1f, null, true);
-            crewmateRolesCountMax = CustomOption.Create(301,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "×î´ó´¬Ô±ÊıÁ¿"), 0f, 0f, 15f, 1f);
-            neutralRolesCountMin = CustomOption.Create(302,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "×îĞ¡ÖĞÁ¢ÊıÁ¿"), 0f, 0f, 15f, 1f);
-            neutralRolesCountMax = CustomOption.Create(303,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "×î´óÖĞÁ¢ÊıÁ¿"), 0f, 0f, 15f, 1f);
-            impostorRolesCountMin = CustomOption.Create(304,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "×îĞ¡ÄÚ¹íÊıÁ¿"), 0f, 0f, 3f, 1f);
-            impostorRolesCountMax = CustomOption.Create(305,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "×î´óÄÚ¹íÊıÁ¿"), 0f, 0f, 3f, 1f);
-            modifiersCountMin = CustomOption.Create(306, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "×îĞ¡¶îÍâ½ÇÉ«ÊıÁ¿"), 0f, 0f, 15f, 1f);
-            modifiersCountMax = CustomOption.Create(307, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "×î´ó¶îÍâ½ÇÉ«ÊıÁ¿"), 0f, 0f, 15f, 1f);
+            crewmateRolesCountMin = CustomOption.Create(300,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "æœ€å°èˆ¹å‘˜æ•°é‡"), 15f, 0f, 15f, 1f, null, true);
+            crewmateRolesCountMax = CustomOption.Create(301,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "æœ€å¤§èˆ¹å‘˜æ•°é‡"), 15f, 0f, 15f, 1f);
+            neutralRolesCountMin = CustomOption.Create(302,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "æœ€å°ä¸­ç«‹æ•°é‡"), 15f, 0f, 15f, 1f);
+            neutralRolesCountMax = CustomOption.Create(303,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "æœ€å¤§ä¸­ç«‹æ•°é‡"), 15f, 0f, 15f, 1f);
+            impostorRolesCountMin = CustomOption.Create(304,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "æœ€å°å†…é¬¼æ•°é‡"), 15f, 0f, 3f, 1f);
+            impostorRolesCountMax = CustomOption.Create(305,Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "æœ€å¤§å†…é¬¼æ•°é‡"), 15f, 0f, 3f, 1f);
+            modifiersCountMin = CustomOption.Create(306, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "æœ€å°é¢å¤–è§’è‰²æ•°é‡"), 15f, 0f, 15f, 1f);
+            modifiersCountMax = CustomOption.Create(307, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "æœ€å¤§é¢å¤–è§’è‰²æ•°é‡"), 15f, 0f, 15f, 1f);
 
-            mafiaSpawnRate = CustomOption.Create(10,Types.Impostor, cs(Janitor.color, "ºÚÊÖµ³Éú³É¸ÅÂÊ"), rates, null, true);
-            janitorCooldown = CustomOption.Create(11,Types.Impostor, "Çå½à¹¤ÀäÈ´", 30f, 10f, 60f, 2.5f, mafiaSpawnRate);
+            mafiaSpawnRate = CustomOption.Create(10,Types.Impostor, cs(Janitor.color, "é»‘æ‰‹å…šç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            janitorCooldown = CustomOption.Create(11,Types.Impostor, "æ¸…æ´å·¥å†·å´", 30f, 10f, 60f, 2.5f, mafiaSpawnRate);
 
-            morphlingSpawnRate = CustomOption.Create(20,Types.Impostor, cs(Morphling.color, "»¯ĞÎÕßÉú³É¸ÅÂÊ"), rates, null, true);
-            morphlingCooldown = CustomOption.Create(21,Types.Impostor, "»¯ĞÎ¼¼ÄÜÀäÈ´", 30f, 10f, 60f, 2.5f, morphlingSpawnRate);
-            morphlingDuration = CustomOption.Create(22,Types.Impostor, "»¯ĞÎ³ÖĞøÊ±³¤", 10f, 1f, 20f, 0.5f, morphlingSpawnRate);
+            morphlingSpawnRate = CustomOption.Create(20,Types.Impostor, cs(Morphling.color, "åŒ–å½¢è€…ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            morphlingCooldown = CustomOption.Create(21,Types.Impostor, "åŒ–å½¢æŠ€èƒ½å†·å´", 30f, 10f, 60f, 2.5f, morphlingSpawnRate);
+            morphlingDuration = CustomOption.Create(22,Types.Impostor, "åŒ–å½¢æŒç»­æ—¶é•¿", 10f, 1f, 20f, 0.5f, morphlingSpawnRate);
 
-            camouflagerSpawnRate = CustomOption.Create(30,Types.Impostor, cs(Camouflager.color, "Î±×°ÕßÉú³É¸ÅÂÊ"), rates, null, true);
-            camouflagerCooldown = CustomOption.Create(31,Types.Impostor, "Î±×°¼¼ÄÜÀäÈ´", 30f, 10f, 60f, 2.5f, camouflagerSpawnRate);
-            camouflagerDuration = CustomOption.Create(32,Types.Impostor, "Î±×°³ÖĞøÊ±³¤", 10f, 1f, 20f, 0.5f, camouflagerSpawnRate);
+            camouflagerSpawnRate = CustomOption.Create(30,Types.Impostor, cs(Camouflager.color, "ä¼ªè£…è€…ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            camouflagerCooldown = CustomOption.Create(31,Types.Impostor, "ä¼ªè£…æŠ€èƒ½å†·å´", 30f, 10f, 60f, 2.5f, camouflagerSpawnRate);
+            camouflagerDuration = CustomOption.Create(32,Types.Impostor, "ä¼ªè£…æŒç»­æ—¶é•¿", 10f, 1f, 20f, 0.5f, camouflagerSpawnRate);
 
-            vampireSpawnRate = CustomOption.Create(40,Types.Impostor, cs(Vampire.color, "ÎüÑª¹íÉú³É¸ÅÂÊ"), rates, null, true);
-            vampireKillDelay = CustomOption.Create(41,Types.Impostor, "ÎüÑª¹íÉ±ÈËÑÓ³Ù", 10f, 1f, 20f, 1f, vampireSpawnRate);
-            vampireCooldown = CustomOption.Create(42,Types.Impostor, "ÎüÑª¹íÒ§ÈËÀäÈ´", 30f, 10f, 60f, 2.5f, vampireSpawnRate);
-            vampireCanKillNearGarlics = CustomOption.Create(43,Types.Impostor, "ÎüÑª¹í¿ÉÒÔÔÚ´óËâ¸½½ü»÷É±", true, vampireSpawnRate);
+            vampireSpawnRate = CustomOption.Create(40,Types.Impostor, cs(Vampire.color, "å¸è¡€é¬¼ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            vampireKillDelay = CustomOption.Create(41,Types.Impostor, "å¸è¡€é¬¼æ€äººå»¶è¿Ÿ", 10f, 1f, 20f, 1f, vampireSpawnRate);
+            vampireCooldown = CustomOption.Create(42,Types.Impostor, "å¸è¡€é¬¼å’¬äººå†·å´", 30f, 10f, 60f, 2.5f, vampireSpawnRate);
+            vampireCanKillNearGarlics = CustomOption.Create(43,Types.Impostor, "å¸è¡€é¬¼å¯ä»¥åœ¨å¤§è’œé™„è¿‘å‡»æ€", true, vampireSpawnRate);
 
-            eraserSpawnRate = CustomOption.Create(230,Types.Impostor, cs(Eraser.color, "Ä¨³ıÕßÉú³É¸ÅÂÊ"), rates, null, true);
-            eraserCooldown = CustomOption.Create(231,Types.Impostor, "Ä¨³ı¼¼ÄÜÀäÈ´", 30f, 10f, 120f, 5f, eraserSpawnRate);
-            eraserCanEraseAnyone = CustomOption.Create(232,Types.Impostor, "Ä¨³ıÕß¿ÉÄ¨³ıÈÎºÎ½ÇÉ«", false, eraserSpawnRate);
+            eraserSpawnRate = CustomOption.Create(230,Types.Impostor, cs(Eraser.color, "æŠ¹é™¤è€…ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            eraserCooldown = CustomOption.Create(231,Types.Impostor, "æŠ¹é™¤æŠ€èƒ½å†·å´", 30f, 10f, 120f, 5f, eraserSpawnRate);
+            eraserCanEraseAnyone = CustomOption.Create(232,Types.Impostor, "æŠ¹é™¤è€…å¯æŠ¹é™¤ä»»ä½•è§’è‰²", false, eraserSpawnRate);
 
-            tricksterSpawnRate = CustomOption.Create(250,Types.Impostor, cs(Trickster.color, "¹îÊõÊ¦Éú³É¸ÅÂÊ"), rates, null, true);
-            tricksterPlaceBoxCooldown = CustomOption.Create(251,Types.Impostor, "¹î¼ÆºĞÀäÈ´", 10f, 2.5f, 30f, 2.5f, tricksterSpawnRate);
-            tricksterLightsOutCooldown = CustomOption.Create(252,Types.Impostor, "¹îÊõÊ¦¹ØµÆÀäÈ´Ê±¼ä", 30f, 10f, 60f, 5f, tricksterSpawnRate);
-            tricksterLightsOutDuration = CustomOption.Create(253,Types.Impostor, "¹îÊõÊ¦¹ØµÆ³ÖĞøÊ±¼ä", 15f, 5f, 60f, 2.5f, tricksterSpawnRate);
+            tricksterSpawnRate = CustomOption.Create(250,Types.Impostor, cs(Trickster.color, "è¯¡æœ¯å¸ˆç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            tricksterPlaceBoxCooldown = CustomOption.Create(251,Types.Impostor, "è¯¡è®¡ç›’å†·å´", 10f, 2.5f, 30f, 2.5f, tricksterSpawnRate);
+            tricksterLightsOutCooldown = CustomOption.Create(252,Types.Impostor, "è¯¡æœ¯å¸ˆå…³ç¯å†·å´æ—¶é—´", 30f, 10f, 60f, 5f, tricksterSpawnRate);
+            tricksterLightsOutDuration = CustomOption.Create(253,Types.Impostor, "è¯¡æœ¯å¸ˆå…³ç¯æŒç»­æ—¶é—´", 15f, 5f, 60f, 2.5f, tricksterSpawnRate);
 
-            cleanerSpawnRate = CustomOption.Create(260,Types.Impostor, cs(Cleaner.color, "ÇåÀíÕßÉú³É¸ÅÂÊ"), rates, null, true);
-            cleanerCooldown = CustomOption.Create(261,Types.Impostor, "ÇåÀí¼¼ÄÜÀäÈ´", 30f, 10f, 60f, 2.5f, cleanerSpawnRate);
+            cleanerSpawnRate = CustomOption.Create(260,Types.Impostor, cs(Cleaner.color, "æ¸…ç†è€…ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            cleanerCooldown = CustomOption.Create(261,Types.Impostor, "æ¸…ç†æŠ€èƒ½å†·å´", 30f, 10f, 60f, 2.5f, cleanerSpawnRate);
 
-            warlockSpawnRate = CustomOption.Create(270,Types.Impostor, cs(Cleaner.color, "ÊõÊ¿Éú³É¸ÅÂÊ"), rates, null, true);
-            warlockCooldown = CustomOption.Create(271,Types.Impostor, "ÖäÊõ¼¼ÄÜÀäÈ´", 30f, 10f, 60f, 2.5f, warlockSpawnRate);
-            warlockRootTime = CustomOption.Create(272,Types.Impostor, "ÖäÊõ¶¨ÉíÊ±³¤", 5f, 0f, 15f, 1f, warlockSpawnRate);
+            warlockSpawnRate = CustomOption.Create(270,Types.Impostor, cs(Cleaner.color, "æœ¯å£«ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            warlockCooldown = CustomOption.Create(271,Types.Impostor, "å’’æœ¯æŠ€èƒ½å†·å´", 30f, 10f, 60f, 2.5f, warlockSpawnRate);
+            warlockRootTime = CustomOption.Create(272,Types.Impostor, "å’’æœ¯å®šèº«æ—¶é•¿", 5f, 0f, 15f, 1f, warlockSpawnRate);
 
-            bountyHunterSpawnRate = CustomOption.Create(320,Types.Impostor, cs(BountyHunter.color, "ÉÍ½ğÁÔÈËÉú³É¸ÅÂÊ"), rates, null, true);
-            bountyHunterBountyDuration = CustomOption.Create(321,Types.Impostor, "ÉÍ½ğÄ¿±ê¸Ä±ä¼ä¸ôÊ±³¤",  60f, 10f, 180f, 10f, bountyHunterSpawnRate);
-            bountyHunterReducedCooldown = CustomOption.Create(322,Types.Impostor, "É±ËÀÉÍ½ğÄ¿±êºóµÄ»÷É±ÀäÈ´Ê±³¤", 2.5f, 0f, 30f, 2.5f, bountyHunterSpawnRate);
-            bountyHunterPunishmentTime = CustomOption.Create(323,Types.Impostor, "»÷É±·ÇÉÍ½ğÄ¿±êºóµÄ¶îÍâÀäÈ´Ê±³¤", 20f, 0f, 60f, 2.5f, bountyHunterSpawnRate);
-            bountyHunterShowArrow = CustomOption.Create(324,Types.Impostor, "ÏÔÊ¾Ö¸ÏòÉÍ½ğÄ¿±êµÄ¼ıÍ·", true, bountyHunterSpawnRate);
-            bountyHunterArrowUpdateIntervall = CustomOption.Create(325,Types.Impostor, "¼ıÍ·¸üĞÂ¼ä¸ô", 15f, 2.5f, 60f, 2.5f, bountyHunterShowArrow);
+            bountyHunterSpawnRate = CustomOption.Create(320,Types.Impostor, cs(BountyHunter.color, "èµé‡‘çŒäººç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            bountyHunterBountyDuration = CustomOption.Create(321,Types.Impostor, "èµé‡‘ç›®æ ‡æ”¹å˜é—´éš”æ—¶é•¿",  60f, 10f, 180f, 10f, bountyHunterSpawnRate);
+            bountyHunterReducedCooldown = CustomOption.Create(322,Types.Impostor, "æ€æ­»èµé‡‘ç›®æ ‡åçš„å‡»æ€å†·å´æ—¶é•¿", 2.5f, 0f, 30f, 2.5f, bountyHunterSpawnRate);
+            bountyHunterPunishmentTime = CustomOption.Create(323,Types.Impostor, "å‡»æ€éèµé‡‘ç›®æ ‡åçš„é¢å¤–å†·å´æ—¶é•¿", 20f, 0f, 60f, 2.5f, bountyHunterSpawnRate);
+            bountyHunterShowArrow = CustomOption.Create(324,Types.Impostor, "æ˜¾ç¤ºæŒ‡å‘èµé‡‘ç›®æ ‡çš„ç®­å¤´", true, bountyHunterSpawnRate);
+            bountyHunterArrowUpdateIntervall = CustomOption.Create(325,Types.Impostor, "ç®­å¤´æ›´æ–°é—´éš”", 15f, 2.5f, 60f, 2.5f, bountyHunterShowArrow);
 
-            witchSpawnRate = CustomOption.Create(370,Types.Impostor, cs(Witch.color, "Å®Î×Éú³É¸ÅÂÊ"), rates, null, true);
-            witchCooldown = CustomOption.Create(371,Types.Impostor, "Å®Î×Ê©ÖäÀäÈ´", 30f, 10f, 120f, 5f, witchSpawnRate);
-            witchAdditionalCooldown = CustomOption.Create(372,Types.Impostor, "Å®Î×¶îÍâÀäÈ´", 10f, 0f, 60f, 5f, witchSpawnRate);
-            witchCanSpellAnyone = CustomOption.Create(373,Types.Impostor, "Å®Î×¿É¶ÔÈÎºÎÈËÊ©Öä", false, witchSpawnRate);
-            witchSpellCastingDuration = CustomOption.Create(374,Types.Impostor, "Ê©Öä³ÖĞøÊ±¼ä", 1f, 0f, 10f, 1f, witchSpawnRate);
-            witchTriggerBothCooldowns = CustomOption.Create(375,Types.Impostor, "Ê©ÖäÓë»÷É±¹²ÓÃÀäÈ´", true, witchSpawnRate);
-            witchVoteSavesTargets = CustomOption.Create(376,Types.Impostor, "½«Å®Î×Í¶³ö¿ÉÕü¾È±»Ê©ÖäÈË", true, witchSpawnRate);
-
-
-            ninjaSpawnRate = CustomOption.Create(380, Types.Impostor, cs(Ninja.color, "ÈÌÕßÉú³É¸ÅÂÊ"), rates, null, true);
-            ninjaCooldown = CustomOption.Create(381, Types.Impostor, "ÈÌÕß±ê¼ÇÀäÈ´", 30f, 10f, 120f, 5f, ninjaSpawnRate);
-            ninjaKnowsTargetLocation = CustomOption.Create(382, Types.Impostor, "ÈÌÕß¿ÉÖªÄ¿±êÎ»ÖÃ", true, ninjaSpawnRate);
-            ninjaTraceTime = CustomOption.Create(383, Types.Impostor, "×·×ÙÊ±³¤", 5f, 1f, 20f, 0.5f, ninjaSpawnRate);
-            ninjaTraceColorTime = CustomOption.Create(384, Types.Impostor, "×·×ÙÑÕÉ«µ­»¯Ç°Ê±³¤", 2f, 0f, 20f, 0.5f, ninjaSpawnRate);
-			ninjaInvisibleDuration = CustomOption.Create(385, Types.Impostor, "ÈÌÕßÒşÉíÊ±³¤", 3f, 0f, 20f, 1f, ninjaSpawnRate);
+            witchSpawnRate = CustomOption.Create(370,Types.Impostor, cs(Witch.color, "å¥³å·«ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            witchCooldown = CustomOption.Create(371,Types.Impostor, "å¥³å·«æ–½å’’å†·å´", 30f, 10f, 120f, 5f, witchSpawnRate);
+            witchAdditionalCooldown = CustomOption.Create(372,Types.Impostor, "å¥³å·«é¢å¤–å†·å´", 10f, 0f, 60f, 5f, witchSpawnRate);
+            witchCanSpellAnyone = CustomOption.Create(373,Types.Impostor, "å¥³å·«å¯å¯¹ä»»ä½•äººæ–½å’’", false, witchSpawnRate);
+            witchSpellCastingDuration = CustomOption.Create(374,Types.Impostor, "æ–½å’’æŒç»­æ—¶é—´", 1f, 0f, 10f, 1f, witchSpawnRate);
+            witchTriggerBothCooldowns = CustomOption.Create(375,Types.Impostor, "æ–½å’’ä¸å‡»æ€å…±ç”¨å†·å´", true, witchSpawnRate);
+            witchVoteSavesTargets = CustomOption.Create(376,Types.Impostor, "å°†å¥³å·«æŠ•å‡ºå¯æ‹¯æ•‘è¢«æ–½å’’äºº", true, witchSpawnRate);
 
 
-            guesserSpawnRate = CustomOption.Create(310,Types.Neutral, cs(Guesser.color, "¶Ä¹ÖÉú³É¸ÅÂÊ"), rates, null, true);
-            guesserIsImpGuesserRate = CustomOption.Create(311,Types.Neutral, "Ğ°¶ñ¶Ä¹ÖÉú³É¸ÅÂÊ", rates, guesserSpawnRate);
-            guesserNumberOfShots = CustomOption.Create(312,Types.Neutral, "¶Ä¹Ö¿É¶Ä´ÎÊı", 2f, 1f, 15f, 1f, guesserSpawnRate);
-            guesserHasMultipleShotsPerMeeting = CustomOption.Create(313,Types.Neutral, "¶Ä¹Ö¿ÉÔÚÒ»ÂÖ»áÒéÖĞ¶à´ÎÊ¹ÓÃ¼¼ÄÜ", false, guesserSpawnRate);
-            guesserShowInfoInGhostChat = CustomOption.Create(314,Types.Neutral, "¶Ä¹ÖÔÚÓÄÁéÊÓÒ°ÖĞ¿É¼û", true, guesserSpawnRate);
-            guesserKillsThroughShield  = CustomOption.Create(315,Types.Neutral, "¶Ä¹ÖÎŞÊÓÒ½Éú»¤¶Ü", true, guesserSpawnRate);
-            guesserEvilCanKillSpy  = CustomOption.Create(316,Types.Neutral, "Ğ°¶ñ¶Ä¹Ö¿É²Â²â¼äµı", true, guesserSpawnRate);
-            guesserSpawnBothRate = CustomOption.Create(317,Types.Neutral, "Á½ÖÖ¶Ä¹ÖÍ¬Ê±Éú³É¸ÅÂÊ", rates, guesserSpawnRate);
-            guesserCantGuessSnitchIfTaksDone = CustomOption.Create(318,Types.Neutral, "¸æÃÜÕßÈÎÎñÍê³Éºó²»ÄÜ±»¶Ä", true, guesserSpawnRate);
+            ninjaSpawnRate = CustomOption.Create(380, Types.Impostor, cs(Ninja.color, "å¿è€…ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            ninjaCooldown = CustomOption.Create(381, Types.Impostor, "å¿è€…æ ‡è®°å†·å´", 30f, 10f, 120f, 5f, ninjaSpawnRate);
+            ninjaKnowsTargetLocation = CustomOption.Create(382, Types.Impostor, "å¿è€…å¯çŸ¥ç›®æ ‡ä½ç½®", true, ninjaSpawnRate);
+            ninjaTraceTime = CustomOption.Create(383, Types.Impostor, "è¿½è¸ªæ—¶é•¿", 5f, 1f, 20f, 0.5f, ninjaSpawnRate);
+            ninjaTraceColorTime = CustomOption.Create(384, Types.Impostor, "è¿½è¸ªé¢œè‰²æ·¡åŒ–å‰æ—¶é•¿", 2f, 0f, 20f, 0.5f, ninjaSpawnRate);
+			ninjaInvisibleDuration = CustomOption.Create(385, Types.Impostor, "å¿è€…éšèº«æ—¶é•¿", 3f, 0f, 20f, 1f, ninjaSpawnRate);
 
-            jesterSpawnRate = CustomOption.Create(60,Types.Neutral, cs(Jester.color, "Ğ¡³óÉú³É¸ÅÂÊ"), rates, null, true);
-            jesterCanCallEmergency = CustomOption.Create(61,Types.Neutral, "Ğ¡³óÄÜÕÙ¿ª½ô¼±»áÒé", true, jesterSpawnRate);
-            jesterHasImpostorVision = CustomOption.Create(62,Types.Neutral, "Ğ¡³óÓµÓĞÄÚ¹íÊÓÒ°", false, jesterSpawnRate);
 
-            arsonistSpawnRate = CustomOption.Create(290,Types.Neutral, cs(Arsonist.color, "×İ»ğ·¸Éú³É¸ÅÂÊ"), rates, null, true);
-            arsonistCooldown = CustomOption.Create(291,Types.Neutral, "½½ÓÍÀäÈ´", 12.5f, 2.5f, 60f, 2.5f, arsonistSpawnRate);
-            arsonistDuration = CustomOption.Create(292,Types.Neutral, "½½ÓÍ»¨·ÑÊ±³¤", 3f, 1f, 10f, 1f, arsonistSpawnRate);
+            guesserSpawnRate = CustomOption.Create(310,Types.Neutral, cs(Guesser.color, "èµŒæ€ªç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            guesserIsImpGuesserRate = CustomOption.Create(311,Types.Neutral, "é‚ªæ¶èµŒæ€ªç”Ÿæˆæ¦‚ç‡", rates, guesserSpawnRate);
+            guesserNumberOfShots = CustomOption.Create(312,Types.Neutral, "èµŒæ€ªå¯èµŒæ¬¡æ•°", 2f, 1f, 15f, 1f, guesserSpawnRate);
+            guesserHasMultipleShotsPerMeeting = CustomOption.Create(313,Types.Neutral, "èµŒæ€ªå¯åœ¨ä¸€è½®ä¼šè®®ä¸­å¤šæ¬¡ä½¿ç”¨æŠ€èƒ½", false, guesserSpawnRate);
+            guesserShowInfoInGhostChat = CustomOption.Create(314,Types.Neutral, "èµŒæ€ªåœ¨å¹½çµè§†é‡ä¸­å¯è§", true, guesserSpawnRate);
+            guesserKillsThroughShield  = CustomOption.Create(315,Types.Neutral, "èµŒæ€ªæ— è§†åŒ»ç”ŸæŠ¤ç›¾", true, guesserSpawnRate);
+            guesserEvilCanKillSpy  = CustomOption.Create(316,Types.Neutral, "é‚ªæ¶èµŒæ€ªå¯çŒœæµ‹é—´è°", true, guesserSpawnRate);
+            guesserSpawnBothRate = CustomOption.Create(317,Types.Neutral, "ä¸¤ç§èµŒæ€ªåŒæ—¶ç”Ÿæˆæ¦‚ç‡", rates, guesserSpawnRate);
+            guesserCantGuessSnitchIfTaksDone = CustomOption.Create(318,Types.Neutral, "å‘Šå¯†è€…ä»»åŠ¡å®Œæˆåä¸èƒ½è¢«èµŒ", true, guesserSpawnRate);
 
-            jackalSpawnRate = CustomOption.Create(220,Types.Neutral, cs(Jackal.color, "²òÀÇÉú³É¸ÅÂÊ"), rates, null, true);
-            jackalKillCooldown = CustomOption.Create(221,Types.Neutral, "²òÀÇ/×ß¹·»÷É±ÀäÈ´", 30f, 10f, 60f, 2.5f, jackalSpawnRate);
-            jackalCreateSidekickCooldown = CustomOption.Create(222,Types.Neutral, "²òÀÇÕĞÄ¼×ß¹·ÀäÈ´", 30f, 10f, 60f, 2.5f, jackalSpawnRate);
-            jackalCanUseVents = CustomOption.Create(223,Types.Neutral, "²òÀÇ¿ÉÊ¹ÓÃ¹ÜµÀ", true, jackalSpawnRate);
-            jackalCanCreateSidekick = CustomOption.Create(224,Types.Neutral, "²òÀÇÄÜÕĞÄ¼×ß¹·", false, jackalSpawnRate);
-            sidekickPromotesToJackal = CustomOption.Create(225,Types.Neutral, "²òÀÇËÀºó×ß¹·½úÉı²òÀÇ", false, jackalSpawnRate);
-            sidekickCanKill = CustomOption.Create(226,Types.Neutral, "×ß¹·¿É»÷É±", false, jackalSpawnRate);
-            sidekickCanUseVents = CustomOption.Create(227,Types.Neutral, "×ß¹·¿ÉÊ¹ÓÃ¹ÜµÀ", true, jackalSpawnRate);
-            jackalPromotedFromSidekickCanCreateSidekick = CustomOption.Create(228,Types.Neutral, "×ß¹·½úÉı²òÀÇºó¿ÉÕĞÄ¼ĞÂ×ß¹·", true, jackalSpawnRate);
-            jackalCanCreateSidekickFromImpostor = CustomOption.Create(229,Types.Neutral, "²òÀÇ¿ÉÕĞÄ¼ÄÚ¹í³ÉÎªËûµÄ×ß¹·", true, jackalSpawnRate);
-            jackalAndSidekickHaveImpostorVision = CustomOption.Create(430,Types.Neutral, "²òÀÇºÍ¸ú°àÓµÓĞÄÚ¹íÊÓÒ°", false, jackalSpawnRate);
+            jesterSpawnRate = CustomOption.Create(60,Types.Neutral, cs(Jester.color, "å°ä¸‘ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            jesterCanCallEmergency = CustomOption.Create(61,Types.Neutral, "å°ä¸‘èƒ½å¬å¼€ç´§æ€¥ä¼šè®®", true, jesterSpawnRate);
+            jesterHasImpostorVision = CustomOption.Create(62,Types.Neutral, "å°ä¸‘æ‹¥æœ‰å†…é¬¼è§†é‡", false, jesterSpawnRate);
 
-            vultureSpawnRate = CustomOption.Create(340,Types.Neutral, cs(Vulture.color, "ÍºğÕÉú³É¸ÅÂÊ"), rates, null, true);
-            vultureCooldown = CustomOption.Create(341,Types.Neutral, "ÍºğÕ¼¼ÄÜÀäÈ´", 15f, 10f, 60f, 2.5f, vultureSpawnRate);
-            vultureNumberToWin = CustomOption.Create(342,Types.Neutral, "ĞèÒªÊ³ÓÃµÄÊ¬ÌåÊıÁ¿", 4f, 1f, 10f, 1f, vultureSpawnRate);
-            vultureCanUseVents = CustomOption.Create(343,Types.Neutral, "ÍºğÕ¿ÉÊ¹ÓÃ¹ÜµÀ", true, vultureSpawnRate);
-            vultureShowArrows = CustomOption.Create(344,Types.Neutral, "ÏÔÊ¾¼ıÍ·Ö¸ÏòÊ¬Ìå", true, vultureSpawnRate);
+            arsonistSpawnRate = CustomOption.Create(290,Types.Neutral, cs(Arsonist.color, "çºµç«çŠ¯ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            arsonistCooldown = CustomOption.Create(291,Types.Neutral, "æµ‡æ²¹å†·å´", 12.5f, 2.5f, 60f, 2.5f, arsonistSpawnRate);
+            arsonistDuration = CustomOption.Create(292,Types.Neutral, "æµ‡æ²¹èŠ±è´¹æ—¶é•¿", 3f, 1f, 10f, 1f, arsonistSpawnRate);
 
-            lawyerSpawnRate = CustomOption.Create(350,Types.Neutral, cs(Lawyer.color, "ÂÉÊ¦Éú³É¸ÅÂÊ"), rates, null, true);
-            lawyerTargetCanBeJester = CustomOption.Create(351,Types.Neutral, "ÂÉÊ¦µÄ¿Í»§¿ÉÒÔÊÇĞ¡³ó", true, lawyerSpawnRate);
-            lawyerVision = CustomOption.Create(354,Types.Neutral, "ÂÉÊ¦ÊÓÒ°", 1f, 0.25f, 3f, 0.25f, lawyerSpawnRate);
-            lawyerKnowsRole = CustomOption.Create(355,Types.Neutral, "ÂÉÊ¦ÖªµÀ¿Í»§½ÇÉ«", false, lawyerSpawnRate);
-            pursuerCooldown = CustomOption.Create(356,Types.Neutral, "ÆğËßÈË¿Õ°üµ¯ÀäÈ´", 30f, 5f, 60f, 2.5f, lawyerSpawnRate);
-            pursuerBlanksNumber = CustomOption.Create(357,Types.Neutral, "ÆğËßÈË¿Õ°üµ¯ÊıÁ¿", 5f, 1f, 20f, 1f, lawyerSpawnRate);
+            jackalSpawnRate = CustomOption.Create(220,Types.Neutral, cs(Jackal.color, "è±ºç‹¼ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            jackalKillCooldown = CustomOption.Create(221,Types.Neutral, "è±ºç‹¼/èµ°ç‹—å‡»æ€å†·å´", 30f, 10f, 60f, 2.5f, jackalSpawnRate);
+            jackalCreateSidekickCooldown = CustomOption.Create(222,Types.Neutral, "è±ºç‹¼æ‹›å‹Ÿèµ°ç‹—å†·å´", 30f, 10f, 60f, 2.5f, jackalSpawnRate);
+            jackalCanUseVents = CustomOption.Create(223,Types.Neutral, "è±ºç‹¼å¯ä½¿ç”¨ç®¡é“", true, jackalSpawnRate);
+            jackalCanCreateSidekick = CustomOption.Create(224,Types.Neutral, "è±ºç‹¼èƒ½æ‹›å‹Ÿèµ°ç‹—", false, jackalSpawnRate);
+            sidekickPromotesToJackal = CustomOption.Create(225,Types.Neutral, "è±ºç‹¼æ­»åèµ°ç‹—æ™‹å‡è±ºç‹¼", false, jackalSpawnRate);
+            sidekickCanKill = CustomOption.Create(226,Types.Neutral, "èµ°ç‹—å¯å‡»æ€", false, jackalSpawnRate);
+            sidekickCanUseVents = CustomOption.Create(227,Types.Neutral, "èµ°ç‹—å¯ä½¿ç”¨ç®¡é“", true, jackalSpawnRate);
+            jackalPromotedFromSidekickCanCreateSidekick = CustomOption.Create(228,Types.Neutral, "èµ°ç‹—æ™‹å‡è±ºç‹¼åå¯æ‹›å‹Ÿæ–°èµ°ç‹—", true, jackalSpawnRate);
+            jackalCanCreateSidekickFromImpostor = CustomOption.Create(229,Types.Neutral, "è±ºç‹¼å¯æ‹›å‹Ÿå†…é¬¼æˆä¸ºä»–çš„èµ°ç‹—", true, jackalSpawnRate);
+            jackalAndSidekickHaveImpostorVision = CustomOption.Create(430,Types.Neutral, "è±ºç‹¼å’Œè·Ÿç­æ‹¥æœ‰å†…é¬¼è§†é‡", false, jackalSpawnRate);
 
-            shifterSpawnRate = CustomOption.Create(70,Types.Crewmate, cs(Shifter.color, "½»»»Ê¦Éú³É¸ÅÂÊ"), rates, null, true);
-            shifterShiftsModifiers = CustomOption.Create(71,Types.Crewmate, "½»»»ÄÜÁ¦ÔöÇ¿(¿É½»»»Ò½Éú»¤¶ÜºÍÁµÈË)", false, shifterSpawnRate);
+            vultureSpawnRate = CustomOption.Create(340,Types.Neutral, cs(Vulture.color, "ç§ƒé¹«ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            vultureCooldown = CustomOption.Create(341,Types.Neutral, "ç§ƒé¹«æŠ€èƒ½å†·å´", 15f, 10f, 60f, 2.5f, vultureSpawnRate);
+            vultureNumberToWin = CustomOption.Create(342,Types.Neutral, "éœ€è¦é£Ÿç”¨çš„å°¸ä½“æ•°é‡", 4f, 1f, 10f, 1f, vultureSpawnRate);
+            vultureCanUseVents = CustomOption.Create(343,Types.Neutral, "ç§ƒé¹«å¯ä½¿ç”¨ç®¡é“", true, vultureSpawnRate);
+            vultureShowArrows = CustomOption.Create(344,Types.Neutral, "æ˜¾ç¤ºç®­å¤´æŒ‡å‘å°¸ä½“", true, vultureSpawnRate);
 
-            mayorSpawnRate = CustomOption.Create(80,Types.Crewmate, cs(Mayor.color, "ÊĞ³¤Éú³É¸ÅÂÊ"), rates, null, true);
-            mayorCanSeeVoteColors = CustomOption.Create(81,Types.Crewmate, "ÊĞ³¤¿É¼ûÍ¶Æ±ÑÕÉ«", false, mayorSpawnRate);
-            mayorTasksNeededToSeeVoteColors = CustomOption.Create(82, Types.Crewmate, "Òª¿É¼ûÍ¶Æ±ÑÕÉ«ĞèÒªÍê³ÉµÄÈÎÎñÊı", 5f, 0f, 20f, 1f, mayorCanSeeVoteColors);
-            mayorMeetingButton = CustomOption.Create(83, Types.Crewmate, "Ô¶³ÌÅÄ×À°´Å¥", true, mayorSpawnRate);
-            mayorMaxRemoteMeetings = CustomOption.Create(84, Types.Crewmate, "Ô¶³ÌÅÄ×À´ÎÊı", 1f, 1f, 5f, 1f, mayorMeetingButton);
+            lawyerSpawnRate = CustomOption.Create(350,Types.Neutral, cs(Lawyer.color, "å¾‹å¸ˆç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            lawyerTargetCanBeJester = CustomOption.Create(351,Types.Neutral, "å¾‹å¸ˆçš„å®¢æˆ·å¯ä»¥æ˜¯å°ä¸‘", true, lawyerSpawnRate);
+            lawyerVision = CustomOption.Create(354,Types.Neutral, "å¾‹å¸ˆè§†é‡", 1f, 0.25f, 3f, 0.25f, lawyerSpawnRate);
+            lawyerKnowsRole = CustomOption.Create(355,Types.Neutral, "å¾‹å¸ˆçŸ¥é“å®¢æˆ·è§’è‰²", false, lawyerSpawnRate);
+            pursuerCooldown = CustomOption.Create(356,Types.Neutral, "èµ·è¯‰äººç©ºåŒ…å¼¹å†·å´", 30f, 5f, 60f, 2.5f, lawyerSpawnRate);
+            pursuerBlanksNumber = CustomOption.Create(357,Types.Neutral, "èµ·è¯‰äººç©ºåŒ…å¼¹æ•°é‡", 5f, 1f, 20f, 1f, lawyerSpawnRate);
+
+            shifterSpawnRate = CustomOption.Create(70,Types.Crewmate, cs(Shifter.color, "äº¤æ¢å¸ˆç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            shifterShiftsModifiers = CustomOption.Create(71,Types.Crewmate, "äº¤æ¢èƒ½åŠ›å¢å¼º(å¯äº¤æ¢åŒ»ç”ŸæŠ¤ç›¾å’Œæ‹äºº)", false, shifterSpawnRate);
+
+            mayorSpawnRate = CustomOption.Create(80,Types.Crewmate, cs(Mayor.color, "å¸‚é•¿ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            mayorCanSeeVoteColors = CustomOption.Create(81,Types.Crewmate, "å¸‚é•¿å¯è§æŠ•ç¥¨é¢œè‰²", false, mayorSpawnRate);
+            mayorTasksNeededToSeeVoteColors = CustomOption.Create(82, Types.Crewmate, "è¦å¯è§æŠ•ç¥¨é¢œè‰²éœ€è¦å®Œæˆçš„ä»»åŠ¡æ•°", 5f, 0f, 20f, 1f, mayorCanSeeVoteColors);
+            mayorMeetingButton = CustomOption.Create(83, Types.Crewmate, "è¿œç¨‹æ‹æ¡ŒæŒ‰é’®", true, mayorSpawnRate);
+            mayorMaxRemoteMeetings = CustomOption.Create(84, Types.Crewmate, "è¿œç¨‹æ‹æ¡Œæ¬¡æ•°", 1f, 1f, 5f, 1f, mayorMeetingButton);
             
-            engineerSpawnRate = CustomOption.Create(90,Types.Crewmate, cs(Engineer.color, "¹¤³ÌÊ¦Éú³É¸ÅÂÊ"), rates, null, true);
-            engineerNumberOfFixes = CustomOption.Create(91,Types.Crewmate, "¹¤³ÌÊ¦¿ÉÎ¬ĞŞÆÆ»µ´ÎÊı", 1f, 1f, 3f, 1f, engineerSpawnRate);
-            engineerHighlightForImpostors = CustomOption.Create(92,Types.Crewmate, "ÄÚ¹íÄÜ¿´¼û¹¤³ÌÊ¦ÔÚ¹ÜµÀÖĞ", true, engineerSpawnRate);
-            engineerHighlightForTeamJackal = CustomOption.Create(93,Types.Crewmate, "²òÀÇºÍ×ß¹·ÄÜ¿´µ½¹¤³ÌÊ¦ÔÚ¹ÜµÀÖĞ ", true, engineerSpawnRate);
+            engineerSpawnRate = CustomOption.Create(90,Types.Crewmate, cs(Engineer.color, "å·¥ç¨‹å¸ˆç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            engineerNumberOfFixes = CustomOption.Create(91,Types.Crewmate, "å·¥ç¨‹å¸ˆå¯ç»´ä¿®ç ´åæ¬¡æ•°", 1f, 1f, 3f, 1f, engineerSpawnRate);
+            engineerHighlightForImpostors = CustomOption.Create(92,Types.Crewmate, "å†…é¬¼èƒ½çœ‹è§å·¥ç¨‹å¸ˆåœ¨ç®¡é“ä¸­", true, engineerSpawnRate);
+            engineerHighlightForTeamJackal = CustomOption.Create(93,Types.Crewmate, "è±ºç‹¼å’Œèµ°ç‹—èƒ½çœ‹åˆ°å·¥ç¨‹å¸ˆåœ¨ç®¡é“ä¸­ ", true, engineerSpawnRate);
 
-            soliderSpawnRate = CustomOption.Create(190,Types.Crewmate, cs(Solider.color, "Ê¿±øÉú³É¸ÅÂÊ"), rates, null, true);
-            bulletProofDisappearLatency = CustomOption.Create(191,Types.Crewmate,"·Àµ¯ÒÂÊ§Ğ§ÑÓ³Ù",10.0f,5.0f,30.0f,5.0f,soliderSpawnRate);
+            soliderSpawnRate = CustomOption.Create(190,Types.Crewmate, cs(Solider.color, "å£«å…µç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            bulletProofDisappearLatency = CustomOption.Create(191,Types.Crewmate,"é˜²å¼¹è¡£å¤±æ•ˆå»¶è¿Ÿ",10.0f,5.0f,30.0f,5.0f,soliderSpawnRate);
             
-            positionShifterSpawnRate = CustomOption.Create(910,Types.Crewmate, cs(PositionShifter.color, "»»Î»ÕßÉú³É¸ÅÂÊ"), rates, null, true);
-            positionShiftCooldown = CustomOption.Create(911,Types.Crewmate,"ÒÆĞÎ»»Î»ÀäÈ´Ê±¼ä",30.0f,0.0f,60.0f,5.0f,positionShifterSpawnRate);
+            positionShifterSpawnRate = CustomOption.Create(910,Types.Crewmate, cs(PositionShifter.color, "æ¢ä½è€…ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            positionShiftCooldown = CustomOption.Create(911,Types.Crewmate,"ç§»å½¢æ¢ä½å†·å´æ—¶é—´",30.0f,0.0f,60.0f,5.0f,positionShifterSpawnRate);
             
-            sheriffSpawnRate = CustomOption.Create(100,Types.Crewmate, cs(Sheriff.color, "¾¯³¤Éú³É¸ÅÂÊ"), rates, null, true);
-            sheriffCooldown = CustomOption.Create(101,Types.Crewmate, "¾¯³¤»÷É±ÀäÈ´", 30f, 10f, 60f, 2.5f, sheriffSpawnRate);
-            sheriffCanKillNeutrals = CustomOption.Create(102,Types.Crewmate, "¾¯³¤¿É»÷É±ÖĞÁ¢Ö°Òµ", false, sheriffSpawnRate);
-            deputySpawnRate = CustomOption.Create(103,Types.Crewmate, "¾¯³¤ÓµÓĞ¾¯Ô±µÄ¸ÅÂÊ", rates, sheriffSpawnRate);
-            deputyNumberOfHandcuffs = CustomOption.Create(104,Types.Crewmate, "¾¯Ô±ÊÖîíÊıÁ¿", 3f, 1f, 10f, 1f, deputySpawnRate);
-            deputyHandcuffCooldown = CustomOption.Create(105,Types.Crewmate, "ÊÖîíÀäÈ´", 30f, 10f, 60f, 2.5f, deputySpawnRate);
-            deputyHandcuffDuration = CustomOption.Create(106,Types.Crewmate, "ÊÖîí³ÖĞøÊ±¼ä", 15f, 5f, 60f, 2.5f, deputySpawnRate);
-            deputyKnowsSheriff = CustomOption.Create(107,Types.Crewmate, "¾¯³¤ºÍ¾¯Ô±»¥Ïà¿ÉÖªÉí·İ ", true, deputySpawnRate);
-            deputyGetsPromoted = CustomOption.Create(108,Types.Crewmate, "¾¯Ô±ÔÚ¾¯³¤ËÀºó¿ÉÉıÖ°Îª¾¯³¤", new string[] { "¹Ø±Õ", "¿ªÆô (Á¢¼´ÉúĞ§)", "¿ªÆô (»áÒéºóÉúĞ§)" }, deputySpawnRate);
-            deputyKeepsHandcuffs = CustomOption.Create(109,Types.Crewmate, "¾¯Ô±ÉıÖ°ºó±£ÁôÊÖîí", true, deputyGetsPromoted);
+            sheriffSpawnRate = CustomOption.Create(100,Types.Crewmate, cs(Sheriff.color, "è­¦é•¿ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            sheriffCooldown = CustomOption.Create(101,Types.Crewmate, "è­¦é•¿å‡»æ€å†·å´", 30f, 10f, 60f, 2.5f, sheriffSpawnRate);
+            sheriffCanKillNeutrals = CustomOption.Create(102,Types.Crewmate, "è­¦é•¿å¯å‡»æ€ä¸­ç«‹èŒä¸š", false, sheriffSpawnRate);
+            deputySpawnRate = CustomOption.Create(103,Types.Crewmate, "è­¦é•¿æ‹¥æœ‰è­¦å‘˜çš„æ¦‚ç‡", rates, sheriffSpawnRate);
+            deputyNumberOfHandcuffs = CustomOption.Create(104,Types.Crewmate, "è­¦å‘˜æ‰‹é“æ•°é‡", 3f, 1f, 10f, 1f, deputySpawnRate);
+            deputyHandcuffCooldown = CustomOption.Create(105,Types.Crewmate, "æ‰‹é“å†·å´", 30f, 10f, 60f, 2.5f, deputySpawnRate);
+            deputyHandcuffDuration = CustomOption.Create(106,Types.Crewmate, "æ‰‹é“æŒç»­æ—¶é—´", 15f, 5f, 60f, 2.5f, deputySpawnRate);
+            deputyKnowsSheriff = CustomOption.Create(107,Types.Crewmate, "è­¦é•¿å’Œè­¦å‘˜äº’ç›¸å¯çŸ¥èº«ä»½ ", true, deputySpawnRate);
+            deputyGetsPromoted = CustomOption.Create(108,Types.Crewmate, "è­¦å‘˜åœ¨è­¦é•¿æ­»åå¯å‡èŒä¸ºè­¦é•¿", new string[] { "å…³é—­", "å¼€å¯ (ç«‹å³ç”Ÿæ•ˆ)", "å¼€å¯ (ä¼šè®®åç”Ÿæ•ˆ)" }, deputySpawnRate);
+            deputyKeepsHandcuffs = CustomOption.Create(109,Types.Crewmate, "è­¦å‘˜å‡èŒåä¿ç•™æ‰‹é“", true, deputyGetsPromoted);
 
-            lighterSpawnRate = CustomOption.Create(110,Types.Crewmate, cs(Lighter.color, "±üÖòÕßÉú³É¸ÅÂÊ"), rates, null, true);
-            lighterModeLightsOnVision = CustomOption.Create(111,Types.Crewmate, "Î´¹ØµÆÊ±±üÖòÊÓÒ°", 2f, 0.25f, 5f, 0.25f, lighterSpawnRate);
-            lighterModeLightsOffVision = CustomOption.Create(112,Types.Crewmate, "¹ØµÆºó±üÖòÊÓÒ°", 0.75f, 0.25f, 5f, 0.25f, lighterSpawnRate);
-            lighterCooldown = CustomOption.Create(113,Types.Crewmate, "±üÖòÀäÈ´", 30f, 5f, 120f, 5f, lighterSpawnRate);
-            lighterDuration = CustomOption.Create(114,Types.Crewmate, "±üÖò³ÖĞøÊ±¼ä", 5f, 2.5f, 60f, 2.5f, lighterSpawnRate);
+            lighterSpawnRate = CustomOption.Create(110,Types.Crewmate, cs(Lighter.color, "ç§‰çƒ›è€…ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            lighterModeLightsOnVision = CustomOption.Create(111,Types.Crewmate, "æœªå…³ç¯æ—¶ç§‰çƒ›è§†é‡", 2f, 0.25f, 5f, 0.25f, lighterSpawnRate);
+            lighterModeLightsOffVision = CustomOption.Create(112,Types.Crewmate, "å…³ç¯åç§‰çƒ›è§†é‡", 0.75f, 0.25f, 5f, 0.25f, lighterSpawnRate);
+            lighterCooldown = CustomOption.Create(113,Types.Crewmate, "ç§‰çƒ›å†·å´", 30f, 5f, 120f, 5f, lighterSpawnRate);
+            lighterDuration = CustomOption.Create(114,Types.Crewmate, "ç§‰çƒ›æŒç»­æ—¶é—´", 5f, 2.5f, 60f, 2.5f, lighterSpawnRate);
 
-            detectiveSpawnRate = CustomOption.Create(120,Types.Crewmate, cs(Detective.color, "ÕìÌ½Éú³É¸ÅÂÊ"), rates, null, true);
-            detectiveAnonymousFootprints = CustomOption.Create(121,Types.Crewmate, "Ê¹ÓÃÄäÃû½ÅÓ¡", false, detectiveSpawnRate); 
-            detectiveFootprintIntervall = CustomOption.Create(122,Types.Crewmate, "½ÅÓ¡Éú³É¼ä¸ôÊ±¼ä", 0.5f, 0.25f, 10f, 0.25f, detectiveSpawnRate);
-            detectiveFootprintDuration = CustomOption.Create(123,Types.Crewmate, "½ÅÓ¡²ĞÁôÊ±¼ä", 5f, 0.25f, 10f, 0.25f, detectiveSpawnRate);
-            detectiveReportNameDuration = CustomOption.Create(124,Types.Crewmate, "ÕìÌ½¶à¾Ã±¨¸æÊ¬ÌåÄÜÏÔÊ¾Ğ×ÊÖĞÕÃû", 0, 0, 60, 2.5f, detectiveSpawnRate);
-            detectiveReportColorDuration = CustomOption.Create(125,Types.Crewmate, "ÕìÌ½¶à¾Ã±¨¸æÊ¬ÌåÄÜÏÔÊ¾Ğ×ÊÖÑÕÉ«", 20, 0, 120, 2.5f, detectiveSpawnRate);
+            detectiveSpawnRate = CustomOption.Create(120,Types.Crewmate, cs(Detective.color, "ä¾¦æ¢ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            detectiveAnonymousFootprints = CustomOption.Create(121,Types.Crewmate, "ä½¿ç”¨åŒ¿åè„šå°", false, detectiveSpawnRate); 
+            detectiveFootprintIntervall = CustomOption.Create(122,Types.Crewmate, "è„šå°ç”Ÿæˆé—´éš”æ—¶é—´", 0.5f, 0.25f, 10f, 0.25f, detectiveSpawnRate);
+            detectiveFootprintDuration = CustomOption.Create(123,Types.Crewmate, "è„šå°æ®‹ç•™æ—¶é—´", 5f, 0.25f, 10f, 0.25f, detectiveSpawnRate);
+            detectiveReportNameDuration = CustomOption.Create(124,Types.Crewmate, "ä¾¦æ¢å¤šä¹…æŠ¥å‘Šå°¸ä½“èƒ½æ˜¾ç¤ºå‡¶æ‰‹å§“å", 0, 0, 60, 2.5f, detectiveSpawnRate);
+            detectiveReportColorDuration = CustomOption.Create(125,Types.Crewmate, "ä¾¦æ¢å¤šä¹…æŠ¥å‘Šå°¸ä½“èƒ½æ˜¾ç¤ºå‡¶æ‰‹é¢œè‰²", 20, 0, 120, 2.5f, detectiveSpawnRate);
 
-            timeMasterSpawnRate = CustomOption.Create(130,Types.Crewmate, cs(TimeMaster.color, "Ê±¼ä´óÊ¦Éú³É¸ÅÂÊ"), rates, null, true);
-            timeMasterCooldown = CustomOption.Create(131,Types.Crewmate, "Ê±¼ä´óÊ¦¼¼ÄÜÀäÈ´", 30f, 10f, 120f, 2.5f, timeMasterSpawnRate);
-            timeMasterRewindTime = CustomOption.Create(132,Types.Crewmate, "»ØËİÊ±³¤", 3f, 1f, 10f, 1f, timeMasterSpawnRate);
-            timeMasterShieldDuration = CustomOption.Create(133,Types.Crewmate, "Ê±¼ä»¤¶Ü³ÖĞøÊ±³¤", 3f, 1f, 20f, 1f, timeMasterSpawnRate);
+            timeMasterSpawnRate = CustomOption.Create(130,Types.Crewmate, cs(TimeMaster.color, "æ—¶é—´å¤§å¸ˆç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            timeMasterCooldown = CustomOption.Create(131,Types.Crewmate, "æ—¶é—´å¤§å¸ˆæŠ€èƒ½å†·å´", 30f, 10f, 120f, 2.5f, timeMasterSpawnRate);
+            timeMasterRewindTime = CustomOption.Create(132,Types.Crewmate, "å›æº¯æ—¶é•¿", 3f, 1f, 10f, 1f, timeMasterSpawnRate);
+            timeMasterShieldDuration = CustomOption.Create(133,Types.Crewmate, "æ—¶é—´æŠ¤ç›¾æŒç»­æ—¶é•¿", 3f, 1f, 20f, 1f, timeMasterSpawnRate);
 
-            medicSpawnRate = CustomOption.Create(140,Types.Crewmate, cs(Medic.color, "Ò½ÉúÉú³É¸ÅÂÊ"), rates, null, true);
-            medicShowShielded = CustomOption.Create(143,Types.Crewmate, "Ò½Éú»¤¶Ü¿É¼û¶ÔÏó", new string[] {"ËùÓĞÈË", "»¤¶ÜÄ¿±ê + Ò½Éú", "Ò½Éú"}, medicSpawnRate);
-            medicShowAttemptToShielded = CustomOption.Create(144,Types.Crewmate, "±»»¤¶ÜµÄÄ¿±êÄÜ¿´¼û»÷É±³¢ÊÔ", false, medicSpawnRate);
-            medicSetOrShowShieldAfterMeeting  = CustomOption.Create(145,Types.Crewmate, "»¤¶Ü»áÒéºóÉúĞ§", false, medicSpawnRate);
-            medicShowAttemptToMedic = CustomOption.Create(146,Types.Crewmate, "Ò½Éú¿ÉÒÔ¿´¼û¶Ô»¤¶ÜÄ¿±êµÄ»÷É±³¢ÊÔ", false, medicSpawnRate);
+            medicSpawnRate = CustomOption.Create(140,Types.Crewmate, cs(Medic.color, "åŒ»ç”Ÿç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            medicShowShielded = CustomOption.Create(143,Types.Crewmate, "åŒ»ç”ŸæŠ¤ç›¾å¯è§å¯¹è±¡", new string[] {"æ‰€æœ‰äºº", "æŠ¤ç›¾ç›®æ ‡ + åŒ»ç”Ÿ", "åŒ»ç”Ÿ"}, medicSpawnRate);
+            medicShowAttemptToShielded = CustomOption.Create(144,Types.Crewmate, "è¢«æŠ¤ç›¾çš„ç›®æ ‡èƒ½çœ‹è§å‡»æ€å°è¯•", false, medicSpawnRate);
+            medicSetOrShowShieldAfterMeeting  = CustomOption.Create(145,Types.Crewmate, "æŠ¤ç›¾ä¼šè®®åç”Ÿæ•ˆ", false, medicSpawnRate);
+            medicShowAttemptToMedic = CustomOption.Create(146,Types.Crewmate, "åŒ»ç”Ÿå¯ä»¥çœ‹è§å¯¹æŠ¤ç›¾ç›®æ ‡çš„å‡»æ€å°è¯•", false, medicSpawnRate);
 
-            swapperSpawnRate = CustomOption.Create(150,Types.Crewmate, cs(Swapper.color, "»»Æ±Ê¦Éú³É¸ÅÂÊ"), rates, null, true);
-            swapperCanCallEmergency = CustomOption.Create(151,Types.Crewmate, "»»Æ±Ê¦ÄÜÕÙ¿ª½ô¼±»áÒé", false, swapperSpawnRate);
-            swapperCanOnlySwapOthers = CustomOption.Create(152,Types.Crewmate, "»»Æ±Ê¦Ö»¿É½»»»ËûÈËµÄµÃÆ±", false, swapperSpawnRate);
-            swapperSwapsNumber = CustomOption.Create(153, Types.Crewmate, "³õÊ¼»»Æ±´ÎÊı", 1f, 0f, 5f, 1f, swapperSpawnRate);
-            swapperRechargeTasksNumber = CustomOption.Create(154, Types.Crewmate, "Íê³É¶àÉÙÈÎÎñ¿É³äÄÜÒ»´Î»»Æ±´ÎÊı", 2f, 1f, 10f, 1f, swapperSpawnRate);
+            swapperSpawnRate = CustomOption.Create(150,Types.Crewmate, cs(Swapper.color, "æ¢ç¥¨å¸ˆç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            swapperCanCallEmergency = CustomOption.Create(151,Types.Crewmate, "æ¢ç¥¨å¸ˆèƒ½å¬å¼€ç´§æ€¥ä¼šè®®", false, swapperSpawnRate);
+            swapperCanOnlySwapOthers = CustomOption.Create(152,Types.Crewmate, "æ¢ç¥¨å¸ˆåªå¯äº¤æ¢ä»–äººçš„å¾—ç¥¨", false, swapperSpawnRate);
+            swapperSwapsNumber = CustomOption.Create(153, Types.Crewmate, "åˆå§‹æ¢ç¥¨æ¬¡æ•°", 1f, 0f, 5f, 1f, swapperSpawnRate);
+            swapperRechargeTasksNumber = CustomOption.Create(154, Types.Crewmate, "å®Œæˆå¤šå°‘ä»»åŠ¡å¯å……èƒ½ä¸€æ¬¡æ¢ç¥¨æ¬¡æ•°", 2f, 1f, 10f, 1f, swapperSpawnRate);
 
-            seerSpawnRate = CustomOption.Create(160,Types.Crewmate, cs(Seer.color, "ÏÈÖªÉú³É¸ÅÂÊ"), rates, null, true);
-            seerMode = CustomOption.Create(161,Types.Crewmate, "ÏÈÖªÄ£Ê½", new string[]{ "ÏÔÊ¾ËÀÍöÉÁ¹â + Áé»ê", "ÏÔÊ¾ËÀÍöÉÁ¹â", "ÏÔÊ¾Áé»ê"}, seerSpawnRate);
-            seerLimitSoulDuration = CustomOption.Create(163,Types.Crewmate, "ÏŞÖÆÏÈÖªµÄ¿É¼ûÁé»êÊ±³¤", false, seerSpawnRate);
-            seerSoulDuration = CustomOption.Create(162,Types.Crewmate, "ÏÈÖª¿É¼ûÁé»êÊ±³¤", 15f, 0f, 120f, 5f, seerLimitSoulDuration);
+            seerSpawnRate = CustomOption.Create(160,Types.Crewmate, cs(Seer.color, "å…ˆçŸ¥ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            seerMode = CustomOption.Create(161,Types.Crewmate, "å…ˆçŸ¥æ¨¡å¼", new string[]{ "æ˜¾ç¤ºæ­»äº¡é—ªå…‰ + çµé­‚", "æ˜¾ç¤ºæ­»äº¡é—ªå…‰", "æ˜¾ç¤ºçµé­‚"}, seerSpawnRate);
+            seerLimitSoulDuration = CustomOption.Create(163,Types.Crewmate, "é™åˆ¶å…ˆçŸ¥çš„å¯è§çµé­‚æ—¶é•¿", false, seerSpawnRate);
+            seerSoulDuration = CustomOption.Create(162,Types.Crewmate, "å…ˆçŸ¥å¯è§çµé­‚æ—¶é•¿", 15f, 0f, 120f, 5f, seerLimitSoulDuration);
         
-            hackerSpawnRate = CustomOption.Create(170,Types.Crewmate, cs(Hacker.color, "º§¿ÍÉú³É¸ÅÂÊ"), rates, null, true);
-            hackerCooldown = CustomOption.Create(171,Types.Crewmate, "º§Èë¼¼ÄÜÀäÈ´", 30f, 5f, 60f, 5f, hackerSpawnRate);
-            hackerHackeringDuration = CustomOption.Create(172,Types.Crewmate, "º§Èë³ÖĞøÊ±³¤", 10f, 2.5f, 60f, 2.5f, hackerSpawnRate);
-            hackerOnlyColorType = CustomOption.Create(173,Types.Crewmate, "º§ÈëÖ®¿É¼ûÑÕÉ«ÉîÇ³", false, hackerSpawnRate);
-            hackerToolsNumber = CustomOption.Create(174,Types.Crewmate, "×î´óÒÆ¶¯×°ÖÃ³äÄÜ´ÎÊı", 5f, 1f, 30f, 1f, hackerSpawnRate);
-            hackerRechargeTasksNumber = CustomOption.Create(175,Types.Crewmate, "ÒÆ¶¯×°ÖÃ³äÄÜËùĞèÈÎÎñÊı", 2f, 1f, 5f, 1f, hackerSpawnRate);
-            hackerNoMove = CustomOption.Create(176,Types.Crewmate, "Ê¹ÓÃÒÆ¶¯×°ÖÃÊ±ÎŞ·¨ÒÆ¶¯", true, hackerSpawnRate);
+            hackerSpawnRate = CustomOption.Create(170,Types.Crewmate, cs(Hacker.color, "éª‡å®¢ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            hackerCooldown = CustomOption.Create(171,Types.Crewmate, "éª‡å…¥æŠ€èƒ½å†·å´", 30f, 5f, 60f, 5f, hackerSpawnRate);
+            hackerHackeringDuration = CustomOption.Create(172,Types.Crewmate, "éª‡å…¥æŒç»­æ—¶é•¿", 10f, 2.5f, 60f, 2.5f, hackerSpawnRate);
+            hackerOnlyColorType = CustomOption.Create(173,Types.Crewmate, "éª‡å…¥ä¹‹å¯è§é¢œè‰²æ·±æµ…", false, hackerSpawnRate);
+            hackerToolsNumber = CustomOption.Create(174,Types.Crewmate, "æœ€å¤§ç§»åŠ¨è£…ç½®å……èƒ½æ¬¡æ•°", 5f, 1f, 30f, 1f, hackerSpawnRate);
+            hackerRechargeTasksNumber = CustomOption.Create(175,Types.Crewmate, "ç§»åŠ¨è£…ç½®å……èƒ½æ‰€éœ€ä»»åŠ¡æ•°", 2f, 1f, 5f, 1f, hackerSpawnRate);
+            hackerNoMove = CustomOption.Create(176,Types.Crewmate, "ä½¿ç”¨ç§»åŠ¨è£…ç½®æ—¶æ— æ³•ç§»åŠ¨", true, hackerSpawnRate);
 
-            trackerSpawnRate = CustomOption.Create(200,Types.Crewmate, cs(Tracker.color, "×·×ÙÕßÉú³É¸ÅÂÊ"), rates, null, true);
-            trackerUpdateIntervall = CustomOption.Create(201,Types.Crewmate, "×·×Ù¼ıÍ·¸üĞÂ¼ä¸ô", 5f, 1f, 30f, 1f, trackerSpawnRate);
-            trackerResetTargetAfterMeeting = CustomOption.Create(202,Types.Crewmate, "×·×ÙÕß»áÒéºó¿ÉÖØÑ¡×·×ÙÄ¿±ê", false, trackerSpawnRate);
-            trackerCanTrackCorpses = CustomOption.Create(203,Types.Crewmate, "×·×ÙÕß¿É×·×ÙÊ¬Ìå", true, trackerSpawnRate);
-            trackerCorpsesTrackingCooldown = CustomOption.Create(204,Types.Crewmate, "×·×ÙÊ¬ÌåÀäÈ´", 30f, 5f, 120f, 5f, trackerCanTrackCorpses);
-            trackerCorpsesTrackingDuration = CustomOption.Create(205,Types.Crewmate, "×·×ÙÊ¬Ìå³ÖĞøÊ±³¤", 5f, 2.5f, 30f, 2.5f, trackerCanTrackCorpses);
+            trackerSpawnRate = CustomOption.Create(200,Types.Crewmate, cs(Tracker.color, "è¿½è¸ªè€…ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            trackerUpdateIntervall = CustomOption.Create(201,Types.Crewmate, "è¿½è¸ªç®­å¤´æ›´æ–°é—´éš”", 5f, 1f, 30f, 1f, trackerSpawnRate);
+            trackerResetTargetAfterMeeting = CustomOption.Create(202,Types.Crewmate, "è¿½è¸ªè€…ä¼šè®®åå¯é‡é€‰è¿½è¸ªç›®æ ‡", false, trackerSpawnRate);
+            trackerCanTrackCorpses = CustomOption.Create(203,Types.Crewmate, "è¿½è¸ªè€…å¯è¿½è¸ªå°¸ä½“", true, trackerSpawnRate);
+            trackerCorpsesTrackingCooldown = CustomOption.Create(204,Types.Crewmate, "è¿½è¸ªå°¸ä½“å†·å´", 30f, 5f, 120f, 5f, trackerCanTrackCorpses);
+            trackerCorpsesTrackingDuration = CustomOption.Create(205,Types.Crewmate, "è¿½è¸ªå°¸ä½“æŒç»­æ—¶é•¿", 5f, 2.5f, 30f, 2.5f, trackerCanTrackCorpses);
                            
-            snitchSpawnRate = CustomOption.Create(210,Types.Crewmate, cs(Snitch.color, "¸æÃÜÕßÉú³É¸ÅÂÊ"), rates, null, true);
-            snitchLeftTasksForReveal = CustomOption.Create(211,Types.Crewmate, "¸æÃÜÕß»¹Ê£¶àÉÙÈÎÎñÊ±»á±©Â¶", 1f, 0f, 5f, 1f, snitchSpawnRate);
-            snitchIncludeTeamJackal = CustomOption.Create(212,Types.Crewmate, "ÊÇ·ñ¿É×·×Ù²òÀÇÕóÓª", false, snitchSpawnRate);
-            snitchTeamJackalUseDifferentArrowColor = CustomOption.Create(213,Types.Crewmate, "Ê¹ÓÃ²»Í¬ÑÕÉ«µÄ¼ıÍ·À´±íÊ¾²òÀÇÕóÓª", true, snitchIncludeTeamJackal);
+            snitchSpawnRate = CustomOption.Create(210,Types.Crewmate, cs(Snitch.color, "å‘Šå¯†è€…ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            snitchLeftTasksForReveal = CustomOption.Create(211,Types.Crewmate, "å‘Šå¯†è€…è¿˜å‰©å¤šå°‘ä»»åŠ¡æ—¶ä¼šæš´éœ²", 1f, 0f, 5f, 1f, snitchSpawnRate);
+            snitchIncludeTeamJackal = CustomOption.Create(212,Types.Crewmate, "æ˜¯å¦å¯è¿½è¸ªè±ºç‹¼é˜µè¥", false, snitchSpawnRate);
+            snitchTeamJackalUseDifferentArrowColor = CustomOption.Create(213,Types.Crewmate, "ä½¿ç”¨ä¸åŒé¢œè‰²çš„ç®­å¤´æ¥è¡¨ç¤ºè±ºç‹¼é˜µè¥", true, snitchIncludeTeamJackal);
 
-            spySpawnRate = CustomOption.Create(240,Types.Crewmate, cs(Spy.color, "¼äµıÉú³É¸ÅÂÊ"), rates, null, true);
-            spyCanDieToSheriff = CustomOption.Create(241,Types.Crewmate, "¼äµı¿É±»¾¯³¤É±ËÀ", false, spySpawnRate);
-            spyImpostorsCanKillAnyone = CustomOption.Create(242,Types.Crewmate, "Èç¹ûÓĞ¼äµı´æÔÚ£¬ÄÚ¹í¿ÉÉ±ËÀÈÎºÎÈË", true, spySpawnRate);
-            spyCanEnterVents = CustomOption.Create(243,Types.Crewmate, "¼äµı¿ÉÒÔÌøÈë¹ÜµÀ", false, spySpawnRate);
-            spyHasImpostorVision = CustomOption.Create(244,Types.Crewmate, "¼äµıÓµÓĞÄÚ¹íÊÓÒ°", false, spySpawnRate);
+            spySpawnRate = CustomOption.Create(240,Types.Crewmate, cs(Spy.color, "é—´è°ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            spyCanDieToSheriff = CustomOption.Create(241,Types.Crewmate, "é—´è°å¯è¢«è­¦é•¿æ€æ­»", false, spySpawnRate);
+            spyImpostorsCanKillAnyone = CustomOption.Create(242,Types.Crewmate, "å¦‚æœæœ‰é—´è°å­˜åœ¨ï¼Œå†…é¬¼å¯æ€æ­»ä»»ä½•äºº", true, spySpawnRate);
+            spyCanEnterVents = CustomOption.Create(243,Types.Crewmate, "é—´è°å¯ä»¥è·³å…¥ç®¡é“", false, spySpawnRate);
+            spyHasImpostorVision = CustomOption.Create(244,Types.Crewmate, "é—´è°æ‹¥æœ‰å†…é¬¼è§†é‡", false, spySpawnRate);
 
-            portalmakerSpawnRate = CustomOption.Create(390, Types.Crewmate, cs(Portalmaker.color, "´«ËÍÃÅÖÆÔìÕßÉú³É¸ÅÂÊ"), rates, null, true);
-            portalmakerCooldown = CustomOption.Create(391, Types.Crewmate, "ÖÆÔì´«ËÍÃÅÀäÈ´", 30f, 10f, 60f, 2.5f, portalmakerSpawnRate);
-            portalmakerUsePortalCooldown = CustomOption.Create(392, Types.Crewmate, "Ê¹ÓÃ´«ËÍÃÅÀäÈ´", 30f, 10f, 60f, 2.5f, portalmakerSpawnRate);
-            portalmakerLogOnlyColorType = CustomOption.Create(393, Types.Crewmate, "´«ËÍ¼ÇÂ¼Ö»ÏÔÊ¾ÑÕÉ«ÉîÇ³", true, portalmakerSpawnRate);
-            portalmakerLogHasTime = CustomOption.Create(394, Types.Crewmate, "´«ËÍ¼ÇÂ¼ÓĞÊ±¼äĞÅÏ¢", true, portalmakerSpawnRate);
+            portalmakerSpawnRate = CustomOption.Create(390, Types.Crewmate, cs(Portalmaker.color, "ä¼ é€é—¨åˆ¶é€ è€…ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            portalmakerCooldown = CustomOption.Create(391, Types.Crewmate, "åˆ¶é€ ä¼ é€é—¨å†·å´", 30f, 10f, 60f, 2.5f, portalmakerSpawnRate);
+            portalmakerUsePortalCooldown = CustomOption.Create(392, Types.Crewmate, "ä½¿ç”¨ä¼ é€é—¨å†·å´", 30f, 10f, 60f, 2.5f, portalmakerSpawnRate);
+            portalmakerLogOnlyColorType = CustomOption.Create(393, Types.Crewmate, "ä¼ é€è®°å½•åªæ˜¾ç¤ºé¢œè‰²æ·±æµ…", true, portalmakerSpawnRate);
+            portalmakerLogHasTime = CustomOption.Create(394, Types.Crewmate, "ä¼ é€è®°å½•æœ‰æ—¶é—´ä¿¡æ¯", true, portalmakerSpawnRate);
             
-            securityGuardSpawnRate = CustomOption.Create(280,Types.Crewmate, cs(SecurityGuard.color, "±£°²Éú³É¸ÅÂÊ"), rates, null, true);
-            securityGuardCooldown = CustomOption.Create(281,Types.Crewmate, "±£°²¼¼ÄÜÀäÈ´", 30f, 10f, 60f, 2.5f, securityGuardSpawnRate);
-            securityGuardTotalScrews = CustomOption.Create(282,Types.Crewmate, "±£°²ÓµÓĞÂİË¿¶¤Êı", 7f, 1f, 15f, 1f, securityGuardSpawnRate);
-            securityGuardCamPrice = CustomOption.Create(283,Types.Crewmate, "°²·ÅÉãÏñÍ·ÏûºÄµÄÂİË¿¶¤ÊıÁ¿", 2f, 1f, 15f, 1f, securityGuardSpawnRate);
-            securityGuardVentPrice = CustomOption.Create(284,Types.Crewmate, "·â±Õ¹ÜµÀÏûºÄµÄÂİË¿¶¤ÊıÁ¿", 1f, 1f, 15f, 1f, securityGuardSpawnRate);
-            securityGuardCamDuration = CustomOption.Create(285,Types.Crewmate, "±£°²Ê¹ÓÃ¼¼ÄÜ³ÖĞøÊ±¼ä", 10f, 2.5f, 60f, 2.5f, securityGuardSpawnRate);
-            securityGuardCamMaxCharges = CustomOption.Create(286,Types.Crewmate, "ÂİË¿¶¤×î´ó²¹³äÊıÁ¿", 5f, 1f, 30f, 1f, securityGuardSpawnRate);
-            securityGuardCamRechargeTasksNumber = CustomOption.Create(287,Types.Crewmate, "²¹³äÂİË¿¶¤ĞèÒª×ö¶àÉÙÈÎÎñ", 3f, 1f, 10f, 1f, securityGuardSpawnRate);
-            securityGuardNoMove = CustomOption.Create(288,Types.Crewmate, "±£°²°²·ÅÉãÏñÍ·Ê±µÄÍ£ÁôÊ±¼ä", true, securityGuardSpawnRate);
+            securityGuardSpawnRate = CustomOption.Create(280,Types.Crewmate, cs(SecurityGuard.color, "ä¿å®‰ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            securityGuardCooldown = CustomOption.Create(281,Types.Crewmate, "ä¿å®‰æŠ€èƒ½å†·å´", 30f, 10f, 60f, 2.5f, securityGuardSpawnRate);
+            securityGuardTotalScrews = CustomOption.Create(282,Types.Crewmate, "ä¿å®‰æ‹¥æœ‰èºä¸é’‰æ•°", 7f, 1f, 15f, 1f, securityGuardSpawnRate);
+            securityGuardCamPrice = CustomOption.Create(283,Types.Crewmate, "å®‰æ”¾æ‘„åƒå¤´æ¶ˆè€—çš„èºä¸é’‰æ•°é‡", 2f, 1f, 15f, 1f, securityGuardSpawnRate);
+            securityGuardVentPrice = CustomOption.Create(284,Types.Crewmate, "å°é—­ç®¡é“æ¶ˆè€—çš„èºä¸é’‰æ•°é‡", 1f, 1f, 15f, 1f, securityGuardSpawnRate);
+            securityGuardCamDuration = CustomOption.Create(285,Types.Crewmate, "ä¿å®‰ä½¿ç”¨æŠ€èƒ½æŒç»­æ—¶é—´", 10f, 2.5f, 60f, 2.5f, securityGuardSpawnRate);
+            securityGuardCamMaxCharges = CustomOption.Create(286,Types.Crewmate, "èºä¸é’‰æœ€å¤§è¡¥å……æ•°é‡", 5f, 1f, 30f, 1f, securityGuardSpawnRate);
+            securityGuardCamRechargeTasksNumber = CustomOption.Create(287,Types.Crewmate, "è¡¥å……èºä¸é’‰éœ€è¦åšå¤šå°‘ä»»åŠ¡", 3f, 1f, 10f, 1f, securityGuardSpawnRate);
+            securityGuardNoMove = CustomOption.Create(288,Types.Crewmate, "ä¿å®‰å®‰æ”¾æ‘„åƒå¤´æ—¶çš„åœç•™æ—¶é—´", true, securityGuardSpawnRate);
             
-            mediumSpawnRate = CustomOption.Create(360,Types.Crewmate, cs(Medium.color, "Í¨ÁéÊ¦Éú³É¸ÅÂÊ"), rates, null, true);
-            mediumCooldown = CustomOption.Create(361,Types.Crewmate, "Í¨ÁéÊ¦ÌáÎÊÀäÈ´", 30f, 5f, 120f, 5f, mediumSpawnRate);
-            mediumDuration = CustomOption.Create(362,Types.Crewmate, "Í¨ÁéÊ¦ÌáÎÊ³ÖĞøÊ±¼ä", 3f, 0f, 15f, 1f, mediumSpawnRate);
-            mediumOneTimeUse = CustomOption.Create(363,Types.Crewmate, "Ã¿¸öÁé»êÖ»¿É±»ÌáÎÊÒ»´Î", false, mediumSpawnRate);
+            mediumSpawnRate = CustomOption.Create(360,Types.Crewmate, cs(Medium.color, "é€šçµå¸ˆç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            mediumCooldown = CustomOption.Create(361,Types.Crewmate, "é€šçµå¸ˆæé—®å†·å´", 30f, 5f, 120f, 5f, mediumSpawnRate);
+            mediumDuration = CustomOption.Create(362,Types.Crewmate, "é€šçµå¸ˆæé—®æŒç»­æ—¶é—´", 3f, 0f, 15f, 1f, mediumSpawnRate);
+            mediumOneTimeUse = CustomOption.Create(363,Types.Crewmate, "æ¯ä¸ªçµé­‚åªå¯è¢«æé—®ä¸€æ¬¡", false, mediumSpawnRate);
             
             // Modifier
-            modifierBloody = CustomOption.Create(1000, Types.Modifier, cs(Color.yellow, "ÑªÁÜÁÜµÄÉú³É¸ÅÂÊ"), rates, null, true);
-            modifierBloodyQuantity = CustomOption.Create(1001, Types.Modifier, cs(Color.yellow, "ÑªÁÜÁÜµÄÊıÁ¿"), ratesModifier, modifierBloody);
-            modifierBloodyDuration = CustomOption.Create(1002, Types.Modifier, "Ñª¼£³ÖĞøÊ±³¤", 10f, 3f, 60f, 1f, modifierBloody);
+            modifiersAreHidden = CustomOption.Create(1009, Types.Modifier, cs(Color.yellow, "æ­»åç”Ÿæ•ˆçš„é¢å¤–è§’è‰²éšè—æ˜¾ç¤º"), true, null, true);
 
-            modifierAntiTeleport = CustomOption.Create(1010, Types.Modifier, cs(Color.yellow, "Í£ÖÍµÄÉú³É¸ÅÂÊ"), rates, null, true);
-            modifierAntiTeleportQuantity = CustomOption.Create(1011, Types.Modifier, cs(Color.yellow, "Í£ÖÍµÄÊıÁ¿"), ratesModifier, modifierAntiTeleport);
+            modifierBloody = CustomOption.Create(1000, Types.Modifier, cs(Color.yellow, "è¡€æ·‹æ·‹çš„ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            modifierBloodyQuantity = CustomOption.Create(1001, Types.Modifier, cs(Color.yellow, "è¡€æ·‹æ·‹çš„æ•°é‡"), ratesModifier, modifierBloody);
+            modifierBloodyDuration = CustomOption.Create(1002, Types.Modifier, "è¡€è¿¹æŒç»­æ—¶é•¿", 10f, 3f, 60f, 1f, modifierBloody);
 
-            modifierTieBreaker = CustomOption.Create(1020, Types.Modifier, cs(Color.yellow, "²Ã¾öµÄÉú³É¸ÅÂÊ"), rates, null, true);
+            modifierAntiTeleport = CustomOption.Create(1010, Types.Modifier, cs(Color.yellow, "åœæ»çš„ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            modifierAntiTeleportQuantity = CustomOption.Create(1011, Types.Modifier, cs(Color.yellow, "åœæ»çš„æ•°é‡"), ratesModifier, modifierAntiTeleport);
+
+            modifierTieBreaker = CustomOption.Create(1020, Types.Modifier, cs(Color.yellow, "è£å†³çš„ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
             
-            modifierBait = CustomOption.Create(1030, Types.Modifier, cs(Color.yellow, "ÓÕ¶üµÄÉú³É¸ÅÂÊ"), rates, null, true);
-            modifierBaitQuantity = CustomOption.Create(1031, Types.Modifier, cs(Color.yellow, "ÓÕ¶üµÄÊıÁ¿"), ratesModifier, modifierBait);
-            modifierBaitReportDelayMin = CustomOption.Create(1032, Types.Modifier, "ÓÕ¶üµÄÑÓ³Ù±¨¸æ×îµÍÊ±³¤", 0f, 0f, 10f, 1f, modifierBait);
-            modifierBaitReportDelayMax = CustomOption.Create(1033, Types.Modifier, "ÓÕ¶üµÄÑÓ³Ù±¨¸æ×î´óÊ±³¤", 0f, 0f, 10f, 1f, modifierBait);
-            modifierBaitShowKillFlash = CustomOption.Create(1034, Types.Modifier, "ÊÇ·ñÓÃÉÁ¹â¾¯¸æÉ±ÈËÕß", true, modifierBait);
+            modifierBait = CustomOption.Create(1030, Types.Modifier, cs(Color.yellow, "è¯±é¥µçš„ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            modifierBaitQuantity = CustomOption.Create(1031, Types.Modifier, cs(Color.yellow, "è¯±é¥µçš„æ•°é‡"), ratesModifier, modifierBait);
+            modifierBaitReportDelayMin = CustomOption.Create(1032, Types.Modifier, "è¯±é¥µçš„å»¶è¿ŸæŠ¥å‘Šæœ€ä½æ—¶é•¿", 0f, 0f, 10f, 1f, modifierBait);
+            modifierBaitReportDelayMax = CustomOption.Create(1033, Types.Modifier, "è¯±é¥µçš„å»¶è¿ŸæŠ¥å‘Šæœ€å¤§æ—¶é•¿", 0f, 0f, 10f, 1f, modifierBait);
+            modifierBaitShowKillFlash = CustomOption.Create(1034, Types.Modifier, "æ˜¯å¦ç”¨é—ªå…‰è­¦å‘Šæ€äººè€…", true, modifierBait);
 
-            modifierLover = CustomOption.Create(1040, Types.Modifier, cs(Color.yellow, "ÈÈÁµµÄÉú³É¸ÅÂÊ"), rates, null, true);
-            modifierLoverImpLoverRate = CustomOption.Create(1041, Types.Modifier, "ÓĞÒ»¸öÁµÈËÊÇÄÚ¹íµÄ¸ÅÂÊ", rates, modifierLover);
-            modifierLoverBothDie = CustomOption.Create(1042, Types.Modifier, "ÁµÈË¹²ËÀ", true, modifierLover);
-            modifierLoverEnableChat = CustomOption.Create(1043, Types.Modifier, "ÔÊĞíÁµÈËË½ÁÄ", true, modifierLover);
+            modifierLover = CustomOption.Create(1040, Types.Modifier, cs(Color.yellow, "çƒ­æ‹çš„ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            modifierLoverImpLoverRate = CustomOption.Create(1041, Types.Modifier, "æœ‰ä¸€ä¸ªæ‹äººæ˜¯å†…é¬¼çš„æ¦‚ç‡", rates, modifierLover);
+            modifierLoverBothDie = CustomOption.Create(1042, Types.Modifier, "æ‹äººå…±æ­»", true, modifierLover);
+            modifierLoverEnableChat = CustomOption.Create(1043, Types.Modifier, "å…è®¸æ‹äººç§èŠ", true, modifierLover);
 
-            modifierSunglasses = CustomOption.Create(1050, Types.Modifier, cs(Color.yellow, "Ä¿Ã¤µÄÉú³É¸ÅÂÊ"), rates, null, true);
-            modifierSunglassesQuantity = CustomOption.Create(1051, Types.Modifier, cs(Color.yellow, "Ä¿Ã¤µÄÊıÁ¿"), ratesModifier, modifierSunglasses);
-            modifierSunglassesVision = CustomOption.Create(1052, Types.Modifier, "Ä¿Ã¤µÄÊÓÒ°·¶Î§", new string[] { "-10%", "-20%", "-30%", "-40%", "-50%" }, modifierSunglasses);
+            modifierSunglasses = CustomOption.Create(1050, Types.Modifier, cs(Color.yellow, "ç›®ç›²çš„ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            modifierSunglassesQuantity = CustomOption.Create(1051, Types.Modifier, cs(Color.yellow, "ç›®ç›²çš„æ•°é‡"), ratesModifier, modifierSunglasses);
+            modifierSunglassesVision = CustomOption.Create(1052, Types.Modifier, "ç›®ç›²çš„è§†é‡èŒƒå›´", new string[] { "-10%", "-20%", "-30%", "-40%", "-50%" }, modifierSunglasses);
 
-            modifierMini = CustomOption.Create(1061, Types.Modifier, cs(Color.yellow, "ÃÔÄãµÄÉú³É¸ÅÂÊ"), rates, null, true);
-            modifierMiniGrowingUpDuration = CustomOption.Create(1062, Types.Modifier, "ÃÔÄãµÄ³¤´óÊ±¼ä", 400f, 100f, 1500f, 100f, modifierMini);
+            modifierMini = CustomOption.Create(1061, Types.Modifier, cs(Color.yellow, "è¿·ä½ çš„ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            modifierMiniGrowingUpDuration = CustomOption.Create(1062, Types.Modifier, "è¿·ä½ çš„é•¿å¤§æ—¶é—´", 400f, 100f, 1500f, 100f, modifierMini);
 
-            modifierVip = CustomOption.Create(1070, Types.Modifier, cs(Color.yellow, "×ğ¹óµÄÉú³É¸ÅÂÊ"), rates, null, true);
-            modifierVipQuantity = CustomOption.Create(1071, Types.Modifier, cs(Color.yellow, "×ğ¹óµÄÊıÁ¿"), ratesModifier, modifierVip);
-            modifierVipShowColor = CustomOption.Create(1072, Types.Modifier, "ÏÔÊ¾×ğ¹óµÄ¶ÓÎéÑÕÉ«", true, modifierVip);
+            modifierVip = CustomOption.Create(1070, Types.Modifier, cs(Color.yellow, "å°Šè´µçš„ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            modifierVipQuantity = CustomOption.Create(1071, Types.Modifier, cs(Color.yellow, "å°Šè´µçš„æ•°é‡"), ratesModifier, modifierVip);
+            modifierVipShowColor = CustomOption.Create(1072, Types.Modifier, "æ˜¾ç¤ºå°Šè´µçš„é˜Ÿä¼é¢œè‰²", true, modifierVip);
 
-            modifierInvert = CustomOption.Create(1080, Types.Modifier, cs(Color.yellow, "µßµ¹µÄÉú³É¸ÅÂÊ"), rates, null, true);
-            modifierInvertQuantity = CustomOption.Create(1081, Types.Modifier, cs(Color.yellow, "µßµ¹µÄÊıÁ¿"), ratesModifier, modifierInvert);
-            modifierInvertDuration = CustomOption.Create(1082, Types.Modifier, "µßµ¹µÄ³ÖĞø¼¸ÂÖ»áÒé", 3f, 1f, 15f, 1f, modifierInvert);
+            modifierInvert = CustomOption.Create(1080, Types.Modifier, cs(Color.yellow, "é¢ å€’çš„ç”Ÿæˆæ¦‚ç‡"), rates, null, true);
+            modifierInvertQuantity = CustomOption.Create(1081, Types.Modifier, cs(Color.yellow, "é¢ å€’çš„æ•°é‡"), ratesModifier, modifierInvert);
+            modifierInvertDuration = CustomOption.Create(1082, Types.Modifier, "é¢ å€’çš„æŒç»­å‡ è½®ä¼šè®®", 3f, 1f, 15f, 1f, modifierInvert);
 
             // Other options
 
-            maxNumberOfMeetings = CustomOption.Create(3,Types.General, "»áÒé×ÜÊı£¨ÊĞ³¤»áÒé³ıÍâ£©", 10, 0, 15, 1, null, true);
-            blockSkippingInEmergencyMeetings = CustomOption.Create(4,Types.General, "½ô¼±»áÒéÖĞ½ûÖ¹Ìø¹ı", false);
-            noVoteIsSelfVote = CustomOption.Create(5,Types.General, "²»ÄÜ¸ø×Ô¼ºÍ¶Æ±", false, blockSkippingInEmergencyMeetings);
-            hidePlayerNames = CustomOption.Create(6,Types.General, "Òş²ØÍæ¼ÒĞÕÃû", false);
-            allowParallelMedBayScans = CustomOption.Create(7,Types.General, "ÔÊĞíÍ¬Ê±½øĞĞÉ¨ÃèÈÎÎñ", false);
-            shieldFirstKill = CustomOption.Create(8, Types.General, "ÉÏÂÖÊ×µ¶±£»¤", false);
+            maxNumberOfMeetings = CustomOption.Create(3,Types.General, "ä¼šè®®æ€»æ•°ï¼ˆå¸‚é•¿ä¼šè®®é™¤å¤–ï¼‰", 10, 0, 15, 1, null, true);
+            blockSkippingInEmergencyMeetings = CustomOption.Create(4,Types.General, "ç´§æ€¥ä¼šè®®ä¸­ç¦æ­¢è·³è¿‡", false);
+            noVoteIsSelfVote = CustomOption.Create(5,Types.General, "ä¸èƒ½ç»™è‡ªå·±æŠ•ç¥¨", false, blockSkippingInEmergencyMeetings);
+            hidePlayerNames = CustomOption.Create(6,Types.General, "éšè—ç©å®¶å§“å", false);
+            allowParallelMedBayScans = CustomOption.Create(7,Types.General, "å…è®¸åŒæ—¶è¿›è¡Œæ‰«æä»»åŠ¡", false);
+            shieldFirstKill = CustomOption.Create(8, Types.General, "ä¸Šè½®é¦–åˆ€ä¿æŠ¤", false);
 
-            dynamicMap = CustomOption.Create(500,Types.General, "Ëæ»úµØÍ¼ÆôÓÃ", false, null, false);
-            dynamicMapEnableSkeld = CustomOption.Create(501,Types.General, "Skeld¼ÓÈëËæ»úÁĞ±í", true, dynamicMap, false);
-            dynamicMapEnableMira = CustomOption.Create(502,Types.General, "Mira¼ÓÈëËæ»úÁĞ±í", true, dynamicMap, false);
-            dynamicMapEnablePolus = CustomOption.Create(503,Types.General, "Polus¼ÓÈëËæ»úÁĞ±í", true, dynamicMap, false);
-            dynamicMapEnableAirShip = CustomOption.Create(504,Types.General, "Airship¼ÓÈëËæ»úÁĞ±í", true, dynamicMap, false);
+            dynamicMap = CustomOption.Create(500,Types.General, "éšæœºåœ°å›¾å¯ç”¨", false, null, false);
+            dynamicMapEnableSkeld = CustomOption.Create(501,Types.General, "SkeldåŠ å…¥éšæœºåˆ—è¡¨", true, dynamicMap, false);
+            dynamicMapEnableMira = CustomOption.Create(502,Types.General, "MiraåŠ å…¥éšæœºåˆ—è¡¨", true, dynamicMap, false);
+            dynamicMapEnablePolus = CustomOption.Create(503,Types.General, "PolusåŠ å…¥éšæœºåˆ—è¡¨", true, dynamicMap, false);
+            dynamicMapEnableAirShip = CustomOption.Create(504,Types.General, "AirshipåŠ å…¥éšæœºåˆ—è¡¨", true, dynamicMap, false);
             
-            dynamicMapEnableSubmerged = CustomOption.Create(505, Types.General, "Submerged¼ÓÈëËæ¼´ÁĞ±í", true, dynamicMap, false);
+            dynamicMapEnableSubmerged = CustomOption.Create(505, Types.General, "SubmergedåŠ å…¥éšå³åˆ—è¡¨", true, dynamicMap, false);
 
             blockedRolePairings.Add((byte)RoleId.Vampire, new [] { (byte)RoleId.Warlock});
             blockedRolePairings.Add((byte)RoleId.Warlock, new [] { (byte)RoleId.Vampire});

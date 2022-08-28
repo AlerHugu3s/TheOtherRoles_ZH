@@ -73,6 +73,7 @@ namespace TheOtherRoles.Modules {
                                         color = new Color32(0xDB, 0xFD, 0x2F, byte.MaxValue), 
                                         shadow = new Color32(0x74, 0xE5, 0x10, byte.MaxValue), 
                                         isLighterColor = true });
+
             colors.Add(new CustomColor { longname = "信号橙",
                                         color = new Color32(0xF7, 0x44, 0x17, byte.MaxValue), 
                                         shadow = new Color32(0x9B, 0x2E, 0x0F, byte.MaxValue),
@@ -131,6 +132,7 @@ namespace TheOtherRoles.Modules {
                 typeof(Il2CppReferenceArray<Il2CppSystem.Object>)
             })]
             private class ColorStringPatch {
+                [HarmonyPriority(Priority.Last)]
                 public static bool Prefix(ref string __result, [HarmonyArgument(0)] StringNames name) {
                     if ((int)name >= 50000) {
                         string text = CustomColors.ColorStrings[(int)name];
