@@ -946,30 +946,6 @@ namespace TheOtherRoles {
             if (vanillaSettings == "")
                 vanillaSettings = GameOptionsManager.Instance.CurrentGameOptions.ToHudString(PlayerControl.AllPlayerControls.Count);
             int counter = TheOtherRolesPlugin.optionsPage;
-            string hudString = counter != 0 ? Helpers.cs(DateTime.Now.Second % 2 == 0 ? Color.white : Color.red, "(Use scroll wheel if necessary)\n\n") : "";
-
-            switch (counter) {
-                case 0:
-                    hudString += "第一页 : 原版设置 \n\n" + __result;
-                    break;
-                case 1:
-                    hudString += "第二页 : 超多职业模组设置 \n" + buildOptionsOfType(CustomOption.CustomOptionType.General, false);
-                    break;
-                case 2:
-                    hudString += "第三页 : 角色与额外角色生成概率 \n" + buildRoleOptions();
-                    break;
-                case 3:
-                    hudString += "第四页 : 内鬼角色设置 \n" + buildOptionsOfType(CustomOption.CustomOptionType.Impostor, false);
-                    break;
-                case 4:
-                    hudString += "第五页 : 中立角色设置 \n" + buildOptionsOfType(CustomOption.CustomOptionType.Neutral, false);
-                    break;
-                case 5:
-                    hudString += "第六页 : 船员角色设置 \n" + buildOptionsOfType(CustomOption.CustomOptionType.Crewmate, false);
-                    break;
-                case 6:
-                    hudString += "第七页 : 额外角色设置 \n" + buildOptionsOfType(CustomOption.CustomOptionType.Modifier, false);
-                    break;
             string hudString = counter != 0 && !hideExtras ? Helpers.cs(DateTime.Now.Second % 2 == 0 ? Color.white : Color.red, "(必要的话请使用鼠标滚轮)\n\n") : "";
             int maxPage = 7;
             if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek) {
@@ -986,7 +962,7 @@ namespace TheOtherRoles {
             } else {
                 switch (counter) {
                 	case 0:
-                   		hudString += (!hideExtras ? "" :"第一页 : 原版设置 \n\n" + vanillaSettings;
+                        hudString += (!hideExtras ? "" : "第一页 : 原版设置 \n\n") + vanillaSettings;
                    		break;
                 	case 1:
                     	hudString += "第二页 : 超多职业模组设置 \n" + buildOptionsOfType(CustomOption.CustomOptionType.General, false);
@@ -1009,7 +985,7 @@ namespace TheOtherRoles {
                 }
             }
 
-            if (!hideExtras || counter != 0) hudString += $"\n 按Tab或数字键来显示其他页数... ({counter+1}/{maxPage})"";
+            if (!hideExtras || counter != 0) hudString += $"\n 按Tab或数字键来显示其他页数... ({counter+1}/{maxPage})";
             return hudString;
         }
 

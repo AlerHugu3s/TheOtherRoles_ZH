@@ -301,10 +301,8 @@ namespace TheOtherRoles.Patches {
                 textRenderer.text = "吃 吃 吃！";
                 textRenderer.color = Vulture.color;
             }
-            else if (AdditionalTempData.winCondition == WinCondition.LawyerSoloWin) {
-                textRenderer.text = "異議あり! ";
             else if (AdditionalTempData.winCondition == WinCondition.ProsecutorWin) {
-                textRenderer.text = "细数你的罪孽吧！";
+                textRenderer.text = "異議あり! ";
                 textRenderer.color = Lawyer.color;
             }
             else if (AdditionalTempData.winCondition == WinCondition.LoversTeamWin) {

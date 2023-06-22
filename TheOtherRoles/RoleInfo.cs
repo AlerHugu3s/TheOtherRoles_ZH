@@ -89,7 +89,7 @@ namespace TheOtherRoles
         public static RoleInfo mini = new RoleInfo("迷你的", Color.yellow, "在你长大前没人可以杀死你", "没人可以伤害你", RoleId.Mini, false, true);
         public static RoleInfo vip = new RoleInfo("尊贵的", Color.yellow, "你是尊贵的", "所有人都会知道你死了", RoleId.Vip, false, true);
         public static RoleInfo invert = new RoleInfo("颠倒的", Color.yellow, "你的操作是反向的", "你的移动是反向的", RoleId.Invert, false, true);
-        public static RoleInfo chameleon = new RoleInfo("拟态的", Color.yellow, "你很难知道什么时候该移动", 你看不清什么动了", RoleId.Chameleon, false, true);
+        public static RoleInfo chameleon = new RoleInfo("拟态的", Color.yellow, "你很难知道什么时候该移动", "你看不清什么动了", RoleId.Chameleon, false, true);
         public static RoleInfo shifter = new RoleInfo("交换的", Color.yellow, "交换你的角色", "交换你的角色", RoleId.Shifter, false, true);
 
 

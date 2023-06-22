@@ -6,8 +6,6 @@ using Types = TheOtherRoles.CustomOption.CustomOptionType;
 namespace TheOtherRoles {
     public class CustomOptionHolder {
         public static string[] rates = new string[]{"0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"};
-        public static string[] ratesModifier = new string[]{"1", "2", "3"};
-        public static string[] presets = new string[]{"预设 1", "预设 2", "预设 3", "预设 4", "预设 5"};
         
         public static string[] ratesModifier = new string[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
         public static string[] presets = new string[]{"预设 1", "预设 2", "随机预设Skeld", "随机预设Mira HQ", "随机预设Polus", "随机预设 Airship", "随机预设 Submerged"};
@@ -400,8 +398,6 @@ namespace TheOtherRoles {
             modifiersCountMin = CustomOption.Create(306, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最小额外角色数量"), 15f, 0f, 15f, 1f);
             modifiersCountMax = CustomOption.Create(307, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最大额外角色数量"), 15f, 0f, 15f, 1f);
 
-            janitorCooldown = CustomOption.Create(11, Types.Impostor, "Janitor Cooldown", 30f, 10f, 60f, 2.5f, mafiaSpawnRate);
-
             mafiaSpawnRate = CustomOption.Create(18,Types.Impostor, cs(Janitor.color, "黑手党生成概率"), rates, null, true);
             janitorCooldown = CustomOption.Create(19,Types.Impostor, "清洁工冷却", 30f, 10f, 60f, 2.5f, mafiaSpawnRate);
 
@@ -470,7 +466,6 @@ namespace TheOtherRoles {
             guesserIsImpGuesserRate = CustomOption.Create(311,Types.Neutral, "邪恶赌怪生成概率", rates, guesserSpawnRate);
             guesserNumberOfShots = CustomOption.Create(312,Types.Neutral, "赌怪可赌次数", 2f, 1f, 15f, 1f, guesserSpawnRate);
             guesserHasMultipleShotsPerMeeting = CustomOption.Create(313,Types.Neutral, "赌怪可在一轮会议中多次使用技能", false, guesserSpawnRate);
-            guesserShowInfoInGhostChat = CustomOption.Create(314,Types.Neutral, "赌怪在幽灵视野中可见", true, guesserSpawnRate);
             guesserKillsThroughShield  = CustomOption.Create(315,Types.Neutral, "赌怪无视医生护盾", true, guesserSpawnRate);
             guesserEvilCanKillSpy  = CustomOption.Create(316,Types.Neutral, "邪恶赌怪可猜测间谍", true, guesserSpawnRate);
             guesserSpawnBothRate = CustomOption.Create(317,Types.Neutral, "两种赌怪同时生成概率", rates, guesserSpawnRate);
@@ -535,17 +530,12 @@ namespace TheOtherRoles {
             deputyKnowsSheriff = CustomOption.Create(107,Types.Crewmate, "警长和警员互相可知身份 ", true, deputySpawnRate);
             deputyGetsPromoted = CustomOption.Create(108,Types.Crewmate, "警员在警长死后可升职为警长", new string[] { "关闭", "开启 (立即生效)", "开启 (会议后生效)" }, deputySpawnRate);
             deputyKeepsHandcuffs = CustomOption.Create(109,Types.Crewmate, "警员升职后保留手铐", true, deputyGetsPromoted);
-            lighterSpawnRate = CustomOption.Create(110, Types.Crewmate, cs(Lighter.color, "Lighter"), rates, null, true);
-            lighterModeLightsOnVision = CustomOption.Create(111, Types.Crewmate, "Vision On Lights On", 1.5f, 0.25f, 5f, 0.25f, lighterSpawnRate);
-            lighterModeLightsOffVision = CustomOption.Create(112, Types.Crewmate, "Vision On Lights Off", 0.5f, 0.25f, 5f, 0.25f, lighterSpawnRate);
-            lighterFlashlightWidth = CustomOption.Create(113, Types.Crewmate, "Flashlight Width", 0.3f, 0.1f, 1f, 0.1f, lighterSpawnRate);
 
             lighterSpawnRate = CustomOption.Create(110,Types.Crewmate, cs(Lighter.color, "秉烛者生成概率"), rates, null, true);
             lighterModeLightsOnVision = CustomOption.Create(111,Types.Crewmate, "未关灯时秉烛视野", 1.5f, 0.25f, 5f, 0.25f, lighterSpawnRate);
             lighterModeLightsOffVision = CustomOption.Create(112,Types.Crewmate, "关灯后秉烛视野", 0.5f, 0.25f, 5f, 0.25f, lighterSpawnRate);
 			lighterFlashlightWidth = CustomOption.Create(113, Types.Crewmate, "秉烛者秉烛视野宽度", 0.3f, 0.1f, 1f, 0.1f, lighterSpawnRate);
-
-
+            
             detectiveSpawnRate = CustomOption.Create(120,Types.Crewmate, cs(Detective.color, "侦探生成概率"), rates, null, true);
             detectiveAnonymousFootprints = CustomOption.Create(121,Types.Crewmate, "使用匿名脚印", false, detectiveSpawnRate); 
             detectiveFootprintIntervall = CustomOption.Create(122,Types.Crewmate, "脚印生成间隔时间", 0.5f, 0.25f, 10f, 0.25f, detectiveSpawnRate);
@@ -731,7 +721,6 @@ namespace TheOtherRoles {
             huntedShieldNumber = CustomOption.Create(3026, Types.HideNSeekRoles, cs(Color.gray, "猎物护盾数量"), 3f, 1f, 15f, 1f);
 
             // Other options
-            shieldFirstKill = CustomOption.Create(8, Types.General, "Shield Last Game First Kill", false);
 
             maxNumberOfMeetings = CustomOption.Create(3,Types.General, "会议总数（市长会议除外）", 10, 0, 15, 1, null, true);
             blockSkippingInEmergencyMeetings = CustomOption.Create(4,Types.General, "紧急会议中禁止跳过", false);

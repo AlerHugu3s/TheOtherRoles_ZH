@@ -14,7 +14,7 @@ $@"<size=130%><color=#ff351f>超多职业模组s</color></size> v{TheOtherRolesP
 public static string fullCredentials =
 $@"<size=60%> 由 <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>EndOfFile</color>
 <color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>Mallöris</color> 和 <color=#FCCE03FF>Gendelo</color> 制作
-由 <color=#FCCE03FF>Bavari</color> 设计"    由 <color=#990000>AlerHuGhe$</color> 汉化</size>;
+由 <color=#FCCE03FF>Bavari</color> 设计    由 <color=#990000>AlerHuGhe$</color> 汉化</size>";
 
     public static string mainMenuCredentials = 
 $@"本Mod由 <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>EndOfFile</color> & <color=#FCCE03FF>Mallöris</color> 制作
