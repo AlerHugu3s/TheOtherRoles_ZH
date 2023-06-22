@@ -4,6 +4,8 @@ using HarmonyLib;
 using TheOtherRoles.Utilities;
 using static TheOtherRoles.TheOtherRoles;
 using UnityEngine;
+using TheOtherRoles.CustomGameModes;
+using AmongUs.GameOptions;
 
 namespace TheOtherRoles.Patches {
 
@@ -13,23 +15,28 @@ namespace TheOtherRoles.Patches {
         [HarmonyPrefix]
         [HarmonyPatch(typeof(ShipStatus), nameof(ShipStatus.CalculateLightRadius))]
         public static bool Prefix(ref float __result, ShipStatus __instance, [HarmonyArgument(0)] GameData.PlayerInfo player) {
-            if (!__instance.Systems.ContainsKey(SystemTypes.Electrical)) return true;
+            if (!__instance.Systems.ContainsKey(SystemTypes.Electrical) || GameOptionsManager.Instance.currentGameOptions.GameMode == GameModes.HideNSeek) return true;
 
-            // If player is a role which has Impostor vision
-            if (player.Role.IsImpostor
-                || (Jackal.jackal != null && Jackal.jackal.PlayerId == player.PlayerId && Jackal.hasImpostorVision)
-                || (Sidekick.sidekick != null && Sidekick.sidekick.PlayerId == player.PlayerId && Sidekick.hasImpostorVision)
-                || (Spy.spy != null && Spy.spy.PlayerId == player.PlayerId && Spy.hasImpostorVision)
-                || (Jester.jester != null && Jester.jester.PlayerId == player.PlayerId && Jester.hasImpostorVision)) {
-                //__result = __instance.MaxLightRadius * PlayerControl.GameOptions.ImpostorLightMod;
-                __result = GetNeutralLightRadius(__instance, true);
-                return false;
+            
+            if (!HideNSeek.isHideNSeekGM || (HideNSeek.isHideNSeekGM && !Hunter.lightActive.Contains(player.PlayerId))) {
+                // If player is a role which has Impostor vision
+                if (Helpers.hasImpVision(player)) {
+                    //__result = __instance.MaxLightRadius * GameOptionsManager.Instance.currentNormalGameOptions.ImpostorLightMod;
+                    __result = GetNeutralLightRadius(__instance, true);
+                    return false;
+                }
             }
 
             // If player is Lighter with ability active
-            if (Lighter.lighter != null && Lighter.lighter.PlayerId == player.PlayerId && Lighter.lighterTimer > 0f) {
+            if (Lighter.lighter != null && Lighter.lighter.PlayerId == player.PlayerId) {
                 float unlerped = Mathf.InverseLerp(__instance.MinLightRadius, __instance.MaxLightRadius, GetNeutralLightRadius(__instance, false));
                 __result = Mathf.Lerp(__instance.MaxLightRadius * Lighter.lighterModeLightsOffVision, __instance.MaxLightRadius * Lighter.lighterModeLightsOnVision, unlerped);
+            }
+
+            // If Game mode is Hide N Seek and hunter with ability active
+            else if (HideNSeek.isHideNSeekGM && Hunter.isLightActive(player.PlayerId)) {
+                float unlerped = Mathf.InverseLerp(__instance.MinLightRadius, __instance.MaxLightRadius, GetNeutralLightRadius(__instance, false));
+                __result = Mathf.Lerp(__instance.MaxLightRadius * Hunter.lightVision, __instance.MaxLightRadius * Hunter.lightVision, unlerped);
             }
 
             // If there is a Trickster with their ability active
@@ -41,7 +48,7 @@ namespace TheOtherRoles.Patches {
                     lerpValue = Mathf.Clamp01(Trickster.lightsOutTimer * 2);
                 }
 
-                __result = Mathf.Lerp(__instance.MinLightRadius, __instance.MaxLightRadius, 1 - lerpValue) * PlayerControl.GameOptions.CrewLightMod;
+                __result = Mathf.Lerp(__instance.MinLightRadius, __instance.MaxLightRadius, 1 - lerpValue) * GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod;
             }
 
             // If player is Lawyer, apply Lawyer vision modifier
@@ -66,16 +73,16 @@ namespace TheOtherRoles.Patches {
                 return SubmergedCompatibility.GetSubmergedNeutralLightRadius(isImpostor);
             }
 
-            if (isImpostor) return shipStatus.MaxLightRadius * PlayerControl.GameOptions.ImpostorLightMod;
+            if (isImpostor) return shipStatus.MaxLightRadius * GameOptionsManager.Instance.currentNormalGameOptions.ImpostorLightMod;
 
             SwitchSystem switchSystem = MapUtilities.Systems[SystemTypes.Electrical].CastFast<SwitchSystem>();
             float lerpValue = switchSystem.Value / 255f;
 
-            return Mathf.Lerp(shipStatus.MinLightRadius, shipStatus.MaxLightRadius, lerpValue) * PlayerControl.GameOptions.CrewLightMod;
+            return Mathf.Lerp(shipStatus.MinLightRadius, shipStatus.MaxLightRadius, lerpValue) * GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod;
         }
 
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(ShipStatus), nameof(ShipStatus.IsGameOverDueToDeath))]
+        [HarmonyPatch(typeof(LogicGameFlowNormal), nameof(LogicGameFlowNormal.IsGameOverDueToDeath))]
         public static void Postfix2(ShipStatus __instance, ref bool __result)
         {
             __result = false;
@@ -84,20 +91,32 @@ namespace TheOtherRoles.Patches {
         private static int originalNumCommonTasksOption = 0;
         private static int originalNumShortTasksOption = 0;
         private static int originalNumLongTasksOption = 0;
+        public static float originalNumCrewVisionOption = 0;
+        public static float originalNumImpVisionOption = 0;
+        public static float originalNumKillCooldownOption = 0;
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(ShipStatus), nameof(ShipStatus.Begin))]
         public static bool Prefix(ShipStatus __instance)
         {
-            var commonTaskCount = __instance.CommonTasks.Count;
-            var normalTaskCount = __instance.NormalTasks.Count;
-            var longTaskCount = __instance.LongTasks.Count;
-            originalNumCommonTasksOption = PlayerControl.GameOptions.NumCommonTasks;
-            originalNumShortTasksOption = PlayerControl.GameOptions.NumShortTasks;
-            originalNumLongTasksOption = PlayerControl.GameOptions.NumLongTasks;
-            if(PlayerControl.GameOptions.NumCommonTasks > commonTaskCount) PlayerControl.GameOptions.NumCommonTasks = commonTaskCount;
-            if(PlayerControl.GameOptions.NumShortTasks > normalTaskCount) PlayerControl.GameOptions.NumShortTasks = normalTaskCount;
-            if(PlayerControl.GameOptions.NumLongTasks > longTaskCount) PlayerControl.GameOptions.NumLongTasks = longTaskCount;
+            originalNumCommonTasksOption = GameOptionsManager.Instance.currentNormalGameOptions.NumCommonTasks;
+            originalNumShortTasksOption = GameOptionsManager.Instance.currentNormalGameOptions.NumShortTasks;
+            originalNumLongTasksOption = GameOptionsManager.Instance.currentNormalGameOptions.NumLongTasks;
+
+            if (TORMapOptions.gameMode != CustomGamemodes.HideNSeek) {
+                var commonTaskCount = __instance.CommonTasks.Count;
+                var normalTaskCount = __instance.NormalTasks.Count;
+                var longTaskCount = __instance.LongTasks.Count;
+
+                if (GameOptionsManager.Instance.currentNormalGameOptions.NumCommonTasks > commonTaskCount) GameOptionsManager.Instance.currentNormalGameOptions.NumCommonTasks = commonTaskCount;
+                if (GameOptionsManager.Instance.currentNormalGameOptions.NumShortTasks > normalTaskCount) GameOptionsManager.Instance.currentNormalGameOptions.NumShortTasks = normalTaskCount;
+                if (GameOptionsManager.Instance.currentNormalGameOptions.NumLongTasks > longTaskCount) GameOptionsManager.Instance.currentNormalGameOptions.NumLongTasks = longTaskCount;
+            } else {
+                GameOptionsManager.Instance.currentNormalGameOptions.NumCommonTasks = Mathf.RoundToInt(CustomOptionHolder.hideNSeekCommonTasks.getFloat());
+                GameOptionsManager.Instance.currentNormalGameOptions.NumShortTasks = Mathf.RoundToInt(CustomOptionHolder.hideNSeekShortTasks.getFloat());
+                GameOptionsManager.Instance.currentNormalGameOptions.NumLongTasks = Mathf.RoundToInt(CustomOptionHolder.hideNSeekLongTasks.getFloat());
+            }
+
             return true;
         }
 
@@ -106,9 +125,15 @@ namespace TheOtherRoles.Patches {
         public static void Postfix3(ShipStatus __instance)
         {
             // Restore original settings after the tasks have been selected
-            PlayerControl.GameOptions.NumCommonTasks = originalNumCommonTasksOption;
-            PlayerControl.GameOptions.NumShortTasks = originalNumShortTasksOption;
-            PlayerControl.GameOptions.NumLongTasks = originalNumLongTasksOption;
+            GameOptionsManager.Instance.currentNormalGameOptions.NumCommonTasks = originalNumCommonTasksOption;
+            GameOptionsManager.Instance.currentNormalGameOptions.NumShortTasks = originalNumShortTasksOption;
+            GameOptionsManager.Instance.currentNormalGameOptions.NumLongTasks = originalNumLongTasksOption;
+        }
+
+        public static void resetVanillaSettings() {
+            GameOptionsManager.Instance.currentNormalGameOptions.ImpostorLightMod = originalNumImpVisionOption;
+            GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod = originalNumCrewVisionOption;
+            GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown = originalNumKillCooldownOption;
         }
     }
 }

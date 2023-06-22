@@ -6,13 +6,18 @@ using UnityEngine.UI;
 using static UnityEngine.UI.Button;
 using Object = UnityEngine.Object;
 using TheOtherRoles.Patches;
+using UnityEngine.SceneManagement;
+using TheOtherRoles.Utilities;
+using AmongUs.Data;
+using Assets.InnerNet;
+using System.Linq;
 
 namespace TheOtherRoles.Modules {
     [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.Start))]
     public class MainMenuPatch {
-        private static bool horseButtonState = MapOptions.enableHorseMode;
-        private static Sprite horseModeOffSprite = null;
-        private static Sprite horseModeOnSprite = null;
+        private static bool horseButtonState = TORMapOptions.enableHorseMode;
+        //private static Sprite horseModeOffSprite = null;
+        //private static Sprite horseModeOnSprite = null;
         private static GameObject bottomTemplate;
         private static AnnouncementPopUp popUp;
 
@@ -42,10 +47,12 @@ namespace TheOtherRoles.Modules {
             });
 
 
-            // Horse mode stuff
-            var horseModeSelectionBehavior = new ClientOptionsPatch.SelectionBehaviour("Enable Horse Mode", () => MapOptions.enableHorseMode = TheOtherRolesPlugin.EnableHorseMode.Value = !TheOtherRolesPlugin.EnableHorseMode.Value, TheOtherRolesPlugin.EnableHorseMode.Value);
-
             bottomTemplate = GameObject.Find("InventoryButton");
+            /*
+            // Horse mode stuff
+            var horseModeSelectionBehavior = new ClientOptionsPatch.SelectionBehaviour("Enable Horse Mode", () => TORMapOptions.enableHorseMode = TheOtherRolesPlugin.EnableHorseMode.Value = !TheOtherRolesPlugin.EnableHorseMode.Value, TheOtherRolesPlugin.EnableHorseMode.Value);
+
+            
             if (bottomTemplate == null) return;
             var horseButton = Object.Instantiate(bottomTemplate, bottomTemplate.transform.parent);
             var passiveHorseButton = horseButton.GetComponent<PassiveButton>();
@@ -74,7 +81,7 @@ namespace TheOtherRoles.Modules {
                     particles.pool.ReclaimAll();
                     particles.Start();
                 }
-            });
+            });*/
 
             // TOR credits button
             if (bottomTemplate == null) return;
@@ -91,39 +98,62 @@ namespace TheOtherRoles.Modules {
                 if (popUp != null) Object.Destroy(popUp);
                 popUp = Object.Instantiate(Object.FindObjectOfType<AnnouncementPopUp>(true));
                 popUp.gameObject.SetActive(true);
-                popUp.Init();
-                //SelectableHyperLinkHelper.DestroyGOs(popUp.selectableHyperLinks, "test");
+
+                Assets.InnerNet.Announcement creditsAnnouncement = new Assets.InnerNet.Announcement();
+                creditsAnnouncement.Id = "torCredits";
+                creditsAnnouncement.Language = 0;
+                creditsAnnouncement.Number = 500;
+                creditsAnnouncement.Title = "The Other Roles Credits & Resources";
+                creditsAnnouncement.ShortTitle = "TOR Credits";
+                creditsAnnouncement.SubTitle = "";
+                creditsAnnouncement.PinState = false;
+                creditsAnnouncement.Date = "03.07.2020";
                 string creditsString = @$"<align=""center"">Github Contributors:
-Gendelo
 Alex2911    amsyarasyiq    MaximeGillot
 Psynomit    probablyadnf    JustASysAdmin
 
+Discord Moderators:
+Streamblox    Draco Cordraconis
+Thanks to all our discord helpers!
+
+Thanks to miniduikboot & GD for hosting modded servers
+
 ";
                 creditsString += $@"<size=60%> Other Credits & Resources:
-OxygenFilter - For all the version v2.3.0 to v2.6.1, we were using the OxygenFilter for automatic deobfuscation
-Reactor - The framework used for all version before v2.0.0
+OxygenFilter - For the versions v2.3.0 to v2.6.1, we were using the OxygenFilter for automatic deobfuscation
+Reactor - The framework used for all versions before v2.0.0, and again since 4.2.0
 BepInEx - Used to hook game functions
 Essentials - Custom game options by DorCoMaNdO:
-
 Before v1.6: We used the default Essentials release
-v1.6-v1.8: We slightly changed the default Essentials. The changes can be found on this branch of our fork.
-v2.0.0 and later: As we're not using Reactor anymore, we are using our own implementation, inspired by the one from DorCoMaNdO
-Jackal and Sidekick - Original idea for the Jackal and Sidekick comes from Dhalucard
-Among-Us-Love-Couple-Mod - Idea for the Lovers role comes from Woodi-dev
-Jester - Idea for the Jester role comes from Maartii
-ExtraRolesAmongUs - Idea for the Engineer and Medic role comes from NotHunter101. Also some code snippets come of the implementation were used.
-Among-Us-Sheriff-Mod - Idea for the Sheriff role comes from Woodi-dev
-TooManyRolesMods - Idea for the Detective and Time Master roles comes from Hardel-DW. Also some code snippets of the implementation were used.
-TownOfUs - Idea for the Swapper, Shifter, Arsonist and a similar Mayor role come from Slushiegoose
-Ottomated - Idea for the Morphling, Snitch and Camouflager role come from Ottomated
-Crowded-Mod - Our implementation for 10+ player lobbies is inspired by the one from the Crowded Mod Team
-Goose-Goose-Duck - Idea for the Vulture role come from Slushygoose</size>";
+v1.6-v1.8: We slightly changed the default Essentials.
+v2.0.0 and later: As we were not using Reactor anymore, we are using our own implementation, inspired by the one from DorCoMaNdO
+Jackal and Sidekick - Original idea for the Jackal and Sidekick came from Dhalucard
+Among-Us-Love-Couple-Mod - Idea for the Lovers modifier comes from Woodi-dev
+Jester - Idea for the Jester role came from Maartii
+ExtraRolesAmongUs - Idea for the Engineer and Medic role came from NotHunter101. Also some code snippets from their implementation were used.
+Among-Us-Sheriff-Mod - Idea for the Sheriff role came from Woodi-dev
+TooManyRolesMods - Idea for the Detective and Time Master roles comes from Hardel-DW. Also some code snippets from their implementation were used.
+TownOfUs - Idea for the Swapper, Shifter, Arsonist and a similar Mayor role came from Slushiegoose
+Ottomated - Idea for the Morphling, Snitch and Camouflager role came from Ottomated
+Crowded-Mod - Our implementation for 10+ player lobbies was inspired by the one from the Crowded Mod Team
+Goose-Goose-Duck - Idea for the Vulture role came from Slushiegoose</size>";
                 creditsString += "</align>";
-                popUp.AnnounceTextMeshPro.text = creditsString;
+                creditsAnnouncement.Text = creditsString;
                 __instance.StartCoroutine(Effects.Lerp(0.01f, new Action<float>((p) => {
                     if (p == 1) {
+                        var backup = DataManager.Player.Announcements.allAnnouncements;
+                        popUp.Init(false);
+                        DataManager.Player.Announcements.allAnnouncements = new();
+                        DataManager.Player.Announcements.allAnnouncements.Insert(0, creditsAnnouncement);
+                        foreach (var item in popUp.visibleAnnouncements) Object.Destroy(item);
+                        foreach (var item in Object.FindObjectsOfType<AnnouncementPanel>()) {
+                            if (item != popUp.ErrorPanel) Object.Destroy(item.gameObject);
+                        }
+                        popUp.CreateAnnouncementList();
+                        popUp.visibleAnnouncements[0].PassiveButton.OnClick.RemoveAllListeners();
+                        DataManager.Player.Announcements.allAnnouncements = backup;
                         var titleText = GameObject.Find("Title_Text").GetComponent<TMPro.TextMeshPro>();
-                        if (titleText != null) titleText.text = "Credits and Contributors";
+                        if (titleText != null) titleText.text = "";
                     }
                 })));
             });
@@ -141,9 +171,48 @@ Goose-Goose-Duck - Idea for the Vulture role come from Slushygoose</size>";
             })));
 
         }
+
+        public static void addSceneChangeCallbacks() {
+            SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>)((scene, _) => {
+                if (!scene.name.Equals("MatchMaking", StringComparison.Ordinal)) return;
+                TORMapOptions.gameMode = CustomGamemodes.Classic;
+                // Add buttons For Guesser Mode, Hide N Seek in this scene.
+                // find "HostLocalGameButton"
+                var template = GameObject.FindObjectOfType<HostLocalGameButton>();
+                var gameButton = template.transform.FindChild("CreateGameButton");
+                var gameButtonPassiveButton = gameButton.GetComponentInChildren<PassiveButton>();
+
+                var guesserButton = GameObject.Instantiate<Transform>(gameButton, gameButton.parent);
+                guesserButton.transform.localPosition += new Vector3(0f, -0.5f);
+                var guesserButtonText = guesserButton.GetComponentInChildren<TMPro.TextMeshPro>();
+                var guesserButtonPassiveButton = guesserButton.GetComponentInChildren<PassiveButton>();
+                
+                guesserButtonPassiveButton.OnClick = new Button.ButtonClickedEvent();
+                guesserButtonPassiveButton.OnClick.AddListener((System.Action)(() => {
+                    TORMapOptions.gameMode = CustomGamemodes.Guesser;
+                    template.OnClick();
+                }));
+
+                var HideNSeekButton = GameObject.Instantiate<Transform>(gameButton, gameButton.parent);
+                HideNSeekButton.transform.localPosition += new Vector3(1.7f, -0.5f);
+                var HideNSeekButtonText = HideNSeekButton.GetComponentInChildren<TMPro.TextMeshPro>();
+                var HideNSeekButtonPassiveButton = HideNSeekButton.GetComponentInChildren<PassiveButton>();
+                
+                HideNSeekButtonPassiveButton.OnClick = new Button.ButtonClickedEvent();
+                HideNSeekButtonPassiveButton.OnClick.AddListener((System.Action)(() => {
+                    TORMapOptions.gameMode = CustomGamemodes.HideNSeek;
+                    template.OnClick();
+                }));
+
+                template.StartCoroutine(Effects.Lerp(0.1f, new System.Action<float>((p) => {
+                    guesserButtonText.SetText("TOR Guesser");
+                    HideNSeekButtonText.SetText("TOR Hide N Seek");
+                 })));
+            }));
+        }
     }
 
-    [HarmonyPatch(typeof(AnnouncementPopUp), nameof(AnnouncementPopUp.UpdateAnnounceText))]
+    /*[HarmonyPatch(typeof(AnnouncementPopUp), nameof(AnnouncementPopUp.UpdateAnnounceText))]
     public static class Announcement
     {
         public static ModUpdateBehaviour.UpdateData updateData = null;
@@ -156,5 +225,5 @@ Goose-Goose-Duck - Idea for the Vulture role come from Slushygoose</size>";
 
             return false;
         }
-    }
+    }*/
 }

@@ -15,14 +15,13 @@ namespace TheOtherRoles.Patches
     {
         private static SelectionBehaviour[] AllOptions = {
 
-            new SelectionBehaviour("幽灵可见任务数", () => MapOptions.ghostsSeeTasks = TheOtherRolesPlugin.GhostsSeeTasks.Value = !TheOtherRolesPlugin.GhostsSeeTasks.Value, TheOtherRolesPlugin.GhostsSeeTasks.Value),
-            new SelectionBehaviour("幽灵可见投票", () => MapOptions.ghostsSeeVotes = TheOtherRolesPlugin.GhostsSeeVotes.Value = !TheOtherRolesPlugin.GhostsSeeVotes.Value, TheOtherRolesPlugin.GhostsSeeVotes.Value),
-            new SelectionBehaviour("幽灵可见角色", () => MapOptions.ghostsSeeRoles = TheOtherRolesPlugin.GhostsSeeRoles.Value = !TheOtherRolesPlugin.GhostsSeeRoles.Value, TheOtherRolesPlugin.GhostsSeeRoles.Value),
-			new SelectionBehaviour("幽灵可见附加角色", () => MapOptions.ghostsSeeModifier = TheOtherRolesPlugin.GhostsSeeModifier.Value = !TheOtherRolesPlugin.GhostsSeeModifier.Value, TheOtherRolesPlugin.GhostsSeeModifier.Value),
-            new SelectionBehaviour("显示角色总结", () => MapOptions.showRoleSummary = TheOtherRolesPlugin.ShowRoleSummary.Value = !TheOtherRolesPlugin.ShowRoleSummary.Value, TheOtherRolesPlugin.ShowRoleSummary.Value),
-            new SelectionBehaviour("显示玩家颜色深浅", () => MapOptions.showLighterDarker = TheOtherRolesPlugin.ShowLighterDarker.Value = !TheOtherRolesPlugin.ShowLighterDarker.Value, TheOtherRolesPlugin.ShowLighterDarker.Value),
-
-            new SelectionBehaviour("启用音效", () => MapOptions.enableSoundEffects = TheOtherRolesPlugin.EnableSoundEffects.Value = !TheOtherRolesPlugin.EnableSoundEffects.Value, TheOtherRolesPlugin.EnableSoundEffects.Value),
+            new SelectionBehaviour("骞界伒鍙浠诲姟鏁板拰鍏朵粬淇℃伅", () => TORMapOptions.ghostsSeeInformation = TheOtherRolesPlugin.GhostsSeeInformation.Value = !TheOtherRolesPlugin.GhostsSeeInformation.Value, TheOtherRolesPlugin.GhostsSeeInformation.Value),
+            new SelectionBehaviour("骞界伒鍙鎶曠エ", () => TORMapOptions.ghostsSeeVotes = TheOtherRolesPlugin.GhostsSeeVotes.Value = !TheOtherRolesPlugin.GhostsSeeVotes.Value, TheOtherRolesPlugin.GhostsSeeVotes.Value),
+            new SelectionBehaviour("骞界伒鍙瑙掕壊", () => TORMapOptions.ghostsSeeRoles = TheOtherRolesPlugin.GhostsSeeRoles.Value = !TheOtherRolesPlugin.GhostsSeeRoles.Value, TheOtherRolesPlugin.GhostsSeeRoles.Value),
+			new SelectionBehaviour("骞界伒鍙鐗硅川", () => TORMapOptions.ghostsSeeModifier = TheOtherRolesPlugin.GhostsSeeModifier.Value = !TheOtherRolesPlugin.GhostsSeeModifier.Value, TheOtherRolesPlugin.GhostsSeeModifier.Value),
+            new SelectionBehaviour("鏄剧ず瑙掕壊鎬荤粨", () => TORMapOptions.showRoleSummary = TheOtherRolesPlugin.ShowRoleSummary.Value = !TheOtherRolesPlugin.ShowRoleSummary.Value, TheOtherRolesPlugin.ShowRoleSummary.Value),
+            new SelectionBehaviour("鏄剧ず鐜╁棰滆壊娣辨祬", () => TORMapOptions.showLighterDarker = TheOtherRolesPlugin.ShowLighterDarker.Value = !TheOtherRolesPlugin.ShowLighterDarker.Value, TheOtherRolesPlugin.ShowLighterDarker.Value),
+            new SelectionBehaviour("鍚敤闊虫晥", () => TORMapOptions.enableSoundEffects = TheOtherRolesPlugin.EnableSoundEffects.Value = !TheOtherRolesPlugin.EnableSoundEffects.Value, TheOtherRolesPlugin.EnableSoundEffects.Value),
         };
         
         private static GameObject popUp;
@@ -36,11 +35,12 @@ namespace TheOtherRoles.Patches
         public static void MainMenuManager_StartPostfix(MainMenuManager __instance)
         {
             // Prefab for the title
-            var tmp = __instance.Announcement.transform.Find("Title_Text").gameObject.GetComponent<TextMeshPro>();
+            var go = new GameObject("TitleTextTOR");
+            var tmp = go.AddComponent<TextMeshPro>();
+            tmp.fontSize = 4;
             tmp.alignment = TextAlignmentOptions.Center;
             tmp.transform.localPosition += Vector3.left * 0.2f;
             titleText = Object.Instantiate(tmp);
-            Object.Destroy(titleText.GetComponent<TextTranslatorTMP>());
             titleText.gameObject.SetActive(false);
             Object.DontDestroyOnLoad(titleText);
         }
@@ -63,7 +63,6 @@ namespace TheOtherRoles.Patches
                 buttonPrefab.name = "CensorChatPrefab";
                 buttonPrefab.gameObject.SetActive(false);
             }
-            
             SetUpOptions();
             InitializeMoreButton(__instance);
         }
@@ -105,7 +104,7 @@ namespace TheOtherRoles.Patches
 
             moreOptions.gameObject.SetActive(true);
 
-            moreOptions.Text.text = "Mod选项...";
+            moreOptions.Text.text = "Mod閫夐」...";
             moreOptions.Text.transform.localScale = new Vector3(1 / 0.66f, 1, 1);
 
             var moreOptionsButton = moreOptions.GetComponent<PassiveButton>();
@@ -144,7 +143,7 @@ namespace TheOtherRoles.Patches
             var title = Object.Instantiate(titleText, popUp.transform);
             title.GetComponent<RectTransform>().localPosition = Vector3.up * 2.3f;
             title.gameObject.SetActive(true);
-            title.text = "更多选项...";
+            title.text = "鏇村閫夐」...";
             title.name = "TitleText";
         }
 
@@ -166,7 +165,7 @@ namespace TheOtherRoles.Patches
                 button.Background.color = button.onState ? Color.green : Palette.ImpostorRed;
                 
                 button.Text.text = info.Title;
-                button.Text.fontSizeMin = button.Text.fontSizeMax = 2.5f;
+                button.Text.fontSizeMin = button.Text.fontSizeMax = 1.8f;
                 button.Text.font = Object.Instantiate(titleText.font);
                 button.Text.GetComponent<RectTransform>().sizeDelta = new Vector2(2, 2);
 
